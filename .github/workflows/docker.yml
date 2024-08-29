@@ -34,15 +34,6 @@ concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}-${{ github.event_name == 'workflow_dispatch' }}-${{ github.event_name == 'schedule' }}"
   cancel-in-progress: ${{ !contains(github.ref, 'release/')}}
 
-defaults:
-  secrets:
-    DOCKERHUB_OWNER: ${{ secrets.DOCKERHUB_OWNER }}
-    DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-    DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-    QUAY_OWNER: ${{ secrets.QUAY_OWNER }}
-    QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
-    QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
-
 jobs:
   python:
     name: python
@@ -56,6 +47,13 @@ jobs:
       set: |
         *.cache-from=type=gha
         *.cache-to=type=gha,mode=min
+    secrets:
+      DOCKERHUB_OWNER: ${{ secrets.DOCKERHUB_OWNER }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      QUAY_OWNER: ${{ secrets.QUAY_OWNER }}
+      QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
+      QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
 
   cann:
     name: cann
@@ -67,6 +65,13 @@ jobs:
     with:
       target: 'cann'
       push: ${{ github.event_name != 'pull_request' }}
+    secrets:
+      DOCKERHUB_OWNER: ${{ secrets.DOCKERHUB_OWNER }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      QUAY_OWNER: ${{ secrets.QUAY_OWNER }}
+      QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
+      QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
 
   pytorch:
     name: pytorch
@@ -78,6 +83,13 @@ jobs:
     with:
       target: 'pytorch'
       push: ${{ github.event_name != 'pull_request' }}
+    secrets:
+      DOCKERHUB_OWNER: ${{ secrets.DOCKERHUB_OWNER }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      QUAY_OWNER: ${{ secrets.QUAY_OWNER }}
+      QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
+      QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
 
   mindspore:
     name: mindspore
@@ -89,3 +101,10 @@ jobs:
     with:
       target: 'mindspore'
       push: ${{ github.event_name != 'pull_request' }}
+    secrets:
+      DOCKERHUB_OWNER: ${{ secrets.DOCKERHUB_OWNER }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      QUAY_OWNER: ${{ secrets.QUAY_OWNER }}
+      QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
+      QUAY_TOKEN: ${{ secrets.QUAY_TOKEN }}
