@@ -34,14 +34,9 @@ concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}-${{ github.event_name == 'workflow_dispatch' }}-${{ github.event_name == 'schedule' }}"
   cancel-in-progress: ${{ !contains(github.ref, 'release/')}}
 
-permissions:
-  contents: read
-
 jobs:
   python:
     name: python
-    permissions:
-      packages: write
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'python'
@@ -60,8 +55,6 @@ jobs:
 
   cann:
     name: cann
-    permissions:
-      packages: write
     needs:
       - python
     uses: ./.github/workflows/_docker-build.yml
@@ -78,8 +71,6 @@ jobs:
 
   pytorch:
     name: pytorch
-    permissions:
-      packages: write
     needs:
       - cann
     uses: ./.github/workflows/_docker-build.yml
@@ -96,8 +87,6 @@ jobs:
 
   mindspore:
     name: mindspore
-    permissions:
-      packages: write
     needs:
       - cann
     uses: ./.github/workflows/_docker-build.yml
