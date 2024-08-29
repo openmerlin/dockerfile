@@ -42,7 +42,7 @@ jobs:
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'python'
-      push: ${{ github.event_name != 'pull_request' }}
+      push: ${{ github.event_name == 'release' }}
       clean-up: false
       set: |
         *.cache-from=type=gha
@@ -64,7 +64,7 @@ jobs:
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'cann'
-      push: ${{ github.event_name != 'pull_request' }}
+      push: ${{ github.event_name == 'release' }}
     secrets:
       DOCKERHUB_OWNER: ${{ secrets.DOCKERHUB_OWNER }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -82,7 +82,7 @@ jobs:
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'pytorch'
-      push: ${{ github.event_name != 'pull_request' }}
+      push: ${{ github.event_name == 'release' }}
     secrets:
       DOCKERHUB_OWNER: ${{ secrets.DOCKERHUB_OWNER }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -100,7 +100,7 @@ jobs:
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'mindspore'
-      push: ${{ github.event_name != 'pull_request' }}
+      push: ${{ github.event_name == 'release' }}
     secrets:
       DOCKERHUB_OWNER: ${{ secrets.DOCKERHUB_OWNER }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
