@@ -1,4 +1,4 @@
-name: 'Build and push Docker images'
+name: '[Internal] Build and push Docker images using Docker Bake'
 
 on:
   workflow_call:

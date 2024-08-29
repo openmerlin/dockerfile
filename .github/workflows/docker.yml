@@ -34,6 +34,9 @@ concurrency:
   group: "${{ github.workflow }}-${{ github.ref }}-${{ github.event_name == 'workflow_dispatch' }}-${{ github.event_name == 'schedule' }}"
   cancel-in-progress: ${{ !contains(github.ref, 'release/')}}
 
+permissions:
+  contents: read
+
 jobs:
   python:
     name: python
