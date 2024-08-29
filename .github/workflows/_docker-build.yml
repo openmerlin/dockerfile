@@ -99,18 +99,8 @@ jobs:
           add_registry "quay.io" "${{ secrets.QUAY_OWNER }}"
           add_registry "${{ inputs.hw-registry }}" "${{ secrets.HW_OWNER }}"
 
-          if [[ $(jq 'empty' <<< "$json_array") == 'true' ]]; then
-            echo "No registries found. You should add the registry tokens as secrets in GitHub Actions." >&2
-            exit 1
-          fi
-
-          # Output compact content
           registry_array=$(jq -c '.' <<< "$registry_array")
           echo "registries=$registry_array" >>$GITHUB_OUTPUT
-
-          echo "::group::Registries"
-          echo "$registry_array"
-          echo "::endgroup::"
 
   docker:
     name: 'docker'
