@@ -1,18 +1,18 @@
 # Ascend Docker Images
 
 <p align="center">
-    <a href="https://github.com/Ascend/dockerfiles/actions/workflows/docker.yml">
-        <img src="https://github.com/Ascend/dockerfiles/actions/workflows/docker.yml/badge.svg" />
+    <a href="https://github.com/openmerlin/dockerfile/actions/workflows/docker.yml">
+        <img src="https://github.com/openmerlin/dockerfile/actions/workflows/docker.yml/badge.svg" />
     </a>
     <a href="LICENSE">
-        <img src="https://img.shields.io/github/license/Ascend/dockerfiles.svg" />
+        <img src="https://img.shields.io/github/license/openmerlin/dockerfile.svg" />
     </a>
-    <img src="https://img.shields.io/github/v/release/Ascend/dockerfiles" />
+    <img src="https://img.shields.io/github/v/release/openmerlin/dockerfile" />
     <img src="https://img.shields.io/badge/language-dockerfile-384D54.svg">
 </p>
 
 <p align="center">
-    <a href="README_zh.md">
+    <a href="./README_zh.md">
         <b>中文文档</b>
     </a> •
     <a href="https://hub.docker.com/u/ascendai">
