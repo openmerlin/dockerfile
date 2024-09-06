@@ -26,8 +26,7 @@
     </a>
 </p>
 
-We have several Docker images as following, you can find out details in 
-their README.md:
+We have the following Docker images, you can find details in their README.md:
 
 - [Python](./python)
 - [CANN](./cann)

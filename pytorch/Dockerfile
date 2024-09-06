@@ -18,7 +18,7 @@ RUN if [ "${PYTORCH_VERSION}" == "2.1.0" ]; then \
         TORCH_AUDIO_VERSION=2.2.0; \
         TORCH_NPU_VERSION=2.2.0; \
     else \
-        echo "Not supported version: ${PYTORCH_VERSION}. Feel free to submit an issue to us: https://github.com/Ascend/dockerfiles/issues"; \
+        echo "Not supported version: ${PYTORCH_VERSION}."; \
         exit 1; \
     fi && \
     # Uninstall the latest numpy and sympy first, as the right versions will be installed again \
