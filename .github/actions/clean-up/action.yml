@@ -1,4 +1,4 @@
-name: "Clean up space"
+name: "Clean up runner space"
 description: "Remove redundant files and packages when building Docker images"
 runs:
   using: 'composite'

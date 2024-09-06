@@ -1,4 +1,4 @@
-name: '[Internal] Build and push Docker images using Docker Bake'
+name: "[Internal] Build and push Docker images using Docker Buildx Bake"
 
 on:
   workflow_call:
@@ -30,7 +30,7 @@ on:
         description: "Server address of Huawei Cloud registry"
         required: false
         type: string
-        default: 'swr.cn-southwest-2.myhuaweicloud.com'
+        default: "swr.cn-southwest-2.myhuaweicloud.com"
     secrets:
       DOCKERHUB_OWNER:
         description: "Owner of the DockerHub registry"
