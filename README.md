@@ -28,10 +28,11 @@
 
 We have the following Docker images, you can find details in their README.md:
 
-- [Python](./python)
-- [CANN](./cann)
-- [PyTorch](./pytorch)
-- [MindSpore](./mindspore)
+## CANN
+
+## PyTorch
+
+## MindSpore
 
 ## Build
 
@@ -69,6 +70,14 @@ export registries='
 
 docker buildx bake -f docker-bake.hcl
 ```
+
+## Support
+
+The team tracks bugs and enhancement requests using [GitHub issues][2]. Before
+submitting a suggestion or bug report, search the existing GitHub issues to
+see if your issue has already been reported.
+
+[2]: https://github.com/openmerlin/dockerfile/issues
 
 ## License
 
