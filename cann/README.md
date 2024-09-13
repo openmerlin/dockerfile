@@ -19,40 +19,16 @@ docker run \
 
 ## Build
 
-In order to build CANN Docker images, ensure you have the following.
-
-- Docker Engine 20.10+
-
-Run in the root directory of the repository:
+If you have Docker Engine 20.10+, then you can use Bake to build Docker images:
 
 ```docker
-docker buildx bake -f docker-bake.hcl cann-prefer
+docker buildx bake -f arg.json -f docker-bake.hcl cann
 ```
 
-To build single-arch images only:
+Don't have Bake? Use `docker build` instead. It requires Docker Engine 18+.
 
 ```docker
-docker buildx bake -f docker-bake.hcl --set '*.platform=linux/arm64' cann-prefer
-```
-
-To customize the registry and owner using JSON format:
-
-```bash
-custom_registries='
-[
-  {
-    "url": "quay.io",
-    "owner": "ascend"
-  }
-]'
-registries="${custom_registries}" \
-docker buildx bake -f docker-bake.hcl cann-prefer
-```
-
-Don't have Bake? Use `docker buildx build` instead:
-
-```docker
-docker buildx build \
+docker build \
     -t ascendai/cann:latest \
     -f cann/ubuntu.Dockerfile \
     --build-arg BASE_VERSION=22.04 \

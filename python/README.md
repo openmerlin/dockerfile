@@ -9,20 +9,16 @@ docker run --rm -it ascendai/python:latest \
 
 ## Build
 
-In order to build Python Docker images, ensure you have the following.
-
-- Docker Engine 20.10+
-
-Run in the root directory of the repository:
+If you have Docker Engine 20.10+, then you can use Bake to build Docker images:
 
 ```docker
-docker buildx bake -f docker-bake.hcl python
+docker buildx bake -f arg.json -f docker-bake.hcl python
 ```
 
-Don't have Bake? Use `docker buildx build` instead:
+Don't have Bake? Use `docker build` instead. It requires Docker Engine 18+.
 
 ```docker
-docker buildx build \
+docker build \
     -t ascendai/python:latest \
     -f python/ubuntu.Dockerfile \
     --build-arg BASE_VERSION=22.04 \
