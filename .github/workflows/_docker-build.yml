@@ -75,9 +75,11 @@ jobs:
 
       - name: List targets
         id: list-target
-        uses: docker/bake-action/subaction/list-targets@v5
+        uses: shink/bake-action/subaction/list-targets@ea4600d58683eb1b55c68da65452ddd8d73e7e9e
         with:
-          files: arg.json,docker-bake.hcl
+          files: |
+            arg.json
+            docker-bake.hcl
           target: ${{ inputs.target }}
 
   docker:
