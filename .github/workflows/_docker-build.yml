@@ -75,7 +75,7 @@ jobs:
 
       - name: List targets
         id: list-target
-        uses: shink/bake-action/subaction/list-targets@ea4600d58683eb1b55c68da65452ddd8d73e7e9e
+        uses: shink/bake-action/subaction/list-targets@5dd41737506cad5b1e9aa3e98bd8d4d58c775db1
         with:
           files: |
             arg.json
