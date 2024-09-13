@@ -1,6 +1,5 @@
-ARG BASE_NAME=ascendai/cann
 ARG BASE_VERSION=latest
-FROM ${BASE_NAME}:${BASE_VERSION} as official
+FROM ascendai/cann:${BASE_VERSION} as official
 
 # Arguments
 ARG MINDSPORE_VERSION=2.2.14

@@ -69,7 +69,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       targets: ${{ steps.list-target.outputs.targets }}
-      registries: ${{ steps.list-registry.outputs.registries }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -80,40 +79,11 @@ jobs:
         with:
           target: ${{ inputs.target }}
 
-      # List registries to push the images to, see the variable definition in docker-bake.hcl
-      - name: List registries in JSON format
-        id: list-registry
-        run: |
-          set -e
-          registry_array='[]'
-
-          add_registry() {
-            local url=$1
-            local owner=$2
-            if [ -n "$owner" ]; then
-              registry_array=$(jq --arg url "$url" --arg owner "$owner" '. += [{"url": $url, "owner": $owner}]' <<< "$registry_array")
-            fi
-          }
-
-          add_registry "docker.io" "${{ secrets.DOCKERHUB_OWNER }}"
-          add_registry "ghcr.io" "${{ github.repository_owner }}"
-          add_registry "quay.io" "${{ secrets.QUAY_OWNER }}"
-          add_registry "${{ inputs.hw-registry }}" "${{ secrets.HW_OWNER }}"
-
-          registry_array=$(jq -c '.' <<< "$registry_array")
-          echo "registries=$registry_array" >> $GITHUB_OUTPUT
-
-          echo "::group::Set output"
-          echo "registries: ${registry_array}"
-          echo "::endgroup::"
-
   docker:
     name: 'docker'
     runs-on: ubuntu-latest
     needs:
       - prepare
-    env:
-      registries: ${{ needs.prepare.outputs.registries }}
     strategy:
       fail-fast: false
       max-parallel: 10
@@ -198,6 +168,7 @@ jobs:
         uses: docker/bake-action@v5
         with:
           files: |
+            ${{ github.workspace }}/arg.json
             ${{ github.workspace }}/docker-bake.hcl
             ${{ steps.metadata.outputs.bake-file-labels }}
             ${{ steps.metadata.outputs.bake-file-annotations }}

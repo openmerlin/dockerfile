@@ -1,0 +1,138 @@
+{
+  "registry": [
+    {
+      "url": "docker.io",
+      "owner": "ascendai"
+    },
+    {
+      "url": "ghcr.io",
+      "owner": "ascend"
+    },
+    {
+      "url": "quay.io",
+      "owner": "ascend"
+    }
+  ],
+  "cann": [
+    {
+      "cann_version": "7.0.1",
+      "cann_chip": "910b",
+      "os_name": "ubuntu",
+      "os_version": "22.04",
+      "py_version": "3.8",
+      "tags": [
+        "7.0.1-910b-ubuntu22.04-py3.8",
+        "7.0.1"
+      ]
+    },
+    {
+      "cann_version": "7.0.1",
+      "cann_chip": "910b",
+      "os_name": "openeuler",
+      "os_version": "22.03",
+      "py_version": "3.8",
+      "tags": [
+        "7.0.1-910b-openeuler22.03-py3.8"
+      ]
+    },
+    {
+      "cann_version": "8.0.RC2",
+      "cann_chip": "910b",
+      "os_name": "ubuntu",
+      "os_version": "22.04",
+      "py_version": "3.8",
+      "tags": [
+        "8.0.rc2-910b-ubuntu22.04-py3.8",
+        "8.0"
+      ]
+    },
+    {
+      "cann_version": "8.0.RC2",
+      "cann_chip": "910b",
+      "os_name": "openeuler",
+      "os_version": "22.03",
+      "py_version": "3.8",
+      "tags": [
+        "8.0.rc2-910b-openeuler22.03-py3.8"
+      ]
+    }
+  ],
+  "python": [
+    {
+      "py_version": "3.8",
+      "os_name": "ubuntu",
+      "os_version": "22.04",
+      "tags": [
+        "3.8-ubuntu22.04",
+        "3.8"
+      ]
+    },
+    {
+      "py_version": "3.9",
+      "os_name": "ubuntu",
+      "os_version": "22.04",
+      "tags": [
+        "3.9-ubuntu22.04",
+        "3.9"
+      ]
+    },
+    {
+      "py_version": "3.10",
+      "os_name": "ubuntu",
+      "os_version": "22.04",
+      "tags": [
+        "3.10-ubuntu22.04",
+        "3.10"
+      ]
+    },
+    {
+      "py_version": "3.8",
+      "os_name": "openeuler",
+      "os_version": "22.03",
+      "tags": [
+        "3.8-openeuler22.03"
+      ]
+    },
+    {
+      "py_version": "3.9",
+      "os_name": "openeuler",
+      "os_version": "22.03",
+      "tags": [
+        "3.9-openeuler22.03"
+      ]
+    },
+    {
+      "py_version": "3.10",
+      "os_name": "openeuler",
+      "os_version": "22.03",
+      "tags": [
+        "3.10-openeuler22.03"
+      ]
+    }
+  ],
+  "pytorch": [
+    {
+      "pytorch_version": "2.1.0",
+      "cann_tag": "8.0.rc1-910b-ubuntu22.04-py3.8",
+      "tags": [
+        "2.1.0"
+      ]
+    },
+    {
+      "pytorch_version": "2.2.0",
+      "cann_tag": "8.0.rc1-910b-ubuntu22.04-py3.8",
+      "tags": [
+        "2.2.0"
+      ]
+    }
+  ],
+  "mindspore": [
+    {
+      "mindspore_version": "2.3.0rc1",
+      "cann_tag": "8.0.rc1-910b-ubuntu22.04-py3.8",
+      "tags": [
+        "2.3.0rc1"
+      ]
+    }
+  ]
+}
