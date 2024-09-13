@@ -77,6 +77,10 @@ jobs:
         id: list-target
         uses: docker/bake-action/subaction/list-targets@v5
         with:
+          workdir: ${{ github.workspace }}
+          files: |
+            arg.json
+            docker-bake.hcl
           target: ${{ inputs.target }}
 
   docker:
