@@ -41,35 +41,24 @@ In order to build Ascend Docker images, ensure you have the following.
 - Docker Engine 20.10+
 
 Run from the repository directory after cloning. All Ascend Docker images will
-be built using [Docker Buildx Bake][1]. Please note that this process will
-cost a lot of disk space.
+be built using [Docker Buildx Bake][1]. Please note that this process will spend
+a lot of time and disk space.
 
 [1]: https://docs.docker.com/build/bake/
 
 ```docker
-docker buildx bake -f docker-bake.hcl
+docker buildx bake -f arg.json -f docker-bake.hcl
 ```
 
 To build single-arch images only:
 
 ```docker
-docker buildx bake -f docker-bake.hcl \
+docker buildx bake -f arg.json -f docker-bake.hcl \
     --set '*.platform=linux/arm64'
 ```
 
-To customize the registry and owner using JSON format:
-
-```bash
-export registries='
-[
-  {
-    "url": "quay.io",
-    "owner": "ascend"
-  }
-]'
-
-docker buildx bake -f docker-bake.hcl
-```
+To customize Docker registry or build arguments, please edit
+[arg.json](./arg.json) using JSON format.
 
 ## Support
 
