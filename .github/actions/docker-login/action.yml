@@ -1,0 +1,61 @@
+name: 'Docker Login'
+description: 'Login to multiple Docker registries'
+
+inputs:
+  dockerhub-username:
+    description: "Username of the DockerHub registry"
+    required: false
+  dockerhub-token:
+    description: "Token of the DockerHub registry"
+    required: false
+  quay-username:
+    description: "Username of the Quay registry"
+    required: false
+  quay-token:
+    description: "Token of the Quay registry"
+    required: false
+  hw-username:
+    description: "Username of the Huawei Cloud registry"
+    required: false
+  hw-token:
+    description: "Token of the Huawei Cloud registry"
+    required: false
+  hw-registry:
+    description: "Server address of Huawei Cloud registry"
+    required: false
+    default: "swr.cn-southwest-2.myhuaweicloud.com"
+
+runs:
+  using: composite
+  steps:
+    - name: Login to Docker Hub
+      if: ${{ inputs.dockerhub-username && inputs.dockerhub-token }}
+      uses: docker/login-action@v3
+      with:
+        registry: docker.io
+        username: ${{ inputs.dockerhub-username }}
+        password: ${{ inputs.dockerhub-token }}
+
+    # Always login to ghcr.io
+    - name: Login to GitHub Container
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ github.token }}
+
+    - name: Login to RedHat Quay
+      if: ${{ inputs.quay-username && inputs.quay-token }}
+      uses: docker/login-action@v3
+      with:
+        registry: quay.io
+        username: ${{ inputs.quay-username }}
+        password: ${{ inputs.quay-token }}
+
+    - name: Login to Huawei Cloud
+      if: ${{ inputs.hw-username && inputs.hw-token && inputs.hw-registry }}
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ inputs.hw-registry }}
+        username: ${{ inputs.hw-username }}
+        password: ${{ inputs.hw-token }}
