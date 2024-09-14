@@ -52,6 +52,8 @@ download_cann() {
         local url_prefix="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/Milan-ASL/Milan-ASL%20V100R001C18SPC805"
     elif [[ ${CANN_VERSION} == "8.0.RC2.alpha003" ]]; then
         local url_prefix="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/Milan-ASL/Milan-ASL%20V100R001C18SPC703"
+    elif [[ ${CANN_VERSION} == "8.0.RC3.alpha002" ]]; then
+        local url_prefix="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/Milan-ASL/Milan-ASL%20V100R001C19SPC702"
     else
         local url_prefix="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%20${CANN_VERSION}"
     fi
