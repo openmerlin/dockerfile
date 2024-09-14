@@ -5,10 +5,6 @@
       "owner": "ascendai"
     },
     {
-      "url": "ghcr.io",
-      "owner": "openmerlin"
-    },
-    {
       "url": "quay.io",
       "owner": "ascend"
     }
