@@ -1,0 +1,31 @@
+---
+documentation:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '**/*.md'
+
+ci/cd:
+  - changed-files:
+      - any-glob-to-any-file:
+          - '.github/actions/*.yml'
+          - '.github/workflows/*.yml'
+
+python:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'python/**/*'
+
+cann:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'cann/**/*'
+
+pytorch:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'pytorch/**/*'
+
+mindspore:
+  - changed-files:
+      - any-glob-to-any-file:
+          - 'mindspore/**/*'
