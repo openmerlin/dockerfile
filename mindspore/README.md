@@ -19,19 +19,21 @@ docker run \
 
 ## Build
 
-If you have Docker Engine 20.10+, then you can use Bake to build Docker images:
+If you have Docker Engine 20.10+, then you can use Bake to build Docker images. Run the following command
+in the root directory:
 
 ```docker
 docker buildx bake -f arg.json -f docker-bake.hcl mindspore
 ```
 
-Don't have Bake? Use `docker build` instead. It requires Docker Engine 18+.
+Don't have Bake? Use `docker build` instead. It requires Docker Engine 18+. Run the following command
+in the root directory:
 
 ```docker
 docker build \
-    -t ascendai/mindspore:latest \
+    -t ascendai/mindspore:2.3.0rc1 \
     -f mindspore/Dockerfile \
-    --build-arg BASE_VERSION=latest \
+    --build-arg BASE_VERSION=8.0.rc1-910b-ubuntu22.04-py3.8 \
     --build-arg MINDSPORE_VERSION=2.3.0rc1 \
     mindspore/
 ```

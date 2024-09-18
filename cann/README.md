@@ -19,13 +19,15 @@ docker run \
 
 ## Build
 
-If you have Docker Engine 20.10+, then you can use Bake to build Docker images:
+If you have Docker Engine 20.10+, then you can use Bake to build Docker images. Run the following command
+in the root directory:
 
 ```docker
 docker buildx bake -f arg.json -f docker-bake.hcl cann
 ```
 
-Don't have Bake? Use `docker build` instead. It requires Docker Engine 18+.
+Don't have Bake? Use `docker build` instead. It requires Docker Engine 18+. Run the following command
+in the root directory:
 
 ```docker
 docker build \
