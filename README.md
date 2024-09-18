@@ -13,7 +13,7 @@
 
 <p align="center">
     <a href="./README_zh.md">
-        <b>中文文档</b>
+        <b>中文</b>
     </a> •
     <a href="https://hub.docker.com/u/ascendai">
         <b>Docker Hub</b>
@@ -26,28 +26,39 @@
     </a>
 </p>
 
-We have the following Docker images, you can find details in their README.md:
+This repository hosts the following Ascend Docker images, providing
+base images based on both Ubuntu and OpenEuler. For detailed information,
+please refer to the README.md file in each image directory:
 
-## CANN
-
-## PyTorch
-
-## MindSpore
+- [CANN](./cann)：provides cann-toolkit runtime environment
+- [PyTorch](./pytorch): provides torch_npu runtime environment
+- [MindSpore](./mindspore): provides MindSpore runtime environment
+- [Python](./python): provides a base Python environment
 
 ## Build
 
-In order to build Ascend Docker images, ensure you have the following.
-
-- Docker Engine 20.10+
-
-Run from the repository directory after cloning. All Ascend Docker images will
-be built using [Docker Buildx Bake][1]. Please note that this process will spend
-a lot of time and disk space.
+We recommend using [Docker Buildx Bake][1] for building the images. For build
+details, see the [docker-bake.hcl](./docker-bake.hcl), and for the build
+parameters, check [arg.json](./arg.json).
 
 [1]: https://docs.docker.com/build/bake/
 
+> [!NOTE]
+>
+> If you don't have Bake, you can find the traditional docker build
+> commands in the image directory's README.md.
+
+To build using Bake, Docker Engine 20.10+ is required. Run the following
+command in the root directory of this repository:
+
 ```docker
 docker buildx bake -f arg.json -f docker-bake.hcl
+```
+
+To list all targets:
+
+```docker
+docker buildx bake -f arg.json -f docker-bake.hcl --print
 ```
 
 To build single-arch images only:
@@ -57,8 +68,14 @@ docker buildx bake -f arg.json -f docker-bake.hcl \
     --set '*.platform=linux/arm64'
 ```
 
-To customize Docker registry or build arguments, please edit
-[arg.json](./arg.json) using JSON format.
+> [!NOTE]
+>
+> - To customize the build configuration, use the `--set`. More details here: https://docs.docker.com/reference/cli/docker/buildx/bake/#set
+> - To modify build parameters or tag names, edit the [arg.json](./arg.json) file
+
+## Usage
+
+Refer to the `docker run` commands in the image directory's README.md.
 
 ## Support
 

@@ -29,9 +29,9 @@ Don't have Bake? Use `docker build` instead. It requires Docker Engine 18+.
 
 ```docker
 docker build \
-    -t ascendai/mindspore:latest \
+    -t ascendai/mindspore:2.3.0rc1 \
     -f mindspore/Dockerfile \
-    --build-arg BASE_VERSION=latest \
+    --build-arg BASE_VERSION=8.0.rc1-910b-ubuntu22.04-py3.8 \
     --build-arg MINDSPORE_VERSION=2.3.0rc1 \
     mindspore/
 ```

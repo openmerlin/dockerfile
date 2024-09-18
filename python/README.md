@@ -3,7 +3,7 @@
 ## Usage
 
 ```docker
-docker run --rm -it ascendai/python:latest \
+docker run --rm -it ascendai/python:3.10-ubuntu22.04 \
     python -c "import sys; print(sys.version)"
 ```
 
@@ -19,7 +19,7 @@ Don't have Bake? Use `docker build` instead. It requires Docker Engine 18+.
 
 ```docker
 docker build \
-    -t ascendai/python:latest \
+    -t ascendai/python:3.10-ubuntu22.04 \
     -f python/ubuntu.Dockerfile \
     --build-arg BASE_VERSION=22.04 \
     --build-arg PY_VERSION=3.10 \
