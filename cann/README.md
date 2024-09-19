@@ -1,6 +1,31 @@
 # CANN Docker Image
 
+We provide multi-arch, multi-chip, multi-os, and multi-python versions of CANN Docker images. Each image
+contains the minimum set of dependencies required by the cann-toolkit runtime, as follows:
+
+- `bash`
+- `glibc`
+- `sqlite`
+- `python`
+- `pip`
+
+Here are available tags and the build args can be found at [arg.json](../arg.json).
+
+- `7.0.1-910b-ubuntu22.04-py3.8`
+- `7.0.1-910b-openeuler22.03-py3.8`
+- `8.0.rc2-910b-ubuntu22.04-py3.8`
+- `8.0.rc2-910b-openeuler22.03-py3.8`
+- `8.0.rc3.alpha002-910b-ubuntu22.04-py3.9`
+- `8.0.rc3.alpha002-910b-openeuler22.03-py3.9`
+
+> [!NOTE]
+>
+> If your desired tag is not here, feel free to file an issue with us or
+> try to build it yourself.
+
 ## Usage
+
+Assuming your NPU device is mounted at `/dev/davinci1` and your NPU driver is installed at `/usr/local/Ascend`:
 
 ```docker
 docker run \

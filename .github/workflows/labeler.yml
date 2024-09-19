@@ -6,6 +6,9 @@ jobs:
   label:
     name: Label
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - name: Label the PR
         uses: actions/labeler@v5

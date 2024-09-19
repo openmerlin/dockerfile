@@ -1,6 +1,25 @@
 # Torch-NPU Docker Image
 
+The pytorch image is based on the [cann](../cann) image. These packages are installed using `pip`.
+
+- `torch`
+- `torchvision`
+- `torchaudio`
+- `torch_npu`
+
+Here are available tags and the build args can be found at [arg.json](../arg.json).
+
+- `2.1.0`
+- `2.2.0`
+
+> [!NOTE]
+>
+> If your desired tag is not here, feel free to file an issue with us or
+> try to build it yourself.
+
 ## Usage
+
+Assuming your NPU device is mounted at `/dev/davinci1` and your NPU driver is installed at `/usr/local/Ascend`:
 
 ```docker
 docker run \

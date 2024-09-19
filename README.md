@@ -35,6 +35,11 @@ please refer to the README.md file in each image directory:
 - [MindSpore](./mindspore): provides MindSpore runtime environment
 - [Python](./python): provides a base Python environment
 
+## Usage
+
+Please make sure you have an NPU device and the driver has been installed, then refer to the `docker run` commands
+in the image directory's README.md.
+
 ## Build
 
 We recommend using [Docker Buildx Bake][1] for building the images. For build
@@ -70,12 +75,9 @@ docker buildx bake -f arg.json -f docker-bake.hcl \
 
 > [!NOTE]
 >
-> - To customize the build configuration, use the `--set`. More details here: https://docs.docker.com/reference/cli/docker/buildx/bake/#set
+> - To customize the build configuration, use the `--set`. More details
+    here: https://docs.docker.com/reference/cli/docker/buildx/bake/#set
 > - To modify build parameters or tag names, edit the [arg.json](./arg.json) file
-
-## Usage
-
-Refer to the `docker run` commands in the image directory's README.md.
 
 ## Support
 
