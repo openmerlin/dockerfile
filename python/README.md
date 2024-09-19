@@ -1,3 +1,6 @@
+<!-- Please update the overview on DockerHub once changes are made to this doc -->
+<!-- https://hub.docker.com/r/ascendai/python -->
+
 # Python Docker Image
 
 We provide multiple python versions built from source. Each image contains the minimum set of dependencies
@@ -11,9 +14,12 @@ required by the python runtime, as follows:
 
 Here are available tags and the build args can be found at [arg.json](../arg.json).
 
-- `3.8`
-- `3.9`
-- `3.10`
+- `3.8-ubuntu22.04` (shorter: `3.8`)
+- `3.9-ubuntu22.04` (shorter: `3.9`)
+- `3.10-ubuntu22.04` (shorter: `3.10`)
+- `3.8-openeuler22.03`
+- `3.9-openeuler22.03`
+- `3.10-openeuler22.03`
 
 > [!NOTE]
 >
