@@ -1,6 +1,6 @@
 # CANN Docker Image
 
-We provide multi-arch, multi-chip, multi-OS, and multi-Python versions of CANN Docker images. Each image
+We provide multi-arch, multi-chip, multi-os, and multi-python versions of CANN Docker images. Each image
 contains the minimum set of dependencies required by the cann-toolkit runtime, as follows:
 
 - `bash`

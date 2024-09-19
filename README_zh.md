@@ -34,6 +34,11 @@
 - [MindSpore](./mindspore) 镜像：提供 mindspore 运行环境
 - [Python](./python) 镜像：提供 python 基础环境
 
+## 运行容器
+
+首先确保 NPU 设备可用并且驱动已经安装，然后在镜像目录的
+README.md 中获取 `docker run` 运行命令
+
 ## 构建镜像
 
 推荐使用 [Docker Buildx Bake][1] 构建镜像，构建细节详见
@@ -44,7 +49,8 @@
 
 > [!NOTE]
 >
-> 若您的构建环境不支持 Bake，可在镜像目录的 README.md 中获取 `docker build` 传统构建命令
+> 若您的构建环境不支持 Bake，可在镜像目录的 README.md 中
+> 获取 `docker build` 传统构建命令
 
 使用 Bake 构建镜像需要 Docker Engine 20.10+，在仓库根目录运行下列命令：
 
@@ -67,12 +73,9 @@ docker buildx bake -f arg.json -f docker-bake.hcl \
 
 > [!NOTE]
 >
-> - 若需自定义构建配置，可使用 `--set` 指令，详见：https://docs.docker.com/reference/cli/docker/buildx/bake/#set
+> - 若需自定义构建配置，可使用 `--set` 指令，
+    详见：https://docs.docker.com/reference/cli/docker/buildx/bake/#set
 > - 若需自定义构建参数或 Tag 名称，可编辑文件 [arg.json](./arg.json)
-
-## 运行容器
-
-在镜像目录的 README.md 中获取 `docker run` 运行命令
 
 ## 获取支持
 

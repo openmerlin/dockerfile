@@ -1,6 +1,19 @@
 # MindSpore Docker Image
 
+The mindspore image is based on the [cann](../cann) image, and `mindspore` is installed using `pip`. 
+
+Here are available tags and the build args can be found at [arg.json](../arg.json).
+
+- `2.3.0rc1`
+
+> [!NOTE]
+>
+> If your desired tag is not here, feel free to file an issue with us or
+> try to build it yourself.
+
 ## Usage
+
+Assuming your NPU device is mounted at `/dev/davinci1` and your NPU driver is installed at `/usr/local/Ascend`:
 
 ```docker
 docker run \

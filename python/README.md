@@ -1,5 +1,25 @@
 # Python Docker Image
 
+We provide multiple python versions built from source. Each image contains the minimum set of dependencies
+required by the python runtime, as follows:
+
+- `bash`
+- `glibc`
+- `sqlite`
+- `python`
+- `pip`
+
+Here are available tags and the build args can be found at [arg.json](../arg.json).
+
+- `3.8`
+- `3.9`
+- `3.10`
+
+> [!NOTE]
+>
+> If your desired tag is not here, feel free to file an issue with us or
+> try to build it yourself.
+
 ## Usage
 
 ```docker
