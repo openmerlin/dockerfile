@@ -18,9 +18,9 @@ Here are available tags and the build args can be found at [arg.json](../arg.jso
 - `8.0.rc3.alpha002-910b-ubuntu22.04-py3.9`
 - `8.0.rc3.alpha002-910b-openeuler22.03-py3.9`
 
-> ![!NOTE]
+> [!NOTE]
 >
-> If the tag you expect is not here, feel free to file an issue with us or
+> If your desired tag is not here, feel free to file an issue with us or
 > try to build it yourself.
 
 ## Usage
