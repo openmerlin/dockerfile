@@ -1,3 +1,6 @@
+<!-- Please update the overview on DockerHub once changes are made to this doc -->
+<!-- https://hub.docker.com/r/ascendai/cann -->
+
 # CANN Docker Image
 
 We provide multi-arch, multi-chip, multi-os, and multi-python versions of CANN Docker images. Each image
@@ -11,11 +14,13 @@ contains the minimum set of dependencies required by the cann-toolkit runtime, a
 
 Here are available tags and the build args can be found at [arg.json](../arg.json).
 
-- `7.0.1-910b-ubuntu22.04-py3.8`
+- `7.0.1-910b-ubuntu22.04-py3.8` (shorter: `7.0.1`)
 - `7.0.1-910b-openeuler22.03-py3.8`
-- `8.0.rc2-910b-ubuntu22.04-py3.8`
+- `8.0.rc1-910b-ubuntu22.04-py3.8` (shorter: `8.0.rc1`)
+- `8.0.rc1-910b-openeuler22.03-py3.8`
+- `8.0.rc2-910b-ubuntu22.04-py3.8` (shorter: `8.0.rc2`)
 - `8.0.rc2-910b-openeuler22.03-py3.8`
-- `8.0.rc3.alpha002-910b-ubuntu22.04-py3.9`
+- `8.0.rc3.alpha002-910b-ubuntu22.04-py3.9` (shorter: `latest`)
 - `8.0.rc3.alpha002-910b-openeuler22.03-py3.9`
 
 > [!NOTE]

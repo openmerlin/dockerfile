@@ -1,3 +1,6 @@
+<!-- Please update the overview on DockerHub once changes are made to this doc -->
+<!-- https://hub.docker.com/r/ascendai/pytorch -->
+
 # Torch-NPU Docker Image
 
 The pytorch image is based on the [cann](../cann) image. These packages are installed using `pip`.

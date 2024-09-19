@@ -1,3 +1,6 @@
+<!-- Please update the overview on DockerHub once changes are made to this doc -->
+<!-- https://hub.docker.com/r/ascendai/mindspore -->
+
 # MindSpore Docker Image
 
 The mindspore image is based on the [cann](../cann) image, and `mindspore` is installed using `pip`. 

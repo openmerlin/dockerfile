@@ -41,9 +41,8 @@ README.md 中获取 `docker run` 运行命令
 
 ## 构建镜像
 
-推荐使用 [Docker Buildx Bake][1] 构建镜像，构建细节详见
-[docker-bake.hcl](./docker-bake.hcl)，构建参数定义详见
-[arg.json](./arg.json)
+推荐使用 [Docker Buildx Bake][1] 构建镜像，构建细节详见 [docker-bake.hcl](./docker-bake.hcl)，
+构建参数定义详见 [arg.json](./arg.json)
 
 [1]: https://docs.docker.com/build/bake/
 
@@ -58,13 +57,13 @@ README.md 中获取 `docker run` 运行命令
 docker buildx bake -f arg.json -f docker-bake.hcl
 ```
 
-列出所有 Target：
+列出所有 target：
 
 ```docker
 docker buildx bake -f arg.json -f docker-bake.hcl --print
 ```
 
-仅构建 linux/arm64 架构镜像：
+仅构建 `linux/arm64` 架构镜像：
 
 ```docker
 docker buildx bake -f arg.json -f docker-bake.hcl \
@@ -75,7 +74,7 @@ docker buildx bake -f arg.json -f docker-bake.hcl \
 >
 > - 若需自定义构建配置，可使用 `--set` 指令，
     详见：https://docs.docker.com/reference/cli/docker/buildx/bake/#set
-> - 若需自定义构建参数或 Tag 名称，可编辑文件 [arg.json](./arg.json)
+> - 若需自定义构建参数或 tag 名称，可编辑文件 [arg.json](./arg.json)
 
 ## 获取支持
 
