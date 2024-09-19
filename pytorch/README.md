@@ -1,6 +1,11 @@
 # Torch-NPU Docker Image
 
-The pytorch image is based on the [cann](../cann) image, and `pytorch` is installed using `pip`. 
+The pytorch image is based on the [cann](../cann) image. These packages are installed using `pip`.
+
+- `torch`
+- `torchvision`
+- `torchaudio`
+- `torch_npu`
 
 Here are available tags and the build args can be found at [arg.json](../arg.json).
 
