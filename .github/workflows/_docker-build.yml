@@ -11,6 +11,16 @@ on:
         description: "List of targets values to override (eg. targetpattern.key=value)"
         required: false
         type: string
+      files:
+        description: "List of bake definition files"
+        required: false
+        default: 'docker-bake.hcl'
+        type: string
+      workdir:
+        description: "Working directory of bake execution"
+        required: false
+        default: '.'
+        type: string
       push:
         description: "Push is a shorthand for --set=*.output=type=registry"
         required: false
@@ -79,7 +89,8 @@ jobs:
         id: list-target
         uses: docker/bake-action/subaction/list-targets@v5
         with:
-          files: arg.json,docker-bake.hcl
+          workdir: ${{ inputs.workdir }}
+          files: ${{ inputs.files }}
           target: ${{ inputs.target }}
 
   docker:
@@ -129,9 +140,9 @@ jobs:
         id: bake
         uses: docker/bake-action@v5
         with:
+          workdir: ${{ inputs.workdir }}
           files: |
-            ${{ github.workspace }}/arg.json
-            ${{ github.workspace }}/docker-bake.hcl
+            ${{ inputs.files }}
             ${{ steps.metadata.outputs.bake-file-labels }}
             ${{ steps.metadata.outputs.bake-file-annotations }}
           targets: ${{ matrix.target }}

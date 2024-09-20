@@ -1,7 +1,6 @@
 name: Build and Push Docker Image
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - 'main'
@@ -35,6 +34,28 @@ on:
   release:
     types:
       - 'published'
+  workflow_dispatch:
+    inputs:
+      image:
+        description: 'docker image name'
+        required: true
+        default: 'cann'
+        type: choice
+        options:
+          - cann
+          - pytorch
+          - mindspore
+          - python
+      args:
+        description: 'build args in JSON format, such as arg.json'
+        required: true
+        default: '[]'
+        type: string
+      push:
+        description: 'true to push the docker image'
+        required: true
+        default: false
+        type: boolean
 
 # Only cancel the previous runs when triggered by a pull request
 concurrency:
@@ -46,12 +67,26 @@ permissions:
   packages: write
 
 jobs:
+  prepare:
+    name: prepare
+    runs-on: ubuntu-latest
+    outputs:
+      targets: ${{ steps.list-bake-files.outputs.files }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: List bake definition files
+        id: list-bake-files
+        run: |
+          
+
   python:
     name: python
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'python'
-      push: ${{ github.event_name == 'release' }}
+      push: ${{ github.event_name == 'release' || github.event.inputs.push }}
       clean-up: false
       set: |
         *.cache-from=type=gha
@@ -71,7 +106,7 @@ jobs:
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'cann'
-      push: ${{ github.event_name == 'release' }}
+      push: ${{ github.event_name == 'release' || github.event.inputs.push }}
     secrets:
       DOCKERHUB_OWNER: ${{ secrets.DOCKERHUB_OWNER }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -87,7 +122,7 @@ jobs:
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'pytorch'
-      push: ${{ github.event_name == 'release' }}
+      push: ${{ github.event_name == 'release' || github.event.inputs.push }}
     secrets:
       DOCKERHUB_OWNER: ${{ secrets.DOCKERHUB_OWNER }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -103,7 +138,7 @@ jobs:
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'mindspore'
-      push: ${{ github.event_name == 'release' }}
+      push: ${{ github.event_name == 'release' || github.event.inputs.push }}
     secrets:
       DOCKERHUB_OWNER: ${{ secrets.DOCKERHUB_OWNER }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
