@@ -150,17 +150,33 @@
   ],
   "pytorch": [
     {
-      "pytorch_version": "2.1.0",
+      "torch_version": "2.1.0",
+      "torch_vision_version": "0.16.0",
+      "torch_audio_version": "2.1.0",
+      "torch_npu_version": "2.1.0.post3",
       "cann_tag": "8.0.rc1-910b-ubuntu22.04-py3.8",
       "tags": [
         "2.1.0"
       ]
     },
     {
-      "pytorch_version": "2.2.0",
+      "torch_version": "2.2.0",
+      "torch_vision_version": "0.17.0",
+      "torch_audio_version": "2.2.0",
+      "torch_npu_version": "2.2.0",
       "cann_tag": "8.0.rc1-910b-ubuntu22.04-py3.8",
       "tags": [
         "2.2.0"
+      ]
+    },
+    {
+      "torch_version": "nightly",
+      "torch_vision_version": "nightly",
+      "torch_audio_version": "nightly",
+      "torch_npu_version": "nightly",
+      "cann_tag": "8.0.rc3.alpha002-910b-ubuntu22.04-py3.9",
+      "tags": [
+        "nightly"
       ]
     }
   ],

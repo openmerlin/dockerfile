@@ -68,7 +68,10 @@ target "pytorch" {
   }
   args = {
     BASE_VERSION = "${item.cann_tag}"
-    PYTORCH_VERSION = "${item.pytorch_version}"
+    TORCH_VERSION = "${item.torch_version}"
+    TORCH_VISION_VERSION = "${item.torch_vision_version}"
+    TORCH_AUDIO_VERSION = "${item.torch_audio_version}"
+    TORCH_NPU_VERSION = "${item.torch_npu_version}"
   }
   tags = generate_tags("pytorch", "${item.tags}")
 }
