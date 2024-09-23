@@ -46,8 +46,28 @@ permissions:
   packages: write
 
 jobs:
+  prepare:
+    name: prepare
+    runs-on: ubuntu-latest
+    outputs:
+      jobs: ${{ steps.list-jobs.outputs.jobs }}
+    steps:
+      # If your pull request title looks like this "[python, cann] Changes to code",
+      # then only the python and cann images will be built. All by default.
+      - name: List jobs
+        id: list-jobs
+        run: |
+          jobs="python cann pytorch mindspore"
+          if [[ "${{ github.event_name }}" == "pull_request" && "${{ github.event.pull_request.title }}" =~ ^\[(.*)\] ]]; then
+            jobs=$(echo "${BASH_REMATCH[1]}" | tr 'A-Z' 'a-z' | tr ',' ' ')
+          fi
+          echo "jobs=$jobs" >> $GITHUB_OUTPUT
+
   python:
     name: python
+    needs:
+      - prepare
+    if: ${{ contains(needs.prepare.outputs.jobs, 'python') }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'python'
@@ -67,7 +87,9 @@ jobs:
   cann:
     name: cann
     needs:
+      - prepare
       - python
+    if: ${{ contains(needs.prepare.outputs.jobs, 'cann') }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'cann'
@@ -83,7 +105,9 @@ jobs:
   pytorch:
     name: pytorch
     needs:
+      - prepare
       - cann
+    if: ${{ contains(needs.prepare.outputs.jobs, 'pytorch') }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'pytorch'
@@ -99,7 +123,9 @@ jobs:
   mindspore:
     name: mindspore
     needs:
+      - prepare
       - cann
+    if: ${{ contains(needs.prepare.outputs.jobs, 'mindspore') }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'mindspore'
