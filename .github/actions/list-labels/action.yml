@@ -10,10 +10,6 @@ inputs:
     default: ${{ github.token }}
     required: false
 
-outputs:
-  labels:
-    description: "Labels on the issue"
-
 runs:
   using: 'composite'
   steps:
