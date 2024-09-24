@@ -57,6 +57,6 @@ jobs:
 
       - name: List labels
         id: list-labels
-        use: ./.github/actions/list-labels
+        uses: ./.github/actions/list-labels
 
       - run: echo ${{ steps.list-labels.output.labels }}
