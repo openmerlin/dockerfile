@@ -23,15 +23,18 @@ runs:
       with:
         debug: true
         github-token: ${{ inputs.github-token }}
+        result-encoding: 'string'
         script: |
-          const labels = await github.rest.issues.listLabelsOnIssue({
+          const result = await github.rest.issues.listLabelsOnIssue({
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: ${{ inputs.issue-number }},
           });
-          const labelNames = labels.data.map(label => label.name);
-          core.setOutput('labels', labelNames.join(','));
+          const labels = result.data.map((label) => label.name);
+          return labels.join(',');
 
     - name: Print
       shell: bash
-      run: echo ${{ steps.list-labels1.output.labels }}
+      run: |
+        echo ${{ steps.list-labels1.output.labels }}
+        echo ${{ steps.list-labels1.output.result }}

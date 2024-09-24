@@ -67,3 +67,4 @@ jobs:
         run: |
           echo ${{ github.event.pull_request.number }}
           echo ${{ steps.list-labels.output.labels }}
+          echo ${{ steps.list-labels.output.result }}
