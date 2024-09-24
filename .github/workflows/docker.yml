@@ -20,7 +20,11 @@ on:
   pull_request:
     branches:
       - 'main'
+    types:
+      - 'synchronize'
+      - 'labeled'
     paths:
+      - '.github/actions/list-labels/action.yml'
       - '.github/actions/clean-up/action.yml'
       - '.github/actions/docker-login/action.yml'
       - '.github/workflows/_docker-build.yml'
@@ -42,12 +46,33 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
+  pull-requests: read
   contents: read
   packages: write
 
 jobs:
+  prepare:
+    name: prepare
+    runs-on: ubuntu-latest
+    outputs:
+      pr-labels: ${{ steps.list-labels.outputs.labels }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Lists all labels for your pull request
+      - name: List labels
+        id: list-labels
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: ./.github/actions/list-labels
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+
   python:
     name: python
+    needs:
+      - prepare
+    if: ${{ github.event_name != 'pull_request' || contains(needs.prepare.outputs.pr-labels, 'python') }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'python'
@@ -61,7 +86,9 @@ jobs:
   cann:
     name: cann
     needs:
+      - prepare
       - python
+    if: ${{ github.event_name != 'pull_request' || contains(needs.prepare.outputs.pr-labels, 'cann') }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'cann'
@@ -71,7 +98,9 @@ jobs:
   pytorch:
     name: pytorch
     needs:
+      - prepare
       - cann
+    if: ${{ github.event_name != 'pull_request' || contains(needs.prepare.outputs.pr-labels, 'pytorch') }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'pytorch'
@@ -81,7 +110,9 @@ jobs:
   mindspore:
     name: mindspore
     needs:
+      - prepare
       - cann
+    if: ${{ github.event_name != 'pull_request' || contains(needs.prepare.outputs.pr-labels, 'mindspore') }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'mindspore'
