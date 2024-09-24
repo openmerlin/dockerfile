@@ -43,6 +43,7 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
+  pull-requests: read
   contents: read
   packages: write
 
@@ -62,7 +63,6 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         uses: ./.github/actions/list-labels
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
 
   python:
