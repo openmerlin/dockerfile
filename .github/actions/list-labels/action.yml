@@ -32,7 +32,7 @@ runs:
           });
           const labels = result.data.map((label) => label.name);
           core.info(`labels: ${labels}`);
-          core.setOutput('labels', 'python');
+          core.setOutput('labels', labels.join(','));
 
     - name: Set output
       shell: bash
@@ -40,4 +40,4 @@ runs:
         set -x
         echo ${{ steps.list-labels.output.labels }}
         echo ${{ steps.list-labels.output.result }}
-        echo "labels=${{ steps.list-labels.output.labels }}" >> $GITHUB_OUTPUT
+        echo "labels=python" >> $GITHUB_OUTPUT
