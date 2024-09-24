@@ -1,5 +1,5 @@
 name: "List labels"
-description: "List labels"
+description: "Lists all labels for an issue"
 
 inputs:
   issue-number:
@@ -29,4 +29,4 @@ runs:
             issue_number: ${{ inputs.issue-number }},
           });
           const labels = result.data.map((label) => label.name);
-          return labels.join(',');
+          core.setOutput('labels', labels.join(','));

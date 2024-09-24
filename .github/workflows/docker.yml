@@ -55,6 +55,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Lists all labels for your pull request
       - name: List labels
         id: list-labels
         if: ${{ github.event_name == 'pull_request' }}
