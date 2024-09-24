@@ -15,10 +15,6 @@ RUN \
     # Uninstall the latest numpy and sympy first, as the right versions will be installed again \
     # after installing following packages \
     pip uninstall -y numpy sympy && \
-    # Nightly build \
-    if [ ${TORCH_VERSION == "nightly"} ]; then \
-      exit 0; \
-    fi && \
     pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
         torch==${TORCH_VERSION} \
         torchvision==${TORCH_VISION_VERSION} \
