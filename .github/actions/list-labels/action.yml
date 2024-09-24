@@ -32,4 +32,4 @@ runs:
           });
           const labels = result.data.map((label) => label.name);
           core.info(`labels: ${labels}`);
-          core.setOutput('labels', labels.join(','));
+          core.setOutput("labels", labels.join(","));
