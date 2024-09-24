@@ -52,7 +52,7 @@ jobs:
     name: prepare
     runs-on: ubuntu-latest
     outputs:
-      pr-labels: ${{ steps.list-labels.outputs.labels }}
+      pr-labels: ${{ steps.tmp.outputs.labels }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -64,6 +64,11 @@ jobs:
         uses: ./.github/actions/list-labels
         with:
           issue-number: ${{ github.event.pull_request.number }}
+
+      - name: List labels
+        id: tmp
+        run: |
+          echo "labels=python,cann" >> $GITHUB_OUTPUT
 
   python:
     name: python
