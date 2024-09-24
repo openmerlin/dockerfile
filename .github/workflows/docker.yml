@@ -42,7 +42,7 @@ on:
 
 # Only cancel the previous runs when triggered by a pull request
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event_name }}
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
