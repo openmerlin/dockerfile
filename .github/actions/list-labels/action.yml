@@ -1,0 +1,35 @@
+name: "List labels"
+description: "Lists all labels for an issue"
+
+inputs:
+  issue-number:
+    description: "The number that identifies the issue"
+    required: true
+  github-token:
+    description: "The GitHub token used to create an authenticated client"
+    default: ${{ github.token }}
+    required: false
+
+outputs:
+  labels:
+    description: "Labels on the issue"
+    value: ${{ steps.list-labels.outputs.labels }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: List labels
+      id: list-labels
+      uses: actions/github-script@v7
+      with:
+        result-encoding: string
+        github-token: ${{ inputs.github-token }}
+        script: |
+          const result = await github.rest.issues.listLabelsOnIssue({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: ${{ inputs.issue-number }},
+          });
+          const labels = result.data.map((label) => label.name);
+          core.info(`labels: ${labels}`);
+          core.setOutput("labels", labels.join(","));
