@@ -22,7 +22,7 @@ on:
       - 'main'
     types:
       - 'synchronize'
-      - 'labeled' # Will triggered by the Labeler Action
+      - 'labeled'
     paths:
       - '.github/actions/list-labels/action.yml'
       - '.github/actions/clean-up/action.yml'
