@@ -31,7 +31,7 @@ runs:
           });
           const labels = result.data.map((label) => label.name);
           core.info(`labels: ${labels}`);
-          return labels.join(',');
+          core.setOutput('labels', labels);
 
     - name: Set output
       shell: bash
