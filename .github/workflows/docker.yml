@@ -50,7 +50,7 @@ jobs:
     name: prepare
     runs-on: ubuntu-latest
     outputs:
-      jobs: ${{ steps.list-jobs.outputs.jobs }}
+      pr-labels: ${{ steps.list-labels.outputs.labels }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -62,3 +62,54 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
+
+  python:
+    name: python
+    needs:
+      - prepare
+    if: ${{ github.event_name != 'pull_request' || contains(needs.prepare.outputs.pr-labels, 'python') }}
+    uses: ./.github/workflows/_docker-build.yml
+    with:
+      target: 'python'
+      push: ${{ github.event_name == 'release' }}
+      clean-up: false
+      set: |
+        *.cache-from=type=gha
+        *.cache-to=type=gha,mode=min
+    secrets: inherit
+
+  cann:
+    name: cann
+    needs:
+      - prepare
+      - python
+    if: ${{ github.event_name != 'pull_request' || contains(needs.prepare.outputs.pr-labels, 'cann') }}
+    uses: ./.github/workflows/_docker-build.yml
+    with:
+      target: 'cann'
+      push: ${{ github.event_name == 'release' }}
+    secrets: inherit
+
+  pytorch:
+    name: pytorch
+    needs:
+      - prepare
+      - cann
+    if: ${{ github.event_name != 'pull_request' || contains(needs.prepare.outputs.pr-labels, 'pytorch') }}
+    uses: ./.github/workflows/_docker-build.yml
+    with:
+      target: 'pytorch'
+      push: ${{ github.event_name == 'release' }}
+    secrets: inherit
+
+  mindspore:
+    name: mindspore
+    needs:
+      - prepare
+      - cann
+    if: ${{ github.event_name != 'pull_request' || contains(needs.prepare.outputs.pr-labels, 'mindspore') }}
+    uses: ./.github/workflows/_docker-build.yml
+    with:
+      target: 'mindspore'
+      push: ${{ github.event_name == 'release' }}
+    secrets: inherit
