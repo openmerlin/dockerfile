@@ -18,6 +18,7 @@ runs:
   using: 'composite'
   steps:
     - name: List labels
+      id: list-labels
       uses: actions/github-script@v7
       with:
         github-token: ${{ inputs.github-token }}
@@ -30,3 +31,10 @@ runs:
           const labels = result.data.map((label) => label.name);
           core.info(`labels: ${labels}`);
           core.setOutput('labels', labels.join(','));
+
+    - name: Set output
+      shell: bash
+      run: |
+        set -x
+        echo ${{ steps.list-labels.output.labels }}
+        echo "labels=${{ steps.list-labels.output.labels }}" >> $GITHUB_OUTPUT

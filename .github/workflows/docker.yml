@@ -64,8 +64,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.pull_request.number }}
 
-      - run: echo ${{ steps.list-labels.outputs.labels }}
-
   python:
     name: python
     needs:
