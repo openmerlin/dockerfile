@@ -10,6 +10,10 @@ inputs:
     default: ${{ github.token }}
     required: false
 
+outputs:
+  labels:
+    description: "Labels on the issue"
+
 runs:
   using: 'composite'
   steps:
@@ -29,11 +33,3 @@ runs:
           const labels = result.data.map((label) => label.name);
           core.info(`labels: ${labels}`);
           core.setOutput('labels', labels.join(','));
-
-    - name: Set output
-      shell: bash
-      run: |
-        set -x
-        echo ${{ steps.list-labels.output.labels }}
-        echo ${{ steps.list-labels.output.result }}
-        echo "labels=python" >> $GITHUB_OUTPUT
