@@ -18,9 +18,10 @@ runs:
   using: 'composite'
   steps:
     - name: List labels
-      id: list-labels
+      id: list-labels1
       uses: actions/github-script@v7
       with:
+        debug: true
         github-token: ${{ inputs.github-token }}
         script: |
           const labels = await github.rest.issues.listLabelsOnIssue({
@@ -30,3 +31,7 @@ runs:
           });
           const labelNames = labels.data.map(label => label.name);
           core.setOutput('labels', labelNames.join(','));
+
+    - name: Print
+      shell: bash
+      run: echo ${{ steps.list-labels1.output.labels }}
