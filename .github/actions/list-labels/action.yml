@@ -18,12 +18,10 @@ runs:
   using: 'composite'
   steps:
     - name: List labels
-      id: list-labels1
+      id: list-labels
       uses: actions/github-script@v7
       with:
-        debug: true
         github-token: ${{ inputs.github-token }}
-        result-encoding: 'string'
         script: |
           const result = await github.rest.issues.listLabelsOnIssue({
             owner: context.repo.owner,
@@ -32,9 +30,3 @@ runs:
           });
           const labels = result.data.map((label) => label.name);
           return labels.join(',');
-
-    - name: Print
-      shell: bash
-      run: |
-        echo ${{ steps.list-labels1.output.labels }}
-        echo ${{ steps.list-labels1.output.result }}
