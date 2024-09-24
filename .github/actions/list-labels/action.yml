@@ -13,6 +13,7 @@ inputs:
 outputs:
   labels:
     description: "Labels on the issue"
+    value: ${{ steps.list-labels.outputs.labels }}
 
 runs:
   using: 'composite'
