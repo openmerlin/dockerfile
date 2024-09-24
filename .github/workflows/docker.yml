@@ -65,11 +65,6 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
 
-      - name: Print
-        run: |
-          set -x
-          echo ${{ steps.list-labels.outputs.labels }}
-
   python:
     name: python
     needs:
