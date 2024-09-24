@@ -20,6 +20,9 @@ on:
   pull_request:
     branches:
       - 'main'
+    types:
+      - 'synchronize'
+      - 'labeled' # Will triggered by the Labeler Action
     paths:
       - '.github/actions/list-labels/action.yml'
       - '.github/actions/clean-up/action.yml'

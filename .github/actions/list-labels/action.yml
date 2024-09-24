@@ -22,7 +22,6 @@ runs:
       id: list-labels
       uses: actions/github-script@v7
       with:
-        debug: true
         result-encoding: string
         github-token: ${{ inputs.github-token }}
         script: |
