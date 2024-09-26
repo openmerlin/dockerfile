@@ -67,7 +67,7 @@
       "os_version": "22.04",
       "py_version": "3.9",
       "tags": [
-        "8.0.rc2-910b-ubuntu22.04-py3.9",
+        "8.0.rc2.beta1-910b-ubuntu22.04-py3.9",
         "8.0.rc2.beta1",
         "ubuntu-python3.9-cann8.0.rc2.beta1"
       ]
