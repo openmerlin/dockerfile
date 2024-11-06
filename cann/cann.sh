@@ -42,20 +42,21 @@ download_file() {
     done
 
     echo "All attempts failed. Exiting."
-    return 1
+    exit 1
 }
 
 download_cann() {
+    local url="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com"
     if [[ ${CANN_VERSION} == "8.0.RC2.alpha001" ]]; then
-        local url_prefix="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/Milan-ASL/Milan-ASL%20V100R001C18B800TP015"
+        local url_prefix="${url}/Milan-ASL/Milan-ASL%20V100R001C18B800TP015"
     elif [[ ${CANN_VERSION} == "8.0.RC2.alpha002" ]]; then
-        local url_prefix="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/Milan-ASL/Milan-ASL%20V100R001C18SPC805"
+        local url_prefix="${url}/Milan-ASL/Milan-ASL%20V100R001C18SPC805"
     elif [[ ${CANN_VERSION} == "8.0.RC2.alpha003" ]]; then
-        local url_prefix="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/Milan-ASL/Milan-ASL%20V100R001C18SPC703"
+        local url_prefix="${url}/Milan-ASL/Milan-ASL%20V100R001C18SPC703"
     elif [[ ${CANN_VERSION} == "8.0.RC3.alpha002" ]]; then
-        local url_prefix="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/Milan-ASL/Milan-ASL%20V100R001C19SPC702"
+        local url_prefix="${url}/Milan-ASL/Milan-ASL%20V100R001C19SPC702"
     else
-        local url_prefix="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com/CANN/CANN%20${CANN_VERSION}"
+        local url_prefix="${url}/CANN/CANN%20${CANN_VERSION}"
     fi
     local url_suffix="response-content-type=application/octet-stream"
     local toolkit_url="${url_prefix}/${TOOLKIT_FILE}?${url_suffix}"
@@ -92,7 +93,7 @@ set_env() {
 install_cann() {
     # Download installers
     if [ ! -f "${TOOLKIT_PATH}" ] || [ ! -f "${KERNELS_PATH}" ]; then
-        echo "[WARNING] Installers do not exist, re-download them."
+        echo "[WARNING] Installers do not exist in the /tmp directory, re-download them."
         download_cann
     fi
 
@@ -125,8 +126,15 @@ CANN_HOME=${CANN_HOME:="/usr/local/Ascend"}
 CANN_CHIP=${CANN_CHIP:="910b"}
 CANN_VERSION=${CANN_VERSION:="8.0.RC1"}
 
+# NOTE: kernels are arch-specific after 8.0.RC3.alpha002
+if [[ ${CANN_VERSION} == "8.0.RC3" ]]; then
+  KERNELS_ARCH="linux-${ARCH}"
+else
+  KERNELS_ARCH="linux"
+fi
+
 TOOLKIT_FILE="Ascend-cann-toolkit_${CANN_VERSION}_linux-${ARCH}.run"
-KERNELS_FILE="Ascend-cann-kernels-${CANN_CHIP}_${CANN_VERSION}_linux.run"
+KERNELS_FILE="Ascend-cann-kernels-${CANN_CHIP}_${CANN_VERSION}_${KERNELS_ARCH}.run"
 TOOLKIT_PATH="/tmp/${TOOLKIT_FILE}"
 KERNELS_PATH="/tmp/${KERNELS_FILE}"
 
