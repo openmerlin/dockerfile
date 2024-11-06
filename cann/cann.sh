@@ -29,6 +29,7 @@ download_file() {
     local retry_delay=10
     local url="$1"
     local path="$2"
+    echo "Downloading ${path} from ${url}"
 
     for ((i=1; i<=max_retries; i++)); do
         echo "Attempt $i of $max_retries..."
@@ -63,12 +64,10 @@ download_cann() {
     local kernels_url="${url_prefix}/${KERNELS_FILE}?${url_suffix}"
 
     if [ ! -f "${TOOLKIT_PATH}" ]; then
-        echo "Downloading ${TOOLKIT_FILE} from ${toolkit_url}"
         download_file "${toolkit_url}" "${TOOLKIT_PATH}"
     fi
 
     if [ ! -f "${KERNELS_PATH}" ]; then
-        echo "Downloading ${KERNELS_FILE} from ${kernels_url}"
         download_file "${kernels_url}" "${KERNELS_PATH}"
     fi
 
