@@ -7,7 +7,7 @@
     {
       "url": "quay.io",
       "owner": "ascend"
-    }, 
+    },
     {
       "url": "swr.cn-southwest-2.myhuaweicloud.com",
       "owner": "base_image"
@@ -106,26 +106,26 @@
       ]
     },
     {
-      "cann_version": "8.0.RC3.alpha002",
+      "cann_version": "8.0.RC3",
       "cann_chip": "910b",
       "os_name": "ubuntu",
       "os_version": "22.04",
-      "py_version": "3.9",
+      "py_version": "3.10",
       "tags": [
-        "8.0.rc3.alpha002-910b-ubuntu22.04-py3.9",
+        "8.0.rc3.beta1-910b-ubuntu22.04-py3.9",
         "latest",
-        "ubuntu-python3.9-cann8.0.rc3.alpha002"
+        "ubuntu-python3.9-cann8.0.rc3.beta1"
       ]
     },
     {
-      "cann_version": "8.0.RC3.alpha002",
+      "cann_version": "8.0.RC3",
       "cann_chip": "910b",
       "os_name": "openeuler",
       "os_version": "22.03",
-      "py_version": "3.9",
+      "py_version": "3.10",
       "tags": [
-        "8.0.rc3.alpha002-910b-openeuler22.03-py3.9",
-        "openeuler-python3.9-cann8.0.rc3.alpha002"
+        "8.0.rc3.beta1-910b-openeuler22.03-py3.10",
+        "openeuler-python3.10-cann8.0.rc3.beta1"
       ]
     }
   ],
