@@ -65,6 +65,28 @@
       "cann_chip": "910b",
       "os_name": "ubuntu",
       "os_version": "22.04",
+      "py_version": "3.8",
+      "tags": [
+        "8.0.rc2.beta1-910b-ubuntu22.04-py3.8",
+        "ubuntu-python3.8-cann8.0.rc2.beta1"
+      ]
+    },
+    {
+      "cann_version": "8.0.RC2",
+      "cann_chip": "910b",
+      "os_name": "openeuler",
+      "os_version": "22.03",
+      "py_version": "3.8",
+      "tags": [
+        "8.0.rc2.beta1-910b-openeuler22.03-py3.8",
+        "openeuler-python3.8-cann8.0.rc2.beta1"
+      ]
+    },
+    {
+      "cann_version": "8.0.RC2",
+      "cann_chip": "910b",
+      "os_name": "ubuntu",
+      "os_version": "22.04",
       "py_version": "3.9",
       "tags": [
         "8.0.rc2.beta1-910b-ubuntu22.04-py3.9",
