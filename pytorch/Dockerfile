@@ -20,9 +20,6 @@ RUN if [ "${PYTORCH_VERSION}" == "2.1.0" ]; then \
         echo "Not supported version: ${PYTORCH_VERSION}."; \
         exit 1; \
     fi && \
-    # Uninstall the latest numpy and sympy first, as the right versions will be installed again \
-    # after installing following packages \
-    pip uninstall -y numpy sympy && \
     pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
         torch==${PYTORCH_VERSION} \
         torchvision==${TORCH_VISION_VERSION} \
