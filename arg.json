@@ -213,11 +213,18 @@
   ],
   "mindspore": [
     {
-      "mindspore_version": "2.3.0rc1",
-      "cann_tag": "8.0.rc1.beta1-910b-ubuntu22.04-py3.8",
+      "mindspore_version": "2.4.0",
+      "cann_tag": "8.0.rc3.beta1-910b-ubuntu22.04-py3.10",
       "tags": [
-        "2.3.0rc1",
-        "ubuntu-python3.8-cann8.0.rc1.beta1-mindspore2.3.0rc1"
+        "2.4.0",
+        "ubuntu-python3.10-cann8.0.rc3.beta1-mindspore2.4.0"
+      ]
+    },
+    {
+      "mindspore_version": "2.4.0",
+      "cann_tag": "8.0.rc3.beta1-910b-openeuler22.03-py3.10",
+      "tags": [
+        "openeuler-python3.10-cann8.0.rc3.beta1-mindspore2.4.0"
       ]
     }
   ]
