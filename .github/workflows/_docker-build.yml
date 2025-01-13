@@ -73,14 +73,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # TODO(shink): Improve files once this PR merged
-      # https://github.com/docker/bake-action/pull/247
       - name: List targets
         id: list-target
-        uses: docker/bake-action/subaction/list-targets@v5
+        uses: docker/bake-action/subaction/list-targets@v6
         with:
-          files: arg.json,docker-bake.hcl
           target: ${{ inputs.target }}
+          files: |
+            arg.json
+            docker-bake.hcl
 
   docker:
     name: 'docker'
@@ -127,8 +127,9 @@ jobs:
 
       - name: Build and push Docker image
         id: bake
-        uses: docker/bake-action@v5
+        uses: docker/bake-action@v6
         with:
+          source: .
           files: |
             ${{ github.workspace }}/arg.json
             ${{ github.workspace }}/docker-bake.hcl
