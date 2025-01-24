@@ -169,6 +169,33 @@
       ]
     },
     {
+      "py_version": "3.11",
+      "os_name": "ubuntu",
+      "os_version": "22.04",
+      "tags": [
+        "3.11-ubuntu22.04",
+        "3.11"
+      ]
+    },
+    {
+      "py_version": "3.12",
+      "os_name": "ubuntu",
+      "os_version": "22.04",
+      "tags": [
+        "3.12-ubuntu22.04",
+        "3.12"
+      ]
+    },
+    {
+      "py_version": "3.13",
+      "os_name": "ubuntu",
+      "os_version": "22.04",
+      "tags": [
+        "3.13-ubuntu22.04",
+        "3.13"
+      ]
+    },
+    {
       "py_version": "3.8",
       "os_name": "openeuler",
       "os_version": "22.03",
@@ -190,6 +217,30 @@
       "os_version": "22.03",
       "tags": [
         "3.10-openeuler22.03"
+      ]
+    },
+    {
+      "py_version": "3.11",
+      "os_name": "openeuler",
+      "os_version": "22.03",
+      "tags": [
+        "3.11-openeuler22.03"
+      ]
+    },
+    {
+      "py_version": "3.12",
+      "os_name": "openeuler",
+      "os_version": "22.03",
+      "tags": [
+        "3.12-openeuler22.03"
+      ]
+    },
+    {
+      "py_version": "3.13",
+      "os_name": "openeuler",
+      "os_version": "22.03",
+      "tags": [
+        "3.13-openeuler22.03"
       ]
     }
   ],
