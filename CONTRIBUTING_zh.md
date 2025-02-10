@@ -50,11 +50,11 @@ graph TD;
 
 基于 GitHub Actions 构建 CI/CD 系统，运行在 [GitHub-hosted runner][10] 上。
 
-提交 Pull request 时可触发镜像构建，只有当 release 时才会真正发布镜像。
+提交 Pull request 时可触发镜像构建，只有当 release 时才会发布镜像。
 工作流运行详情见：[actions/workflows/docker.yml][11]。
 
 > [!NOTE]  
-> 为节省服务器资源，只有 Pull request 中添加了对应的 label，才会构建相应的镜像。
+> 为节省服务器资源，只有 Pull request 中添加了对应的 [label][12]，才会构建相应的镜像。
 
 [10]: https://github.com/actions/runner-images
 [11]: https://github.com/openmerlin/dockerfile/actions/workflows/docker.yml
