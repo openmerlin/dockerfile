@@ -13,11 +13,12 @@
 └── pytorch/                # PyTorch 镜像目录
 ```
 
-```plantuml
-@startuml
-Alice -> Bob: Hello
-Bob -> Alice: Hi!
-@enduml
+```mermaid
+  graph TD;
+      A-->B;
+      A-->C;
+      B-->D;
+      C-->D;
 ```
 
 ## 
