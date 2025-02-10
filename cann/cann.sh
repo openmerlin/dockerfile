@@ -2,7 +2,7 @@
 
 set -e
 
-get_architecture() {
+_get_architecture() {
     # not case sensitive
     shopt -s nocasematch
 
@@ -20,6 +20,10 @@ get_architecture() {
     esac
 
     echo "${ARCH}"
+}
+
+_retry() {
+    "$@" || (sleep 10 && "$@") || (sleep 20 && "$@") || (sleep 40 && "$@")
 }
 
 download_file() {
@@ -59,9 +63,12 @@ download_cann() {
     else
         local url_prefix="${url}/CANN/CANN%20${CANN_VERSION}"
     fi
-    local url_suffix="response-content-type=application/octet-stream"
-    local toolkit_url="${url_prefix}/${TOOLKIT_FILE}?${url_suffix}"
-    local kernels_url="${url_prefix}/${KERNELS_FILE}?${url_suffix}"
+    # local url_suffix="response-content-type=application/octet-stream"
+    # local toolkit_url="${url_prefix}/${TOOLKIT_FILE}?${url_suffix}"
+    # local kernels_url="${url_prefix}/${KERNELS_FILE}?${url_suffix}"
+
+    local toolkit_url="${url_prefix}/${TOOLKIT_FILE}"
+    local kernels_url="${url_prefix}/${KERNELS_FILE}"
 
     if [ ! -f "${TOOLKIT_PATH}" ]; then
         download_file "${toolkit_url}" "${TOOLKIT_PATH}"
@@ -121,7 +128,7 @@ install_cann() {
 }
 
 PLATFORM=${PLATFORM:=$(uname -s)/$(uname -m)}
-ARCH=$(get_architecture)
+ARCH=$(_get_architecture)
 CANN_HOME=${CANN_HOME:="/usr/local/Ascend"}
 CANN_CHIP=${CANN_CHIP:="910b"}
 CANN_VERSION=${CANN_VERSION:="8.0.RC1"}
