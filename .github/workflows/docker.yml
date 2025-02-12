@@ -72,12 +72,7 @@ jobs:
     name: python
     needs:
       - prepare
-    if: |
-      !cancelled() &&
-      (
-       (github.event_name != 'pull_request' && success()) ||
-       (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'python'))
-      )
+    if: ${{ github.event_name != 'pull_request' || (!cancelled() && contains(needs.prepare.outputs.pr-labels, 'python')) }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'python'
@@ -93,12 +88,7 @@ jobs:
     needs:
       - prepare
       - python
-    if: |
-      !cancelled() &&
-      (
-       (github.event_name != 'pull_request' && success()) ||
-       (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'cann'))
-      )
+    if: ${{ github.event_name != 'pull_request' || (!cancelled() && contains(needs.prepare.outputs.pr-labels, 'cann')) }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'cann'
@@ -110,12 +100,7 @@ jobs:
     needs:
       - prepare
       - cann
-    if: |
-      !cancelled() &&
-      (
-       (github.event_name != 'pull_request' && success()) ||
-       (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'pytorch'))
-      )
+    if: ${{ github.event_name != 'pull_request' || (!cancelled() && contains(needs.prepare.outputs.pr-labels, 'pytorch')) }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'pytorch'
@@ -127,12 +112,7 @@ jobs:
     needs:
       - prepare
       - cann
-    if: |
-      !cancelled() &&
-      (
-        (github.event_name != 'pull_request' && success()) ||
-        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'mindspore'))
-      )
+    if: ${{ github.event_name != 'pull_request' || (!cancelled() && contains(needs.prepare.outputs.pr-labels, 'mindspore')) }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'mindspore'
