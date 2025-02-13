@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'releases/**'
     paths:
       - '.github/actions/clean-up/action.yml'
       - '.github/actions/docker-login/action.yml'
@@ -20,6 +21,7 @@ on:
   pull_request:
     branches:
       - 'main'
+      - 'releases/**'
     types:
       - 'synchronize'
       - 'labeled'
