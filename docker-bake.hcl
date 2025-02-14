@@ -64,7 +64,7 @@ target "pytorch" {
   context = "pytorch"
   dockerfile = "Dockerfile"
   matrix = {
-    item = pytorch
+    item = []
   }
   args = {
     BASE_VERSION = "${item.cann_tag}"
@@ -79,7 +79,7 @@ target "mindspore" {
   context = "mindspore"
   dockerfile = "Dockerfile"
   matrix = {
-    item = mindspore
+    item = []
   }
   args = {
     BASE_VERSION = "${item.cann_tag}"
