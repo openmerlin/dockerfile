@@ -45,7 +45,7 @@ target "cann" {
 
 target "python" {
   inherits = ["base-target"]
-  name = replace("python-${item.tags[0]}", ".", "_")
+  name = replace("python-${item?.tags[0]}", ".", "_")
   context = "python"
   dockerfile = "${item.os_name}.Dockerfile"
   matrix = {
