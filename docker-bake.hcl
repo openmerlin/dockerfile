@@ -48,7 +48,9 @@ target "python" {
   name = replace("python-${item.tags[0]}", ".", "_")
   context = "python"
   dockerfile = "${item.os_name}.Dockerfile"
-  matrix = length(python) > 0 ? { item = python } : {}
+  matrix = {
+    item = []
+  }
   args = {
     BASE_VERSION = "${item.os_version}"
     PY_VERSION = "${item.py_version}"
