@@ -37,14 +37,5 @@
         "openeuler-python3.10-cann8.0.0.beta1"
       ]
     }
-  ],
-  "python": [
-    {}
-  ],
-  "pytorch": [
-    {}
-  ],
-  "mindspore": [
-    {}
   ]
 }
