@@ -49,7 +49,7 @@ target "python" {
   context = "python"
   dockerfile = "${item.os_name}.Dockerfile"
   matrix = {
-    item = []
+    item = python
   }
   args = {
     BASE_VERSION = "${item.os_version}"
@@ -64,7 +64,7 @@ target "pytorch" {
   context = "pytorch"
   dockerfile = "Dockerfile"
   matrix = {
-    item = []
+    item = pytorch
   }
   args = {
     BASE_VERSION = "${item.cann_tag}"
@@ -79,7 +79,7 @@ target "mindspore" {
   context = "mindspore"
   dockerfile = "Dockerfile"
   matrix = {
-    item = []
+    item = mindspore
   }
   args = {
     BASE_VERSION = "${item.cann_tag}"
