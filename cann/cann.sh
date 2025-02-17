@@ -64,15 +64,21 @@ download_cann() {
     fi
 
     # Download cann-toolkit
-    if [ ! -f "${TOOLKIT_PATH}" ]; then
+    if [[ ! -f "${TOOLKIT_PATH}" ]]; then
         local toolkit_url="${url_prefix}/${TOOLKIT_FILE}"
         _download_file "${toolkit_url}" "${TOOLKIT_PATH}"
     fi
 
     # Download cann-kernels
-    if [ ! -f "${KERNELS_PATH}" ]; then
+    if [[ ! -f "${KERNELS_PATH}" ]]; then
         local kernels_url="${url_prefix}/${KERNELS_FILE}"
         _download_file "${kernels_url}" "${KERNELS_PATH}"
+    fi
+
+    # Download cann-kernels
+    if [[ ${CANN_VERSION} == "8.0.0" ]]; then
+        local nnal_url="${url_prefix}/${NNAL_FILE}"
+        _download_file "${nnal_url}" "${NNAL_PATH}"
     fi
 
     _info "CANN ${CANN_VERSION} download successful."
@@ -120,6 +126,14 @@ install_cann() {
     bash "${KERNELS_PATH}" --quiet --install --install-for-all --install-path="${CANN_HOME}"
     rm -f "${KERNELS_PATH}"
 
+    # Install CANN NNAL
+    if [[ ${CANN_VERSION} == "8.0.0" ]]; then
+        _info "Installing ${NNAL_PATH}"
+        chmod +x "${NNAL_PATH}"
+        bash "${NNAL_PATH}" --quiet --install --install-for-all --install-path="${CANN_HOME}"
+        rm -f "${NNAL_PATH}"
+    fi
+
     _info "CANN ${CANN_VERSION} installation successful."
 }
 
@@ -138,8 +152,10 @@ fi
 
 TOOLKIT_FILE="Ascend-cann-toolkit_${CANN_VERSION}_linux-${ARCH}.run"
 KERNELS_FILE="Ascend-cann-kernels-${CANN_CHIP}_${CANN_VERSION}_${KERNELS_ARCH}.run"
+NNAL_FILE="Ascend-cann-nnal_${CANN_VERSION}_linux-${ARCH}.run"
 TOOLKIT_PATH="/tmp/${TOOLKIT_FILE}"
 KERNELS_PATH="/tmp/${KERNELS_FILE}"
+NNAL_PATH="/tmp/${NNAL_FILE}"
 
 # Parse arguments
 if [ "$1" == "--download" ]; then
