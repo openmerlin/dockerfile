@@ -80,7 +80,6 @@ jobs:
 
       - name: Print logs
         run: |
-          set -x
           echo ${{ steps.list-labels.outputs.labels }}
           echo ${{ steps.list-targets.outputs.targets }}
 
