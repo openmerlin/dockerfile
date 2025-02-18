@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+# set -e
 
 # bash fonts colors
 cyan='\e[96m'
