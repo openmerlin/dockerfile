@@ -77,14 +77,14 @@ jobs:
         run: |
           targets=$(jq -r 'keys | join(",")' arg.json)
           echo "targets=${targets}" >> $GITHUB_OUTPUT
-          echo "targets=${targets}"
+          echo "targets: ${targets}"
 
   python:
     name: python
     needs:
       - prepare
     if: |
-      !cancelled() && contains(fromJSON(needs.prepare.outputs.targets), 'python') &&
+      !cancelled() && contains(fromJson(needs.prepare.outputs.targets), 'python') &&
       (
        (github.event_name != 'pull_request' && success()) ||
        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'python'))
@@ -105,7 +105,7 @@ jobs:
       - prepare
       - python
     if: |
-      !cancelled() && contains(fromJSON(needs.prepare.outputs.targets), 'cann') &&
+      !cancelled() && contains(fromJson(needs.prepare.outputs.targets), 'cann') &&
       (
        (github.event_name != 'pull_request' && success()) ||
        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'cann'))
@@ -122,7 +122,7 @@ jobs:
       - prepare
       - cann
     if: |
-      !cancelled() && contains(fromJSON(needs.prepare.outputs.targets), 'pytorch') &&
+      !cancelled() && contains(fromJson(needs.prepare.outputs.targets), 'pytorch') &&
       (
        (github.event_name != 'pull_request' && success()) ||
        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'pytorch'))
@@ -139,7 +139,7 @@ jobs:
       - prepare
       - cann
     if: |
-      !cancelled() && contains(fromJSON(needs.prepare.outputs.targets), 'mindspore') &&
+      !cancelled() && contains(fromJson(needs.prepare.outputs.targets), 'mindspore') &&
       (
         (github.event_name != 'pull_request' && success()) ||
         (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'mindspore'))
