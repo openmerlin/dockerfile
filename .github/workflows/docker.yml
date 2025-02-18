@@ -78,19 +78,6 @@ jobs:
           targets=$(jq -r 'keys | join(",")' arg.json)
           echo "targets=${targets}" >> $GITHUB_OUTPUT
 
-      - name: Print logs
-        run: |
-          echo ${{ steps.list-labels.outputs.labels }}
-          echo ${{ steps.list-targets.outputs.targets }}
-
-          echo ${{ fromJson(steps.list-labels.outputs.labels) }}
-          echo ${{ fromJson(steps.list-targets.outputs.targets) }}
-
-          echo ${{ contains(fromJson(steps.list-labels.outputs.labels), 'mindspore') }}
-          echo ${{ contains(fromJson(steps.list-targets.outputs.targets), 'mindspore') }}
-
-          exit 1
-
   python:
     name: python
     needs:
