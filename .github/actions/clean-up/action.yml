@@ -20,13 +20,14 @@ runs:
         docker system prune -a -f
         echo "::endgroup::"
 
+    # TODO: Skip
     - name: Uninstall Homebrew
       shell: bash
       run: |
         echo "::group::Uninstall Homebrew"
         curl -fsSL -O https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh
         chmod +x uninstall.sh
-        ./uninstall.sh --force
+        # ./uninstall.sh --force
         echo "::endgroup::"
 
     - name: Uninstall Rust
