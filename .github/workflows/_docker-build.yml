@@ -65,7 +65,7 @@ permissions:
 
 jobs:
   prepare:
-    name: 'prepare'
+    name: prepare
     runs-on: ubuntu-latest
     outputs:
       targets: ${{ steps.list-target.outputs.targets }}
@@ -83,7 +83,7 @@ jobs:
             docker-bake.hcl
 
   docker:
-    name: 'docker'
+    name: build ${{ matrix.target }}
     runs-on: ubuntu-24.04-arm # TODO: Use ubuntu-latest
     needs:
       - prepare

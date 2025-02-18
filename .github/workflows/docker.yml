@@ -58,6 +58,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       pr-labels: ${{ steps.list-labels.outputs.labels }}
+      targets: ${{ steps.list-targets.outputs.targets }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -70,12 +71,19 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
 
+      # Lists all targets defined in arg.json
+      - name: List targets
+        id: list-targets
+        run: |
+          targets=$(jq -r 'keys[]' arg.json)
+          echo "targets=${targets}" >> $GITHUB_OUTPUT
+
   python:
     name: python
     needs:
       - prepare
     if: |
-      !cancelled() &&
+      !cancelled() && contains(needs.prepare.outputs.targets, 'python') &&
       (
        (github.event_name != 'pull_request' && success()) ||
        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'python'))
@@ -96,7 +104,7 @@ jobs:
       - prepare
       - python
     if: |
-      !cancelled() &&
+      !cancelled() && contains(needs.prepare.outputs.targets, 'cann') &&
       (
        (github.event_name != 'pull_request' && success()) ||
        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'cann'))
@@ -113,7 +121,7 @@ jobs:
       - prepare
       - cann
     if: |
-      !cancelled() &&
+      !cancelled() && contains(needs.prepare.outputs.targets, 'pytorch') &&
       (
        (github.event_name != 'pull_request' && success()) ||
        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'pytorch'))
@@ -130,7 +138,7 @@ jobs:
       - prepare
       - cann
     if: |
-      !cancelled() &&
+      !cancelled() && contains(needs.prepare.outputs.targets, 'mindspore') &&
       (
         (github.event_name != 'pull_request' && success()) ||
         (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'mindspore'))

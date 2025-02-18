@@ -1,11 +1,23 @@
-variable "registries" {
-  default = registry
+variable "registry" {
+  default = []
+}
+variable "cann" {
+  default = []
+}
+variable "python" {
+  default = []
+}
+variable "pytorch" {
+  default = []
+}
+variable "mindspore" {
+  default = []
 }
 
 function "generate_tags" {
   params = [repo, tags]
   result = flatten([
-    for reg in registries : [
+    for reg in registry : [
       for tag in tags : [
         "${reg.url}/${reg.owner}/${repo}:${tag}"
       ]
