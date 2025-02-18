@@ -145,9 +145,9 @@
       "os_version": "22.04",
       "py_version": "3.10",
       "tags": [
-        "8.0.0.beta1-910b-ubuntu22.04-py3.10",
+        "8.0.0-910b-ubuntu22.04-py3.10",
         "latest",
-        "ubuntu-python3.10-cann8.0.0.beta1"
+        "ubuntu-python3.10-cann8.0.0"
       ]
     },
     {
@@ -157,8 +157,8 @@
       "os_version": "22.03",
       "py_version": "3.10",
       "tags": [
-        "8.0.0.beta1-910b-openeuler22.03-py3.10",
-        "openeuler-python3.10-cann8.0.0.beta1"
+        "8.0.0-910b-openeuler22.03-py3.10",
+        "openeuler-python3.10-cann8.0.0"
       ]
     }
   ],
