@@ -58,7 +58,7 @@ runs:
             google-cloud-cli \
             libgl1-mesa-dri \
             snapd \
-            cargo
+            cargo || true
         sudo apt-get autoremove --purge -y
         sudo apt-get clean
         sudo apt list --installed
