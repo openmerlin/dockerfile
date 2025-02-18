@@ -142,6 +142,15 @@ install_cann() {
         _info "Installing ${NNAL_PATH}"
         chmod +x "${NNAL_PATH}"
         bash "${NNAL_PATH}" --quiet --install --install-for-all --install-path="${CANN_HOME}"
+        status=$?
+        # Print error logs
+        if [ $status -ne 0 ]; then
+            local err_log_path="/var/log/ascend_seclog/ascend_nnal_install.log"
+            _warn "Failed to install ${NNAL_PATH}, check out the following logs for more details:"
+            echo "${err_log_path}:"
+            cat ${err_log_path}
+            exit ${status}
+        fi
         rm -f "${NNAL_PATH}"
     fi
 
