@@ -98,7 +98,7 @@ jobs:
 
       - name: Clean up
         if: ${{ inputs.clean-up }}
-        continue-on-error: true
+        continue-on-error: ${{ inputs.push }}
         uses: ./.github/actions/clean-up
 
       - name: Set up QEMU
