@@ -20,13 +20,14 @@ runs:
         docker system prune -a -f
         echo "::endgroup::"
 
+    # TODO: Skip
     - name: Uninstall Homebrew
       shell: bash
       run: |
         echo "::group::Uninstall Homebrew"
         curl -fsSL -O https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh
         chmod +x uninstall.sh
-        ./uninstall.sh --force
+        # ./uninstall.sh --force
         echo "::endgroup::"
 
     - name: Uninstall Rust
@@ -40,7 +41,7 @@ runs:
       shell: bash
       run: |
         echo "::group::Run apt-get remove"
-        sudo apt-get remove -y --fix-missing \
+        sudo apt-get remove -y --fix-missing --purge --auto-remove \
             'php.*' \
             '^aspnetcore-.*' \
             '^dotnet-.*' \
@@ -57,10 +58,9 @@ runs:
             google-cloud-cli \
             libgl1-mesa-dri \
             snapd \
-            cargo
+            cargo || true
         sudo apt-get autoremove --purge -y
         sudo apt-get clean
-        sudo apt list --installed
         echo "::endgroup::"
 
     - name: Remove files

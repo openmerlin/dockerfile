@@ -66,6 +66,6 @@ docker build \
     --build-arg BASE_VERSION=22.04 \
     --build-arg PY_VERSION=3.10 \
     --build-arg CANN_CHIP=910b \
-    --build-arg CANN_VERSION=8.0.RC1 \
+    --build-arg CANN_VERSION=8.0.0 \
     cann/
 ```
