@@ -64,13 +64,13 @@ download_cann() {
     fi
 
     # Download cann-toolkit
-    if [[ ! -f "${TOOLKIT_PATH}" ]]; then
+    if [ ! -f "${TOOLKIT_PATH}" ]; then
         local toolkit_url="${url_prefix}/${TOOLKIT_FILE}"
         _download_file "${toolkit_url}" "${TOOLKIT_PATH}"
     fi
 
     # Download cann-kernels
-    if [[ ! -f "${KERNELS_PATH}" ]]; then
+    if [ ! -f "${KERNELS_PATH}" ]; then
         local kernels_url="${url_prefix}/${KERNELS_FILE}"
         _download_file "${kernels_url}" "${KERNELS_PATH}"
     fi
@@ -94,7 +94,18 @@ set_env() {
         echo "export ${driver_path_env}" >> ~/.bashrc
         echo "source ${cann_toolkit_env_file}" >> /etc/profile
         echo "source ${cann_toolkit_env_file}" >> ~/.bashrc
-        source ${cann_toolkit_env_file}
+        if [ -n "$PS1" ]; then
+            source ${cann_toolkit_env_file}
+        fi
+
+        local cann_nnal_env_file="${CANN_HOME}/nnal/atb/set_env.sh"
+        if [ -f "${cann_nnal_env_file}" ]; then
+            echo "source ${cann_nnal_env_file}" >> /etc/profile
+            echo "source ${cann_nnal_env_file}" >> ~/.bashrc
+            if [ -n "$PS1" ]; then
+                source ${cann_nnal_env_file}
+            fi
+        fi
     fi
 }
 

@@ -78,6 +78,17 @@ RUN \
     echo "export ${DRIVER_LIBRARY_PATH}" >> /etc/profile && \
     echo "export ${DRIVER_LIBRARY_PATH}" >> ~/.bashrc && \
     echo "source ${CANN_TOOLKIT_ENV_FILE}" >> /etc/profile && \
-    echo "source ${CANN_TOOLKIT_ENV_FILE}" >> ~/.bashrc
+    echo "source ${CANN_TOOLKIT_ENV_FILE}" >> ~/.bashrc && \
+    echo "source ${CANN_TOOLKIT_ENV_FILE}" >> ~/.bashrc && \
+    CANN_NNAL_ENV_FILE="/usr/local/Ascend/nnal/atb/set_env.sh" && \
+    if [ -f "${CANN_NNAL_ENV_FILE}" ]; then \
+        echo "source ${CANN_NNAL_ENV_FILE}" >> /etc/profile && \
+        echo "source ${CANN_NNAL_ENV_FILE}" >> ~/.bashrc; \
+    fi
 
-ENTRYPOINT [ "/bin/bash", "-c", "source /usr/local/Ascend/ascend-toolkit/set_env.sh && exec \"$@\"", "--" ]
+ENTRYPOINT ["/bin/bash", "-c", "\
+  source /usr/local/Ascend/ascend-toolkit/set_env.sh && \
+  if [ -f /usr/local/Ascend/nnal/atb/set_env.sh ]; then \
+    source /usr/local/Ascend/nnal/atb/set_env.sh; \
+  fi && \
+  exec \"$@\"", "--"]

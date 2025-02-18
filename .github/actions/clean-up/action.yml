@@ -61,7 +61,6 @@ runs:
             cargo || true
         sudo apt-get autoremove --purge -y
         sudo apt-get clean
-        sudo apt list --installed
         echo "::endgroup::"
 
     - name: Remove files
