@@ -41,7 +41,7 @@ runs:
       shell: bash
       run: |
         echo "::group::Run apt-get remove"
-        sudo apt-get remove -y --fix-missing \
+        sudo apt-get remove -y --fix-missing --purge --auto-remove \
             'php.*' \
             '^aspnetcore-.*' \
             '^dotnet-.*' \
