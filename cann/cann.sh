@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# set -e
+set -e
 
 # bash fonts colors
 cyan='\e[96m'
@@ -140,12 +140,6 @@ install_cann() {
             echo "source ${cann_nnal_env_file}" >> ~/.bashrc
             source ${cann_nnal_env_file}
         fi
-
-        # Print error logs
-        local err_log_path="/var/log/ascend_seclog/ascend_nnal_install.log"
-        _warn "Failed to install ${NNAL_PATH}, check out the following logs for more details:"
-        echo "${err_log_path}:"
-        cat ${err_log_path}
     fi
 
     _info "CANN ${CANN_VERSION} installation successful."
