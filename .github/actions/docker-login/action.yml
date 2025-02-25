@@ -32,6 +32,16 @@ inputs:
     description: "Server address of Huawei Cloud registry"
     required: false
     default: "swr.cn-southwest-2.myhuaweicloud.com"
+  ascendhub-username:
+    description: "Username of the AscendHub registry"
+    required: false
+  ascendhub-token:
+    description: "Token of the AscendHub registry"
+    required: false
+  ascendhub-registry:
+    description: "Server address of AscendHub registry"
+    required: false
+    default: "swr.cn-east-3.myhuaweicloud.com"
 
 runs:
   using: composite
@@ -67,3 +77,12 @@ runs:
         registry: ${{ inputs.hw-registry }}
         username: ${{ inputs.hw-username }}
         password: ${{ inputs.hw-token }}
+    
+    - name: Login to AscendHub
+      if: ${{ inputs.ascendhub-username && inputs.ascendhub-token && inputs.ascendhub-registry }}
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ inputs.ascendhub-registry }}
+        username: ${{ inputs.ascendhub-username }}
+        password: ${{ inputs.ascendhub-token }}
+
