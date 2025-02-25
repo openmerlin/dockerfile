@@ -83,13 +83,13 @@ jobs:
     name: python
     needs:
       - prepare
-    if: ${{
-      !cancelled() && contains(fromJSON(needs.prepare.outputs.targets), 'python') &&
+    if: |
+      !cancelled() &&
+      contains(fromJSON(needs.prepare.outputs.targets), 'python') &&
       (
        (github.event_name != 'pull_request' && success()) ||
        (github.event_name == 'pull_request' && contains(fromJSON(needs.prepare.outputs.pr-labels), 'python'))
       )
-      }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'python'
@@ -105,13 +105,13 @@ jobs:
     needs:
       - prepare
       - python
-    if: ${{
-      !cancelled() && contains(fromJSON(needs.prepare.outputs.targets), 'cann') &&
+    if: |
+      !cancelled() &&
+      contains(fromJSON(needs.prepare.outputs.targets), 'cann') &&
       (
        (github.event_name != 'pull_request' && success()) ||
        (github.event_name == 'pull_request' && contains(fromJSON(needs.prepare.outputs.pr-labels), 'cann'))
       )
-      }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'cann'
@@ -123,13 +123,13 @@ jobs:
     needs:
       - prepare
       - cann
-    if: ${{
-      !cancelled() && contains(fromJSON(needs.prepare.outputs.targets), 'pytorch') &&
+    if: |
+      !cancelled() &&
+      contains(fromJSON(needs.prepare.outputs.targets), 'pytorch') &&
       (
        (github.event_name != 'pull_request' && success()) ||
        (github.event_name == 'pull_request' && contains(fromJSON(needs.prepare.outputs.pr-labels), 'pytorch'))
       )
-      }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'pytorch'
@@ -141,13 +141,13 @@ jobs:
     needs:
       - prepare
       - cann
-    if: ${{
-      !cancelled() && contains(fromJSON(needs.prepare.outputs.targets), 'mindspore') &&
+    if: |
+      !cancelled() &&
+      contains(fromJSON(needs.prepare.outputs.targets), 'mindspore') &&
       (
        (github.event_name != 'pull_request' && success()) ||
        (github.event_name == 'pull_request' && contains(fromJSON(needs.prepare.outputs.pr-labels), 'mindspore'))
       )
-      }}
     uses: ./.github/workflows/_docker-build.yml
     with:
       target: 'mindspore'
