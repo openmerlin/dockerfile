@@ -31,6 +31,11 @@ on:
         required: false
         type: string
         default: "swr.cn-southwest-2.myhuaweicloud.com"
+      ascendhub-registry:
+        description: "Server address of AscendHub registry"
+        required: false
+        type: string 
+        default: "swr.cn-east-3.myhuaweicloud.com"
     secrets:
       DOCKERHUB_OWNER:
         description: "Owner of the DockerHub registry"
@@ -59,6 +64,15 @@ on:
       HW_TOKEN:
         description: "Token of the Huawei Cloud registry"
         required: false
+      ASCENDHUB_OWNER:
+        description: "Owner of the AscendHub registry"
+        required: false
+      ASCENDHUB_USERNAME:
+        description: "Username of the AscendHub registry"
+        required: false
+      ASCENDHUB_PASSWORD:
+      description: "password of the AscendHub registry"
+      required: false
 
 permissions:
   contents: read

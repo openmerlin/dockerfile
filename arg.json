@@ -11,6 +11,10 @@
     {
       "url": "swr.cn-southwest-2.myhuaweicloud.com",
       "owner": "base_image"
+    },
+    {
+      "url": "swr.cn-east-3.myhuaweicloud.com",
+      "owner": "test-ascendhub"
     }
   ],
   "cann": [
@@ -264,41 +268,6 @@
       "os_version": "22.03",
       "tags": [
         "3.13-openeuler22.03"
-      ]
-    }
-  ],
-  "pytorch": [
-    {
-      "pytorch_version": "2.1.0",
-      "cann_tag": "8.0.rc1-910b-ubuntu22.04-py3.8",
-      "tags": [
-        "2.1.0",
-        "ubuntu-python3.8-cann8.0.rc1-pytorch2.1.0"
-      ]
-    },
-    {
-      "pytorch_version": "2.2.0",
-      "cann_tag": "8.0.rc1-910b-ubuntu22.04-py3.8",
-      "tags": [
-        "2.2.0",
-        "ubuntu-python3.8-cann8.0.rc1-pytorch2.2.0"
-      ]
-    }
-  ],
-  "mindspore": [
-    {
-      "mindspore_version": "2.4.0",
-      "cann_tag": "8.0.rc3-910b-ubuntu22.04-py3.10",
-      "tags": [
-        "2.4.0",
-        "ubuntu-python3.10-cann8.0.rc3-mindspore2.4.0"
-      ]
-    },
-    {
-      "mindspore_version": "2.4.0",
-      "cann_tag": "8.0.rc3-910b-openeuler22.03-py3.10",
-      "tags": [
-        "openeuler-python3.10-cann8.0.rc3-mindspore2.4.0"
       ]
     }
   ]
