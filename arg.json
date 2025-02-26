@@ -284,5 +284,6 @@
         "ubuntu-python3.8-cann8.0.rc1-pytorch2.2.0"
       ]
     }
-  ]
+  ],
+  "mindspore": []
 }

@@ -75,7 +75,7 @@ jobs:
       - name: List targets
         id: list-targets
         run: |
-          targets=$(jq -r 'keys | join(",")' arg.json)
+          targets=$(jq -r 'to_entries | map(select(.value != [])) | map(.key) | join(",")' arg.json)
           echo "targets=${targets}" >> $GITHUB_OUTPUT
           echo "targets: ${targets}"
 
