@@ -58,9 +58,21 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       pr-labels: ${{ steps.list-labels.outputs.labels }}
+      targets: ${{ steps.list-targets.outputs.targets }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      # The release branch should follow the 'releases/**' format
+      - name: Check release branch name
+        if: ${{ github.event_name == 'release' }}
+        run: |
+          branch_name=$(echo "${{ github.ref }}" | sed 's/refs\/heads\///')
+
+          if [[ ! "$branch_name" =~ ^releases\/.* ]]; then
+            echo "::error::The release branch name '$branch_name' is not in the 'releases/**' format."
+            exit 1
+          fi
 
       # Lists all labels for your pull request
       - name: List labels
@@ -70,12 +82,21 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
 
+      # Lists all targets defined in arg.json
+      - name: List targets
+        id: list-targets
+        run: |
+          targets=$(jq -r 'to_entries | map(select(.value != [])) | map(.key) | join(",")' arg.json)
+          echo "targets=${targets}" >> $GITHUB_OUTPUT
+          echo "targets: ${targets}"
+
   python:
     name: python
     needs:
       - prepare
     if: |
       !cancelled() &&
+      contains(needs.prepare.outputs.targets, 'python') &&
       (
        (github.event_name != 'pull_request' && success()) ||
        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'python'))
@@ -97,6 +118,7 @@ jobs:
       - python
     if: |
       !cancelled() &&
+      contains(needs.prepare.outputs.targets, 'cann') &&
       (
        (github.event_name != 'pull_request' && success()) ||
        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'cann'))
@@ -114,6 +136,7 @@ jobs:
       - cann
     if: |
       !cancelled() &&
+      contains(needs.prepare.outputs.targets, 'pytorch') &&
       (
        (github.event_name != 'pull_request' && success()) ||
        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'pytorch'))
@@ -131,9 +154,10 @@ jobs:
       - cann
     if: |
       !cancelled() &&
+      contains(needs.prepare.outputs.targets, 'mindspore') &&
       (
-        (github.event_name != 'pull_request' && success()) ||
-        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'mindspore'))
+       (github.event_name != 'pull_request' && success()) ||
+       (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'mindspore'))
       )
     uses: ./.github/workflows/_docker-build.yml
     with:
