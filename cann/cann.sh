@@ -94,7 +94,18 @@ set_env() {
         echo "export ${driver_path_env}" >> ~/.bashrc
         echo "source ${cann_toolkit_env_file}" >> /etc/profile
         echo "source ${cann_toolkit_env_file}" >> ~/.bashrc
-        source ${cann_toolkit_env_file}
+        if [ -n "$PS1" ]; then
+            source ${cann_toolkit_env_file}
+        fi
+
+        local cann_nnal_env_file="${CANN_HOME}/nnal/atb/set_env.sh"
+        if [ -f "${cann_nnal_env_file}" ]; then
+            echo "source ${cann_nnal_env_file}" >> /etc/profile
+            echo "source ${cann_nnal_env_file}" >> ~/.bashrc
+            if [ -n "$PS1" ]; then
+                source ${cann_nnal_env_file}
+            fi
+        fi
     fi
 }
 
@@ -132,14 +143,6 @@ install_cann() {
         chmod +x "${NNAL_PATH}"
         bash "${NNAL_PATH}" --quiet --install --install-for-all --install-path="${CANN_HOME}"
         rm -f "${NNAL_PATH}"
-
-        # Set environment variables
-        local cann_nnal_env_file="${CANN_HOME}/nnal/atb/set_env.sh"
-        if [ -f "${cann_nnal_env_file}" ]; then
-            echo "source ${cann_nnal_env_file}" >> /etc/profile
-            echo "source ${cann_nnal_env_file}" >> ~/.bashrc
-            source ${cann_nnal_env_file}
-        fi
     fi
 
     _info "CANN ${CANN_VERSION} installation successful."
