@@ -85,10 +85,10 @@ jobs:
       - prepare
     if: |
       !cancelled() &&
-      contains(fromJSON(needs.prepare.outputs.targets), 'python') &&
+      contains(needs.prepare.outputs.targets, 'python') &&
       (
        (github.event_name != 'pull_request' && success()) ||
-       (github.event_name == 'pull_request' && contains(fromJSON(needs.prepare.outputs.pr-labels), 'python'))
+       (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'python'))
       )
     uses: ./.github/workflows/_docker-build.yml
     with:
