@@ -11,6 +11,10 @@
     {
       "url": "swr.cn-southwest-2.myhuaweicloud.com",
       "owner": "base_image"
+    },
+    {
+      "url": "swr.cn-east-3.myhuaweicloud.com",
+      "owner": "test-ascendhub"
     }
   ],
   "cann": [
