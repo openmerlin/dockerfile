@@ -132,6 +132,9 @@ jobs:
           hw-username: ${{ secrets.HW_USERNAME }}
           hw-token: ${{ secrets.HW_TOKEN }}
           hw-registry: ${{ inputs.hw-registry }}
+          ascendhub-username: ${{ secrets.ASCENDHUB_USERNAME }}
+          ascendhub-token: ${{ secrets.ASCENDHUB_TOKEN }}
+          ascendhub-registry: ${{ inputs.ascendhub-registry }}
 
       - name: Extract metadata for Docker
         id: metadata
