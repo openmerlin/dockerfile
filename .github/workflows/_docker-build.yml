@@ -83,6 +83,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       targets: ${{ steps.list-target.outputs.targets }}
+      echo "targets=${targets}"
       registry_urls: ${{steps.read-arg.outputs.registry_urls}}
       cann_first_tag: ${{steps.read-arg.outputs.cann_first_tag}}
       python_tags: ${{steps.read-arg.outputs.python_tags}}
@@ -103,6 +104,9 @@ jobs:
             arg.json
             docker-bake.hcl
 
+      - name: Print targets
+        run: echo "Targets: ${{ steps.list-target.outputs.targets }}"
+
       - name: Read and parse arg.json
         id: read-arg
         run: |
@@ -119,6 +123,14 @@ jobs:
           echo "cann_tags=${cann_tags}" >> $GITHUB_ENV
           echo "pytorch_tags=${pytorch_tags}" >> $GITHUB_ENV
           echo "mindspore_tags=${mindspore_tags}" >> $GITHUB_ENV
+
+      - name: Print arg
+        run: echo "registry_urls: ${{ steps.read-arg.outputs.registry_urls }}"
+        run: echo "cann_first_tag: ${{ steps.read-arg.outputs.cann_first_tag }}"
+        run: echo "python_tags: ${{ steps.read-arg.outputs.python_tags }}"
+        run: echo "cann_tags: ${{ steps.read-arg.outputs.cann_tags }}"
+        run: echo "pytorch_tags: ${{ steps.read-arg.outputs.pytorch_tags }}"
+        run: echo "mindspore_tags: ${{ steps.read-arg.outputs.mindspore_tags }}"
 
   docker:
     name: build ${{ matrix.target }}
