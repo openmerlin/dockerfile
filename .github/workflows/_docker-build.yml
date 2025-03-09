@@ -104,8 +104,8 @@ jobs:
       - name: Read and parse arg.json
         id: read-arg
         run: |
-          asendhub_registry_url = $(jq -r '.registry[] | select(has("allowed_tags") | not) | .url' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
-          other_registry_urls = $(jq -r '.registry[] | select(has("allowed_tags")) | .url' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          asendhub_registry_url=$(jq -r '.registry[] | select(has("allowed_tags") | not) | .url' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          other_registry_urls=$(jq -r '.registry[] | select(has("allowed_tags")) | .url' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
           allowed_tags=$(jq -r '.registry[] | select(.url == "swr.cn-east-3.myhuaweicloud.com") | .allowed_tags[]?' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
           
           echo "asendhub_registry_url=${asendhub_registry_url}" >> $GITHUB_OUTPUT
