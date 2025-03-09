@@ -106,12 +106,12 @@ jobs:
       - name: Read and parse arg.json
         id: read-arg
         run: |
-          registry_urls=$(jq -r '.registry[]?.url // empty' arg.json)
-          cann_first_tag=$(jq -r '.cann[0]?.tags[0] // empty' arg.json)
-          python_tags=$(jq -r '.python[]?.tags[]? // empty' arg.json)
-          cann_tags=$(jq -r '.cann[]?.tags[]? // empty' arg.json)
-          pytorch_tags=$(jq -r '.pytorch[]?.tags[]? // empty' arg.json)
-          mindspore_tags=$(jq -r '.mindspore[]?.tags[]? // empty' arg.json)
+          registry_urls=$(jq -r '.registry[]?.url // empty' arg.json | tr '\n' ',' | sed 's/,$//')
+          cann_first_tag=$(jq -r '.cann[0]?.tags[0] // empty' arg.json | tr '\n' ',' | sed 's/,$//')
+          python_tags=$(jq -r '.python[]?.tags[]? // empty' arg.json | tr '\n' ',' | sed 's/,$//')
+          cann_tags=$(jq -r '.cann[]?.tags[]? // empty' arg.json | tr '\n' ',' | sed 's/,$//')
+          pytorch_tags=$(jq -r '.pytorch[]?.tags[]? // empty' arg.json | tr '\n' ',' | sed 's/,$//')
+          mindspore_tags=$(jq -r '.mindspore[]?.tags[]? // empty' arg.json | tr '\n' ',' | sed 's/,$//')
 
           echo "registry_urls=${registry_urls}" >> $GITHUB_ENV
           echo "cann_first_tag=${cann_first_tag}" >> $GITHUB_ENV
