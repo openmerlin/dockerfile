@@ -106,18 +106,19 @@ jobs:
       - name: Read and parse arg.json
         id: read-arg
         run: |
-          registry_urls=$(jq -r '.registry[].url' arg.json)
-          cann_first_tag=$(jq -r '.cann[0].tags[0]' arg.json)
-          python_tags=$(jq -r '.python[].tags[]' arg.json)
-          cann_tags=$(jq -r '.cann[].tags[]' arg.json)
-          pytorch_tags=$(jq -r '.pytorch[].tags[]' arg.json)
-          mindspore_tags=$(jq -r '.mindspore[].tags[]' arg.json)
+          registry_urls=$(jq -r '.registry[]?.url // empty' arg.json)
+          cann_first_tag=$(jq -r '.cann[0]?.tags[0] // empty' arg.json)
+          python_tags=$(jq -r '.python[]?.tags[]? // empty' arg.json)
+          cann_tags=$(jq -r '.cann[]?.tags[]? // empty' arg.json)
+          pytorch_tags=$(jq -r '.pytorch[]?.tags[]? // empty' arg.json)
+          mindspore_tags=$(jq -r '.mindspore[]?.tags[]? // empty' arg.json)
+
           echo "registry_urls=${registry_urls}" >> $GITHUB_ENV
           echo "cann_first_tag=${cann_first_tag}" >> $GITHUB_ENV
-          echo "python_tag=${python_tag}" >> $GITHUB_ENV
-          echo "cann_tag=${cann_tag}" >> $GITHUB_ENV
-          echo "pytorch_tag=${pytorch_tag}" >> $GITHUB_ENV
-          echo "mindspore_tag=${mindspore_tag}" >> $GITHUB_ENV
+          echo "python_tags=${python_tags}" >> $GITHUB_ENV
+          echo "cann_tags=${cann_tags}" >> $GITHUB_ENV
+          echo "pytorch_tags=${pytorch_tags}" >> $GITHUB_ENV
+          echo "mindspore_tags=${mindspore_tags}" >> $GITHUB_ENV
 
   docker:
     name: build ${{ matrix.target }}
