@@ -106,7 +106,7 @@ jobs:
       - name: Read and parse arg.json
         id: read-arg
         run: |
-          registry_urls=$(jq -r '.registry[]?.url // empty' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))'）
+          registry_urls=$(jq -r '.registry[]?.url // empty' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
           cann_first_tag=$(jq -r '.cann[0]?.tags[0] // empty' arg.json)
           python_tags=$(jq -r '.python[]?.tags[]? // empty' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
           cann_tags=$(jq -r '.cann[]?.tags[]? // empty' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
