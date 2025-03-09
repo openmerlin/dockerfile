@@ -130,7 +130,7 @@ jobs:
       max-parallel: 10
       matrix:
         target: ${{ fromJson(needs.prepare.outputs.targets) }}
-        # registry_url: ${{ fromJson(needs.prepare.outputs.registry_urls) }}
+        registry_url: ${{ fromJson(needs.prepare.outputs.registry_urls) }}
         # cann_first_tag: ${{ fromJson(needs.prepare.outputs.cann_first_tag || '""') }}
         # python_tags: ${{ fromJson(needs.prepare.outputs.python_tags || '[]') }}
         # cann_tags: ${{ fromJson(needs.prepare.outputs.cann_tags || '[]') }}
