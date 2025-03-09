@@ -185,7 +185,7 @@ jobs:
           sbom: false
 
       - name: Push images to AscendHub
-        if: ${{ fromJson(steps.metadata.outputs.tags | split(',')) | any(. as $tag | contains(fromJson(needs.prepare.outputs.allowed_tags), $tag) }}
+        if: ${{ contains(fromJson(steps.metadata.outputs.tags), fromJson(needs.prepare.outputs.allowed_tags)) }}
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -194,7 +194,7 @@ jobs:
           registry: ${{ fromJson(needs.prepare.outputs.ascendhub_url) }}
 
       - name: Push images to other registries
-        if: ${{ inputs.push}}
+        if: ${{ inputs.push }}
         uses: docker/build-push-action@v4
         with:
           context: .
