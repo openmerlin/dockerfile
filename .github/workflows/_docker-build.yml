@@ -83,6 +83,13 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       targets: ${{ steps.list-target.outputs.targets }}
+      registry_urls: ${{steps.read-arg.outputs.registry_urls}}
+      cann_first_tag: ${{steps.read-arg.outputs.cann_first_tag}}
+      python_tags: ${{steps.read-arg.outputs.python_tags}}
+      cann_tags: ${{steps.read-arg.outputs.cann_tags}}
+      pytorch_tags: ${{steps.read-arg.outputs.pytorch_tags}}
+      mindspore_tags: ${{steps.read-arg.outputs.mindspore_tags}}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -96,6 +103,22 @@ jobs:
             arg.json
             docker-bake.hcl
 
+      - name: Read and parse arg.json
+        id: read-arg
+        run: |
+          registry_urls=$(jq -r '.registry[].url' arg.json)
+          cann_first_tag=$(jq -r '.cann[0].tags[0]' arg.json)
+          python_tags=$(jq -r '.python[].tags[]' arg.json)
+          cann_tags=$(jq -r '.cann[].tags[]' arg.json)
+          pytorch_tags=$(jq -r '.pytorch[].tags[]' arg.json)
+          mindspore_tags=$(jq -r '.mindspore[].tags[]' arg.json)
+          echo "registry_urls=${registry_urls}" >> $GITHUB_ENV
+          echo "cann_first_tag=${cann_first_tag}" >> $GITHUB_ENV
+          echo "python_tag=${python_tag}" >> $GITHUB_ENV
+          echo "cann_tag=${cann_tag}" >> $GITHUB_ENV
+          echo "pytorch_tag=${pytorch_tag}" >> $GITHUB_ENV
+          echo "mindspore_tag=${mindspore_tag}" >> $GITHUB_ENV
+
   docker:
     name: build ${{ matrix.target }}
     runs-on: ubuntu-24.04-arm # TODO: Use ubuntu-latest
@@ -105,7 +128,14 @@ jobs:
       fail-fast: false
       max-parallel: 10
       matrix:
-        target: ${{ fromJson(needs.prepare.outputs.targets) }}
+        target: ${{ fromJson(needs.prepare.outputs.targets) }}   
+        registry_url: ${{ fromJson(needs.prepare.outputs.registry_urls) }}
+        cann_first_tag: ${{ fromJson(needs.prepare.outputs.cann_first_tag) }}
+        python_tags: ${{ fromJson(needs.prepare.outputs.python_tags) }}
+        cann_tags: ${{ fromJson(needs.prepare.outputs.cann_tags) }}
+        pytorch_tags: ${{ fromJson(needs.prepare.outputs.pytorch_tags) }}
+        mindspore_tags: ${{ fromJson(needs.prepare.outputs.mindspore_tags) }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -142,7 +172,7 @@ jobs:
         with:
           bake-target: "docker-metadata-action"
 
-      - name: Build and push Docker image
+      - name: Build Docker image
         id: bake
         uses: docker/bake-action@v6
         with:
@@ -153,11 +183,31 @@ jobs:
             ${{ steps.metadata.outputs.bake-file-labels }}
             ${{ steps.metadata.outputs.bake-file-annotations }}
           targets: ${{ matrix.target }}
-          push: ${{ inputs.push }}
           set: ${{ inputs.set }}
           provenance: false
           sbom: false
 
+        - name: Push images to AscendHub
+          if: ${{ inputs.push && matrix.registry_url == 'swr.cn-east-3.myhuaweicloud.com' }
+          uses: docker/build-push-action@v4
+          with:
+            context: .
+            push: true
+            tags: |
+              cann=${{ matrix.cann_first_tag }}
+
+      - name: Push images to other registries
+        if: ${{ inputs.push && matrix.registry_url != 'swr.cn-east-3.myhuaweicloud.com' }}
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: |
+              python=${{ matrix.python_tags }}
+              cann=${{ matrix.cann_tags }}
+              pytorch=${{ matrix.pytorch_tags }}
+              mindspore=${{ matrix.mindspore_tags }}
+            
       - name: Export metadata
         id: export
         if: ${{ steps.bake.outputs.metadata }}
