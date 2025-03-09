@@ -17,6 +17,25 @@
       "owner": "ascendhub-test"
     }
   ],
+  "python": [
+    {
+      "py_version": "3.10",
+      "os_name": "ubuntu",
+      "os_version": "22.04",
+      "tags": [
+        "3.10-ubuntu22.04",
+        "3.10"
+      ]
+    },
+    {
+      "py_version": "3.10",
+      "os_name": "openeuler",
+      "os_version": "22.03",
+      "tags": [
+        "3.10-openeuler22.03"
+      ]
+    }
+  ],
   "cann": [
     {
       "cann_version": "8.0.0",
