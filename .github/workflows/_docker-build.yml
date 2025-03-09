@@ -187,14 +187,14 @@ jobs:
           provenance: false
           sbom: false
 
-        - name: Push images to AscendHub
-          if: ${{ inputs.push && matrix.registry_url == 'swr.cn-east-3.myhuaweicloud.com' }}
-          uses: docker/build-push-action@v4
-          with:
-            context: .
-            push: true
-            tags: |
-              cann=${{ matrix.cann_first_tag }}
+      - name: Push images to AscendHub
+        if: ${{ inputs.push && matrix.registry_url == 'swr.cn-east-3.myhuaweicloud.com' }}
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: |
+            cann=${{ matrix.cann_first_tag }}
 
       - name: Push images to other registries
         if: ${{ inputs.push && matrix.registry_url != 'swr.cn-east-3.myhuaweicloud.com' }}
