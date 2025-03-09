@@ -122,9 +122,6 @@ jobs:
           ')
           echo "intersection_tags=${intersection_tags}" >> $GITHUB_OUTPUT
 
-- name: Log intersection
-  run: echo "Intersection: ${{ steps.intersection.outputs.intersection }}"
-
   docker:
     name: build ${{ matrix.target }}
     runs-on: ubuntu-24.04-arm # TODO: Use ubuntu-latest
