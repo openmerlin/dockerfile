@@ -188,7 +188,7 @@ jobs:
           sbom: false
 
         - name: Push images to AscendHub
-          if: ${{ inputs.push && matrix.registry_url == 'swr.cn-east-3.myhuaweicloud.com' }
+          if: ${{ inputs.push && matrix.registry_url == 'swr.cn-east-3.myhuaweicloud.com' }}
           uses: docker/build-push-action@v4
           with:
             context: .
