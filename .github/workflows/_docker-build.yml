@@ -120,6 +120,13 @@ jobs:
           echo "pytorch_tags=${pytorch_tags}" >> $GITHUB_ENV
           echo "mindspore_tags=${mindspore_tags}" >> $GITHUB_ENV
 
+          echo "registry_urls=${registry_urls}" >> $GITHUB_OUTPUT
+          echo "cann_first_tag=${cann_first_tag}" >> $GITHUB_OUTPUT
+          echo "python_tags=${python_tags}" >> $GITHUB_OUTPUT
+          echo "cann_tags=${cann_tags}" >> $GITHUB_OUTPUT
+          echo "pytorch_tags=${pytorch_tags}" >> $GITHUB_OUTPUT
+          echo "mindspore_tags=${mindspore_tags}" >> $GITHUB_OUTPUT
+
   docker:
     name: build ${{ matrix.target }}
     runs-on: ubuntu-24.04-arm # TODO: Use ubuntu-latest
