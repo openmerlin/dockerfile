@@ -203,10 +203,10 @@ jobs:
           context: .
           push: true
           tags: |
-              python=${{ matrix.python_tags }}
-              cann=${{ matrix.cann_tags }}
-              pytorch=${{ matrix.pytorch_tags }}
-              mindspore=${{ matrix.mindspore_tags }}
+            python=${{ matrix.python_tags }}
+            cann=${{ matrix.cann_tags }}
+            pytorch=${{ matrix.pytorch_tags }}
+            mindspore=${{ matrix.mindspore_tags }}
             
       - name: Export metadata
         id: export
