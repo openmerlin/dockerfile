@@ -83,12 +83,10 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       targets: ${{ steps.list-target.outputs.targets }}
-      registry_urls: ${{steps.read-arg.outputs.registry_urls}}
-      cann_first_tag: ${{steps.read-arg.outputs.cann_first_tag}}
-      python_tags: ${{steps.read-arg.outputs.python_tags}}
-      cann_tags: ${{steps.read-arg.outputs.cann_tags}}
-      pytorch_tags: ${{steps.read-arg.outputs.pytorch_tags}}
-      mindspore_tags: ${{steps.read-arg.outputs.mindspore_tags}}
+      asendhub_registry_url: ${{ steps.read-arg.outputs.asendhub_registry_url }}
+      other_registry_urls: ${{ steps.read-arg.outputs.other_registry_urls }}
+      allowed_tag: ${{ steps.read-arg.outputs.allowed_tags }}
+      intersection_tags: ${{ steps.intersection-tag.outputs.intersection_tags }}
 
     steps:
       - name: Checkout
@@ -106,19 +104,26 @@ jobs:
       - name: Read and parse arg.json
         id: read-arg
         run: |
-          registry_urls=$(jq -r '.registry[]?.url // empty' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
-          cann_first_tag=$(jq -r '.cann[]?.tags[0]? // empty' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
-          python_tags=$(jq -r '.python[]?.tags[]? // empty' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
-          cann_tags=$(jq -r '.cann[]?.tags[]? // empty' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
-          pytorch_tags=$(jq -r '.pytorch[]?.tags[]? // empty' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
-          mindspore_tags=$(jq -r '.mindspore[]?.tags[]? // empty' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          asendhub_registry_url = $(jq -r '.registry[] | select(has("allowed_tags") | not) | .url' input.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          other_registry_urls = $(jq -r '.registry[] | select(has("allowed_tags")) | .url' input.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          allowed_tags=$(jq -r '.registry[] | select(.url == "swr.cn-east-3.myhuaweicloud.com") | .allowed_tags[]?' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
+          
+          echo "asendhub_registry_url=${asendhub_registry_url}" >> $GITHUB_OUTPUT
+          echo "other_registry_urls=${other_registry_urls}" >> $GITHUB_OUTPUT
+          echo "allowed_tags=${allowed_tags}" >> $GITHUB_OUTPUT
 
-          echo "registry_urls=${registry_urls}" >> $GITHUB_OUTPUT
-          echo "cann_first_tag=${cann_first_tag}" >> $GITHUB_OUTPUT
-          echo "python_tags=${python_tags}" >> $GITHUB_OUTPUT
-          echo "cann_tags=${cann_tags}" >> $GITHUB_OUTPUT
-          echo "pytorch_tags=${pytorch_tags}" >> $GITHUB_OUTPUT
-          echo "mindspore_tags=${mindspore_tags}" >> $GITHUB_OUTPUT
+      - name: Calculate intersection of tags and allowed_tags
+        id: intersection-tag
+        run: |
+          metadata_tags=$(echo '${{ steps.metadata.outputs.tags }}' | jq -R -s -c 'split(",")')
+          allowed_tags='${{ needs.prepare.outputs.allowed_tags }}'
+          intersection=$(echo "$metadata_tags" | jq --argjson allowed_tags "$allowed_tags" '
+            map(select(. as $tag | $allowed_tags | index($tag) != null)
+          ')
+          echo "intersection_tags=${intersection_tags}" >> $GITHUB_OUTPUT
+
+- name: Log intersection
+  run: echo "Intersection: ${{ steps.intersection.outputs.intersection }}"
 
   docker:
     name: build ${{ matrix.target }}
@@ -130,12 +135,6 @@ jobs:
       max-parallel: 10
       matrix:
         target: ${{ fromJson(needs.prepare.outputs.targets) }}
-        registry_url: ${{ fromJson(needs.prepare.outputs.registry_urls) }}
-        cann_first_tag: ${{ fromJson(needs.prepare.outputs.cann_first_tag || '""') }}
-        # python_tags: ${{ fromJson(needs.prepare.outputs.python_tags || '[]') }}
-        # cann_tags: ${{ fromJson(needs.prepare.outputs.cann_tags || '[]') }}
-        # pytorch_tags: ${{ fromJson(needs.prepare.outputs.pytorch_tags || '[]') }}
-        # mindspore_tags: ${{ fromJson(needs.prepare.outputs.mindspore_tags || '[]') }}
 
     steps:
       - name: Checkout
@@ -188,26 +187,23 @@ jobs:
           provenance: false
           sbom: false
 
-      # - name: Push images to AscendHub
-      #   if: ${{ inputs.push && matrix.registry_url == 'swr.cn-east-3.myhuaweicloud.com' }}
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     context: .
-      #     push: true
-      #     tags: |
-      #       cann=${{ matrix.cann_first_tag }}
+      - name: Push images to AscendHub
+        if: ${{ fromJson(steps.metadata.outputs.tags | split(',')) | any(. as $tag | contains(fromJson(needs.prepare.outputs.allowed_tags), $tag) }}
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ fromJson(steps.metadata.outputs.intersection_tags) }}
+          registry: ${{ fromJson(needs.prepare.outputs.ascendhub_url) }}
 
-      # - name: Push images to other registries
-      #   if: ${{ inputs.push && matrix.registry_url != 'swr.cn-east-3.myhuaweicloud.com' }}
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     context: .
-      #     push: true
-      #     tags: |
-      #       python=${{ matrix.python_tags }}
-      #       cann=${{ matrix.cann_tags }}
-      #       pytorch=${{ matrix.pytorch_tags }}
-      #       mindspore=${{ matrix.mindspore_tags }}
+      - name: Push images to other registries
+        if: ${{ inputs.push}}
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ fromJson(steps.metadata.outputs.tags) }}
+          registries: ${{ fromJson(needs.prepare.outputs.other_registry_urls) }}
             
       - name: Export metadata
         id: export

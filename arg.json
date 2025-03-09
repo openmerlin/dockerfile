@@ -14,7 +14,11 @@
     },
     {
       "url": "swr.cn-east-3.myhuaweicloud.com",
-      "owner": "ascendhub-test"
+      "owner": "ascendhub-test",
+      "allowed_tags": [
+        "8.0.0-910b-ubuntu22.04-py3.10",
+        "8.0.0-910b-openeuler22.03-py3.10"
+      ]
     }
   ],
   "python": [
