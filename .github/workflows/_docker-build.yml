@@ -113,13 +113,6 @@ jobs:
           pytorch_tags=$(jq -r '.pytorch[]?.tags[]? // empty' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
           mindspore_tags=$(jq -r '.mindspore[]?.tags[]? // empty' arg.json | jq -R -s -c 'split("\n") | map(select(. != ""))')
 
-          echo "registry_urls=${registry_urls}" >> $GITHUB_ENV
-          echo "cann_first_tag=${cann_first_tag}" >> $GITHUB_ENV
-          echo "python_tags=${python_tags}" >> $GITHUB_ENV
-          echo "cann_tags=${cann_tags}" >> $GITHUB_ENV
-          echo "pytorch_tags=${pytorch_tags}" >> $GITHUB_ENV
-          echo "mindspore_tags=${mindspore_tags}" >> $GITHUB_ENV
-
           echo "registry_urls=${registry_urls}" >> $GITHUB_OUTPUT
           echo "cann_first_tag=${cann_first_tag}" >> $GITHUB_OUTPUT
           echo "python_tags=${python_tags}" >> $GITHUB_OUTPUT
@@ -137,12 +130,12 @@ jobs:
       max-parallel: 10
       matrix:
         target: ${{ fromJson(needs.prepare.outputs.targets) }}
-        registry_url: ${{ fromJson(needs.prepare.outputs.registry_urls) }}
-        cann_first_tag: ${{ fromJson(needs.prepare.outputs.cann_first_tag || '""') }}
-        python_tags: ${{ fromJson(needs.prepare.outputs.python_tags || '[]') }}
-        cann_tags: ${{ fromJson(needs.prepare.outputs.cann_tags || '[]') }}
-        pytorch_tags: ${{ fromJson(needs.prepare.outputs.pytorch_tags || '[]') }}
-        mindspore_tags: ${{ fromJson(needs.prepare.outputs.mindspore_tags || '[]') }}
+        # registry_url: ${{ fromJson(needs.prepare.outputs.registry_urls) }}
+        # cann_first_tag: ${{ fromJson(needs.prepare.outputs.cann_first_tag || '""') }}
+        # python_tags: ${{ fromJson(needs.prepare.outputs.python_tags || '[]') }}
+        # cann_tags: ${{ fromJson(needs.prepare.outputs.cann_tags || '[]') }}
+        # pytorch_tags: ${{ fromJson(needs.prepare.outputs.pytorch_tags || '[]') }}
+        # mindspore_tags: ${{ fromJson(needs.prepare.outputs.mindspore_tags || '[]') }}
 
     steps:
       - name: Checkout
@@ -195,26 +188,26 @@ jobs:
           provenance: false
           sbom: false
 
-      - name: Push images to AscendHub
-        if: ${{ inputs.push && matrix.registry_url == 'swr.cn-east-3.myhuaweicloud.com' }}
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: |
-            cann=${{ matrix.cann_first_tag }}
+      # - name: Push images to AscendHub
+      #   if: ${{ inputs.push && matrix.registry_url == 'swr.cn-east-3.myhuaweicloud.com' }}
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: |
+      #       cann=${{ matrix.cann_first_tag }}
 
-      - name: Push images to other registries
-        if: ${{ inputs.push && matrix.registry_url != 'swr.cn-east-3.myhuaweicloud.com' }}
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          tags: |
-            python=${{ matrix.python_tags }}
-            cann=${{ matrix.cann_tags }}
-            pytorch=${{ matrix.pytorch_tags }}
-            mindspore=${{ matrix.mindspore_tags }}
+      # - name: Push images to other registries
+      #   if: ${{ inputs.push && matrix.registry_url != 'swr.cn-east-3.myhuaweicloud.com' }}
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #     context: .
+      #     push: true
+      #     tags: |
+      #       python=${{ matrix.python_tags }}
+      #       cann=${{ matrix.cann_tags }}
+      #       pytorch=${{ matrix.pytorch_tags }}
+      #       mindspore=${{ matrix.mindspore_tags }}
             
       - name: Export metadata
         id: export
