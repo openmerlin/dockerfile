@@ -18,8 +18,17 @@ function "generate_tags" {
   params = [repo, tags]
   result = flatten([
     for reg in registry : [
-      for tag in tags : [
-        "${reg.url}/${reg.owner}/${repo}:${tag}"
+      if reg.allowed_tags != null,
+      [
+        for tag in tags : [
+          if contains(reg.allowed_tags, tag),
+          "${reg.url}/${reg.owner}/${repo}:${tag}"
+        ] 
+      ],
+      [
+        for tag in tags : [
+          "${reg.url}/${reg.owner}/${repo}:${tag}"
+        ]
       ]
     ]
   ])
