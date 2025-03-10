@@ -18,7 +18,7 @@ function "generate_tags" {
   params = [repo, tags]
   result = flatten([
     for reg in registry : [
-      if reg.allowed_tags != null && length(reg.allowed_tags) > 0 {
+      if length(reg.allowed_tags) > 0 {
         [
           for tag in tags : [
             if contains(reg.allowed_tags, tag) {
