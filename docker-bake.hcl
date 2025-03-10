@@ -47,7 +47,7 @@ target "base-target" {
 
 target "cann" {
   inherits = ["base-target"]
-  name = replace("cann-${item.tags[0]}", ".", "_")
+  name = replace("cann-${item.tags.common[0]}", ".", "_")
   context = "cann"
   dockerfile = "${item.os_name}.Dockerfile"
   matrix = {
@@ -64,7 +64,7 @@ target "cann" {
 
 target "python" {
   inherits = ["base-target"]
-  name = replace("python-${item.tags[0]}", ".", "_")
+  name = replace("python-${item.tags.common[0]}", ".", "_")
   context = "python"
   dockerfile = "${item.os_name}.Dockerfile"
   matrix = {
@@ -79,7 +79,7 @@ target "python" {
 
 target "pytorch" {
   inherits = ["base-target"]
-  name = replace("pytorch-${item.tags[0]}", ".", "_")
+  name = replace("pytorch-${item.tags.common[0]}", ".", "_")
   context = "pytorch"
   dockerfile = "Dockerfile"
   matrix = {
@@ -94,7 +94,7 @@ target "pytorch" {
 
 target "mindspore" {
   inherits = ["base-target"]
-  name = replace("mindspore-${item.tags[0]}", ".", "_")
+  name = replace("mindspore-${item.tags.common[0]}", ".", "_")
   context = "mindspore"
   dockerfile = "Dockerfile"
   matrix = {
