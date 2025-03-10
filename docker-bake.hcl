@@ -25,11 +25,6 @@ function "generate_tags" {
           ]
         ]
       ] 
-      else : [
-          for tag in tags : [
-            "${reg.url}/${reg.owner}/${repo}:${tag}"
-        ]
-      ]
     ]
   ])
 }
