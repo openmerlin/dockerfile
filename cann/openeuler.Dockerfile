@@ -46,6 +46,12 @@ ARG PY_VERSION
 # Environment variables
 ENV PATH=/usr/local/python${PY_VERSION}/bin:${PATH}
 ENV LD_LIBRARY_PATH=/usr/local/Ascend/driver/lib64/common:/usr/local/Ascend/driver/lib64/driver:${LD_LIBRARY_PATH}
+ENV ASCEND_TOOLKIT_HOME=/usr/local/Ascend/ascend-toolkit/latest
+ENV ASCEND_TOOLKIT_PATH=${ASCEND_TOOLKIT_HOME}/toolkit
+ENV ASCEND_OPP_PATH=${ASCEND_TOOLKIT_HOME}/opp
+ENV ASCEND_NNAL_PATH=/usr/local/Ascend/nnal/atb
+ENV PATH=${ASCEND_TOOLKIT_HOME}:${PATH}
+
 
 # Change the default shell
 SHELL [ "/bin/bash", "-c" ]
@@ -65,30 +71,3 @@ RUN yum update -y && \
 COPY --from=cann-installer /usr/local/python${PY_VERSION} /usr/local/python${PY_VERSION}
 COPY --from=cann-installer /usr/local/Ascend /usr/local/Ascend
 COPY --from=cann-installer /etc/Ascend /etc/Ascend
-
-# Set environment variables
-RUN \
-    # Set environment variables for Python \
-    PY_PATH="PATH=/usr/local/python${PY_VERSION}/bin:\${PATH}" && \
-    echo "export ${PY_PATH}" >> /etc/profile && \
-    echo "export ${PY_PATH}" >> ~/.bashrc && \
-    # Set environment variables for CANN \
-    CANN_TOOLKIT_ENV_FILE="/usr/local/Ascend/ascend-toolkit/set_env.sh" && \
-    DRIVER_LIBRARY_PATH="LD_LIBRARY_PATH=/usr/local/Ascend/driver/lib64/common:/usr/local/Ascend/driver/lib64/driver:\${LD_LIBRARY_PATH}" && \
-    echo "export ${DRIVER_LIBRARY_PATH}" >> /etc/profile && \
-    echo "export ${DRIVER_LIBRARY_PATH}" >> ~/.bashrc && \
-    echo "source ${CANN_TOOLKIT_ENV_FILE}" >> /etc/profile && \
-    echo "source ${CANN_TOOLKIT_ENV_FILE}" >> ~/.bashrc && \
-    echo "source ${CANN_TOOLKIT_ENV_FILE}" >> ~/.bashrc && \
-    CANN_NNAL_ENV_FILE="/usr/local/Ascend/nnal/atb/set_env.sh" && \
-    if [ -f "${CANN_NNAL_ENV_FILE}" ]; then \
-        echo "source ${CANN_NNAL_ENV_FILE}" >> /etc/profile && \
-        echo "source ${CANN_NNAL_ENV_FILE}" >> ~/.bashrc; \
-    fi
-
-ENTRYPOINT ["/bin/bash", "-c", "\
-  source /usr/local/Ascend/ascend-toolkit/set_env.sh && \
-  if [ -f /usr/local/Ascend/nnal/atb/set_env.sh ]; then \
-    source /usr/local/Ascend/nnal/atb/set_env.sh; \
-  fi && \
-  exec \"$@\"", "--"]
