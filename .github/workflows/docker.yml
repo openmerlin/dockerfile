@@ -63,17 +63,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # The release branch should follow the 'releases/**' format
-      - name: Check release branch name
-        if: ${{ github.event_name == 'release' }}
-        run: |
-          branch_name=$(echo "${{ github.ref }}" | sed 's/refs\/heads\///')
-
-          if [[ ! "$branch_name" =~ ^releases\/.* ]]; then
-            echo "::error::The release branch name '$branch_name' is not in the 'releases/**' format."
-            exit 1
-          fi
-
       # Lists all labels for your pull request
       - name: List labels
         id: list-labels
