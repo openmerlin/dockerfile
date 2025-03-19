@@ -2,7 +2,6 @@ ARG BASE_VERSION=latest
 FROM ascendai/cann:${BASE_VERSION} as official
 
 # Arguments
-ARG MINDSPORE_VERSION={{ item.mindspore_version }}
 ARG PYTORCH_VERSION={{ item.pytorch_version }}
 
 # Change the default shell
