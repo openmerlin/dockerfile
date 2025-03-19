@@ -1,18 +1,22 @@
 {
   "registry": [
     {
+      "name": "dockerhub",
       "url": "docker.io",
       "owner": "ascendai"
     },
     {
+      "name": "quay",
       "url": "quay.io",
       "owner": "ascend"
     },
     {
+      "name": "huawei-swr",
       "url": "swr.cn-southwest-2.myhuaweicloud.com",
       "owner": "base_image"
     },
     {
+      "name": "ascendhub",
       "url": "swr.cn-east-3.myhuaweicloud.com",
       "owner": "ascendhub-test"
     }
@@ -24,12 +28,17 @@
       "os_name": "ubuntu",
       "os_version": "22.04",
       "py_version": "3.10",
-      "tags": [
-        "8.0.0-910b-ubuntu22.04-py3.10",
-        "8.0.0",
-        "latest",
-        "ubuntu-python3.10-cann8.0.0"
-      ]
+      "tags": {
+        "common": [
+          "8.0.0-910b-ubuntu22.04-py3.10",
+          "8.0.0",
+          "latest",
+          "ubuntu-python3.10-cann8.0.0"
+        ],
+        "ascendhub": [
+          "8.0.0-910b-ubuntu22.04-py3.10"
+        ]
+      }
     },
     {
       "cann_version": "8.0.0",
@@ -37,10 +46,15 @@
       "os_name": "openeuler",
       "os_version": "22.03",
       "py_version": "3.10",
-      "tags": [
-        "8.0.0-910b-openeuler22.03-py3.10",
-        "openeuler-python3.10-cann8.0.0"
-      ]
+      "tags": {
+        "common": [
+          "8.0.0-910b-openeuler22.03-py3.10",
+          "openeuler-python3.10-cann8.0.0"
+        ],
+        "ascendhub": [
+          "8.0.0-910b-openeuler22.03-py3.10"
+        ]
+      }
     }
   ],
   "python": [
@@ -48,45 +62,77 @@
       "py_version": "3.13",
       "os_name": "ubuntu",
       "os_version": "22.04",
-      "tags": [
-        "3.13-ubuntu22.04",
-        "3.13"
-      ]
+      "tags": {
+        "common": [
+          "3.13-ubuntu22.04",
+          "3.13"
+        ],
+        "ascendhub": [
+        ]
+      }
     },
     {
       "py_version": "3.13",
       "os_name": "openeuler",
       "os_version": "22.03",
-      "tags": [
-        "3.13-openeuler22.03"
-      ]
+      "tags": {
+        "common": [
+          "3.13-openeuler22.03"
+        ],
+        "ascendhub": [
+        ]
+      }
     }
   ],
   "pytorch": [
     {
+      "pytorch_version": "2.1.0",
+      "cann_tag": "8.0.rc1-910b-ubuntu22.04-py3.8",
+      "tags": {
+        "common": [
+          "ubuntu-python3.8-cann8.0.rc1-pytorch2.1.0",
+          "2.1.0"
+        ],
+        "ascendhub": [
+        ]
+      }
+    },
+    {
       "pytorch_version": "2.2.0",
       "cann_tag": "8.0.rc1-910b-ubuntu22.04-py3.8",
-      "tags": [
-        "ubuntu-python3.8-cann8.0.rc1-pytorch2.2.0",
-        "2.2.0"
-      ]
+      "tags": {
+        "common": [
+          "ubuntu-python3.8-cann8.0.rc1-pytorch2.2.0",
+          "2.2.0"
+        ],
+        "ascendhub": [
+        ]
+      }
     }
   ],
   "mindspore": [
     {
       "mindspore_version": "2.4.0",
       "cann_tag": "8.0.rc3-910b-ubuntu22.04-py3.10",
-      "tags": [
-        "ubuntu-python3.10-cann8.0.rc3-mindspore2.4.0",
-        "2.4.0"
-      ]
+      "tags": {
+        "common": [
+          "ubuntu-python3.10-cann8.0.rc3-mindspore2.4.0",
+          "2.4.0"
+        ],
+        "ascendhub": [
+        ]
+      }
     },
     {
       "mindspore_version": "2.4.0",
       "cann_tag": "8.0.rc3-910b-openeuler22.03-py3.10",
-      "tags": [
-        "openeuler-python3.10-cann8.0.rc3-mindspore2.4.0"
-      ]
+      "tags": {
+        "common": [
+          "openeuler-python3.10-cann8.0.rc3-mindspore2.4.0"
+        ],
+        "ascendhub": [
+        ]
+      }
     }
   ]
 }

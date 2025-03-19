@@ -18,8 +18,15 @@ function "generate_tags" {
   params = [repo, tags]
   result = flatten([
     for reg in registry : [
-      for tag in tags : [
-        "${reg.url}/${reg.owner}/${repo}:${tag}"
+      contains(keys(tags), reg.name) ? [
+        for tag in tags[reg.name] : [
+          "${reg.url}/${reg.owner}/${repo}:${tag}"
+        ]
+      ]
+      : [
+        for tag in tags["common"] : [
+          "${reg.url}/${reg.owner}/${repo}:${tag}"
+        ]
       ]
     ]
   ])
@@ -40,9 +47,9 @@ target "base-target" {
 
 target "cann" {
   inherits = ["base-target"]
-  name = replace("cann-${item.tags[0]}", ".", "_")
+  name = replace("cann-${item.tags.common[0]}", ".", "_")
   context = "cann"
-  dockerfile = "${item.tags[0]}.Dockerfile"
+  dockerfile = "${item.tags.common[0]}.Dockerfile"
   matrix = {
     item = cann
   }
@@ -51,9 +58,9 @@ target "cann" {
 
 target "python" {
   inherits = ["base-target"]
-  name = replace("python-${item.tags[0]}", ".", "_")
+  name = replace("python-${item.tags.common[0]}", ".", "_")
   context = "python"
-  dockerfile = "${item.tags[0]}.Dockerfile"
+  dockerfile = "${item.tags.common[0]}.Dockerfile"
   matrix = {
     item = python
   }
@@ -62,9 +69,9 @@ target "python" {
 
 target "pytorch" {
   inherits = ["base-target"]
-  name = replace("pytorch-${item.tags[0]}", ".", "_")
+  name = replace("pytorch-${item.tags.common[0]}", ".", "_")
   context = "pytorch"
-  dockerfile = "${item.tags[0]}.Dockerfile"
+  dockerfile = "${item.tags.common[0]}.Dockerfile"
   matrix = {
     item = pytorch
   }
@@ -73,9 +80,9 @@ target "pytorch" {
 
 target "mindspore" {
   inherits = ["base-target"]
-  name = replace("mindspore-${item.tags[0]}", ".", "_")
+  name = replace("mindspore-${item.tags.common[0]}", ".", "_")
   context = "mindspore"
-  dockerfile = "${item.tags[0]}.Dockerfile"
+  dockerfile = "${item.tags.common[0]}.Dockerfile"
   matrix = {
     item = mindspore
   }
