@@ -30,14 +30,18 @@ RUN if [ "${TARGETPLATFORM}" = "linux/amd64" ] ; then \
     KERNELS_FILE="Ascend-cann-kernels-${CANN_CHIP}_${CANN_VERSION}_${KERNELS_ARCH}.run" && \
     NNAL_FILE="Ascend-cann-nnal_${CANN_VERSION}_linux-${ARCH}.run" && \
     # NOTE: Different CANN VERSION has different Download url
-    if [[ "${CANN_VERSION}" == *"alpha"* ]]; then
-        case "${CANN_VERSION}" in \
-            "8.0.RC2.alpha001") version="V100R001C18B800TP015" ;; \
-            "8.0.RC2.alpha002") version="V100R001C18SPC805" ;; \
-            "8.0.RC2.alpha003") version="V100R001C18SPC703" ;; \
-            "8.0.RC3.alpha002") version="V100R001C19SPC702" ;; \
-            *) echo "Error: Unsupported CANN_VERSION: ${CANN_VERSION}" && exit 1 ;; \
-        esac && \
+    if [[ "${CANN_VERSION}" == *"alpha"* ]]; then \
+        if [ "${CANN_VERSION}" = "8.0.RC2.alpha001" ]; then \
+            version="V100R001C18B800TP015"; \
+        elif [ "${CANN_VERSION}" = "8.0.RC2.alpha002" ]; then \
+            version="V100R001C18SPC805"; \
+        elif [ "${CANN_VERSION}" = "8.0.RC2.alpha003" ]; then \
+            version="V100R001C18SPC703"; \
+        elif [ "${CANN_VERSION}" = "8.0.RC3.alpha002" ]; then \
+            version="V100R001C19SPC702"; \
+        else \
+            echo "Error: Unsupported CANN_VERSION: ${CANN_VERSION}" && exit 1; \
+        fi && \
         URL_PREFIX="${BASE_URL}/Milan-ASL/Milan-ASL%20${version}" && \
     else \
         URL_PREFIX="${BASE_URL}/CANN/CANN%20${CANN_VERSION}" && \
