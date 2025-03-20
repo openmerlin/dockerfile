@@ -67,7 +67,7 @@ RUN PY_LATEST_VERSION=$(cat /tmp/python_version.txt) && \
     ${PY_HOME}/bin/python -c "import sys; print(sys.version)"
 
 # Stage 3: Copy results from previous stages
-FROM ubuntu:${BASE_VERSION} AS official
+FROM ${OS_NAME}:${BASE_VERSION} AS official
 
 ARG PY_VERSION
 ENV PATH=/usr/local/python${PY_VERSION}/bin:${PATH}
