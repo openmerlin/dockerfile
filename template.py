@@ -10,7 +10,7 @@ def render_and_save(template_name, output_dir, items):
     template = env.get_template(template_name)
     for item in items:
         rendered_content = template.render(item=item)
-        output_path = os.path.join(output_dir, f"{item['tags'][0]}.Dockerfile")
+        output_path = os.path.join(output_dir, f"{item['tags']['common'][0]}.Dockerfile")
         with open(output_path, 'w') as f:
             f.write(rendered_content)
         print(f"Generated: {output_path}")

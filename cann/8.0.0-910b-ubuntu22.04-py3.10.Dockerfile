@@ -51,7 +51,7 @@ RUN if [ "${TARGETPLATFORM}" = "linux/amd64" ] ; then \
     CANN_NNAL_URL="${URL_PREFIX}/${NNAL_FILE}" && \
     echo "${CANN_TOOLKIT_URL}" > /tmp/toolkit_url_file.txt && \
     echo "${CANN_KERNELS_URL}" > /tmp/kernels_url_file.txt && \
-    echo "${CANN_NNAL_URL}" > /tmp/nnal_url_file.txt && \
+    echo "${CANN_NNAL_URL}" > /tmp/nnal_url_file.txt
 
 # Install dependencies
 RUN yum update -y && \
