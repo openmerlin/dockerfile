@@ -18,7 +18,7 @@ RUN if [ "${TARGETPLATFORM}" = "linux/amd64" ]; then \
         ARCH="aarch64"; \
     fi && \
     # NOTE: kernels are arch-specific after 8.0.RC3.alpha002
-    if [ "${CANN_VERSION}" = "8.0.0"  ||  "${CANN_VERSION}" = "8.0.RC3" ]; then \
+    if [ "${CANN_VERSION}" = "8.0.0"  -o  "${CANN_VERSION}" = "8.0.RC3" ]; then \
         KERNELS_ARCH="linux-${ARCH}"; \
     else \
         KERNELS_ARCH="linux"; \
@@ -98,7 +98,7 @@ RUN if [ "${CANN_VERSION}" = "8.0.0" ]; then \
         wget ${CANN_NNAL_URL} -O ~/Ascend-cann-nnal.run && \
         chmod +x ~/Ascend-cann-nnal.run && \
         printf "Y\n" | ~/Ascend-cann-nnal.run --install && \
-        rm -f ~/Ascend-cann-nnal.run \
+        rm -f ~/Ascend-cann-nnal.run; \
     fi
 
 # Stage 2: Select OS
