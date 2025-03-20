@@ -1,7 +1,7 @@
 # Arguments
 ARG BASE_VERSION=22.04
 ARG PY_VERSION=3.13
-ARG OS_NAME = ubuntu
+ARG OS_NAME=ubuntu
 
 # Stage 1: Select OS
 FROM ${OS_NAME}/${OS_NAME}:${BASE_VERSION} AS py-installer-openeuler

@@ -1,7 +1,7 @@
 # Arguments
 ARG BASE_VERSION={{ item.os_version }}
 ARG PY_VERSION={{ item.py_version }}
-ARG OS_NAME = {{ item.os_name }}
+ARG OS_NAME={{ item.os_name }}
 
 # Stage 1: Select OS
 FROM ${OS_NAME}/${OS_NAME}:${BASE_VERSION} AS py-installer-openeuler

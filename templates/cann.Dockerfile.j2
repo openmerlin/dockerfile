@@ -78,8 +78,7 @@ RUN yum update -y && \
         findutils \
         curl \
     && yum clean all \
-    && rm -rf /var/cache/yum \
-    && rm -rf /tmp/*
+    && rm -rf /var/cache/yum
 
 RUN CANN_TOOLKIT_URL=$(cat /tmp/toolkit_url_file.txt) && \
     wget ${CANN_TOOLKIT_URL} -O ~/Ascend-cann-toolkit.run && \
