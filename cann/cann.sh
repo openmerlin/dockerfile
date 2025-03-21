@@ -53,7 +53,7 @@ download_cann() {
     version_dict["8.1.RC1.alpha001"]="V100R001C21B800TP034"
 
     local url="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com"
-    local nnal_url_prefix="${url}/CANN/CANN%208.0.0"
+    
     if [[ ${CANN_VERSION} == *alpha* ]]; then
         local version=${version_dict[${CANN_VERSION}]}
         if [[ ${version} ]]; then
@@ -65,6 +65,8 @@ download_cann() {
         local url_prefix="${url}/CANN/CANN%20${CANN_VERSION}"
     fi
 
+    local nnal_url_prefix="${url}/CANN/CANN%20${NNAL_VERSION}"
+    
     # Download cann-toolkit
     if [ ! -f "${TOOLKIT_PATH}" ]; then
         local toolkit_url="${url_prefix}/${TOOLKIT_FILE}"
@@ -162,7 +164,7 @@ fi
 
 TOOLKIT_FILE="Ascend-cann-toolkit_${CANN_VERSION}_linux-${ARCH}.run"
 KERNELS_FILE="Ascend-cann-kernels-${CANN_CHIP}_${CANN_VERSION}_${KERNELS_ARCH}.run"
-NNAL_FILE="Ascend-cann-nnal_8.0.0_linux-${ARCH}.run"
+NNAL_FILE="Ascend-cann-nnal_${NNAL_VERSION}_linux-${ARCH}.run"
 TOOLKIT_PATH="/tmp/${TOOLKIT_FILE}"
 KERNELS_PATH="/tmp/${KERNELS_FILE}"
 NNAL_PATH="/tmp/${NNAL_FILE}"
