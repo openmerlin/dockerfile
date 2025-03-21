@@ -50,6 +50,7 @@ download_cann() {
     version_dict["8.0.RC2.alpha002"]="V100R001C18SPC805"
     version_dict["8.0.RC2.alpha003"]="V100R001C18SPC703"
     version_dict["8.0.RC3.alpha002"]="V100R001C19SPC702"
+    version_dict["8.1.RC1.alpha001"]="V100R001C21B800TP034"
 
     local url="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com"
     if [[ ${CANN_VERSION} == *alpha* ]]; then
@@ -75,8 +76,8 @@ download_cann() {
         _download_file "${kernels_url}" "${KERNELS_PATH}"
     fi
 
-    # Download cann-kernels
-    if [[ ${CANN_VERSION} == "8.0.0" ]]; then
+    # Download cann-nnals
+    if [[ ${CANN_VERSION} == "8.1.RC1.alpha001" ]]; then
         local nnal_url="${url_prefix}/${NNAL_FILE}"
         _download_file "${nnal_url}" "${NNAL_PATH}"
     fi
@@ -127,7 +128,7 @@ install_cann() {
     rm -f "${KERNELS_PATH}"
 
     # Install CANN NNAL
-    if [[ ${CANN_VERSION} == "8.0.0" ]]; then
+    if [[ ${CANN_VERSION} == "8.1.RC1.alpha001" ]]; then
         _info "Installing ${NNAL_PATH}"
         chmod +x "${NNAL_PATH}"
         bash "${NNAL_PATH}" --quiet --install --install-for-all --install-path="${CANN_HOME}"
@@ -160,7 +161,7 @@ fi
 
 TOOLKIT_FILE="Ascend-cann-toolkit_${CANN_VERSION}_linux-${ARCH}.run"
 KERNELS_FILE="Ascend-cann-kernels-${CANN_CHIP}_${CANN_VERSION}_${KERNELS_ARCH}.run"
-NNAL_FILE="Ascend-cann-nnal_${CANN_VERSION}_linux-${ARCH}.run"
+NNAL_FILE="Ascend-cann-nnal_8.0.0_linux-${ARCH}.run"
 TOOLKIT_PATH="/tmp/${TOOLKIT_FILE}"
 KERNELS_PATH="/tmp/${KERNELS_FILE}"
 NNAL_PATH="/tmp/${NNAL_FILE}"
