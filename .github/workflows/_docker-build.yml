@@ -34,7 +34,7 @@ on:
       ascendhub-registry:
         description: "Server address of AscendHub registry"
         required: false
-        type: string 
+        type: string
         default: "swr.cn-east-3.myhuaweicloud.com"
     secrets:
       DOCKERHUB_OWNER:
@@ -107,6 +107,23 @@ jobs:
       matrix:
         target: ${{ fromJson(needs.prepare.outputs.targets) }}
     steps:
+      - name: Config mirrors
+        run: |
+          sed -i 's|ports.ubuntu.com|mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list
+          pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+
+      - name: Install system dependencies
+        run: |
+          apt-get update
+          apt-get install -y git gcc g++ make cmake ninja-build
+
+      # See: https://github.com/actions/checkout/issues/363#issuecomment-1915075699
+      # See: https://github.com/hunshcn/gh-proxy/issues/28#issuecomment-773769630
+      - name: Config git
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global url."https://gh-proxy.test.osinfra.cn/https://github.com/".insteadOf https://github.com/
+
       - name: Checkout
         uses: actions/checkout@v4
 
