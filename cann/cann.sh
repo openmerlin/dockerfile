@@ -153,7 +153,7 @@ CANN_CHIP=${CANN_CHIP:="910b"}
 CANN_VERSION=${CANN_VERSION:="8.0.0"}
 
 # NOTE: kernels are arch-specific after 8.0.RC3.alpha002
-if [[ ${CANN_VERSION} == "8.0.RC3" || ${CANN_VERSION} == "8.0.0" ]]; then
+if [[ ${CANN_VERSION} == "8.1.RC1.alpha001" || ${CANN_VERSION} == "8.0.0" ]]; then
   KERNELS_ARCH="linux-${ARCH}"
 else
   KERNELS_ARCH="linux"
