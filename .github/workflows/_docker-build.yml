@@ -118,6 +118,8 @@ jobs:
       - name: Test
         shell: bash
         run: |
+          set -e
+          docker --version
           docker build -t test -f ubuntu.Dockerfile ./cann
 
       - name: Set up QEMU
