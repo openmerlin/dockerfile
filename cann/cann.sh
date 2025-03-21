@@ -53,6 +53,7 @@ download_cann() {
     version_dict["8.1.RC1.alpha001"]="V100R001C21B800TP034"
 
     local url="https://ascend-repo.obs.cn-east-2.myhuaweicloud.com"
+    local nnal_url_prefix="${url}/CANN/CANN%208.0.0"
     if [[ ${CANN_VERSION} == *alpha* ]]; then
         local version=${version_dict[${CANN_VERSION}]}
         if [[ ${version} ]]; then
@@ -78,7 +79,7 @@ download_cann() {
 
     # Download cann-nnals
     if [[ ${CANN_VERSION} == "8.1.RC1.alpha001" ]]; then
-        local nnal_url="${url_prefix}/${NNAL_FILE}"
+        local nnal_url="${nnal_url_prefix}/${NNAL_FILE}"
         _download_file "${nnal_url}" "${NNAL_PATH}"
     fi
 
