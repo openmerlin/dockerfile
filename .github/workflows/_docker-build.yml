@@ -115,6 +115,11 @@ jobs:
         continue-on-error: true
         uses: ./.github/actions/clean-up
 
+      - name: Test
+        shell: bash
+        run: |
+          docker build -t test -f ubuntu.Dockerfile ./cann
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
