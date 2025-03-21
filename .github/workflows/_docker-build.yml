@@ -127,9 +127,9 @@ jobs:
         run: |
           set -x
           docker --version
+          sudo systemctl start docker
+          sudo systemctl status docker
           docker info
-          systemctl start docker
-          systemctl status docker
           docker info
           docker build -t test -f ubuntu.Dockerfile ./cann
 
