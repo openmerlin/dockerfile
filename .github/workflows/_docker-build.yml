@@ -34,7 +34,7 @@ on:
       ascendhub-registry:
         description: "Server address of AscendHub registry"
         required: false
-        type: string 
+        type: string
         default: "swr.cn-east-3.myhuaweicloud.com"
     secrets:
       DOCKERHUB_OWNER:
@@ -98,7 +98,7 @@ jobs:
 
   docker:
     name: build ${{ matrix.target }}
-    runs-on: ubuntu-24.04-arm # TODO: Use ubuntu-latest
+    runs-on: linux-arm64-npu-0
     needs:
       - prepare
     strategy:
@@ -107,6 +107,13 @@ jobs:
       matrix:
         target: ${{ fromJson(needs.prepare.outputs.targets) }}
     steps:
+      # See: https://github.com/actions/checkout/issues/363#issuecomment-1915075699
+      # See: https://github.com/hunshcn/gh-proxy/issues/28#issuecomment-773769630
+      - name: Config git
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global url."https://gh-proxy.test.osinfra.cn/https://github.com/".insteadOf https://github.com/
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -114,6 +121,17 @@ jobs:
         if: ${{ inputs.clean-up }}
         continue-on-error: true
         uses: ./.github/actions/clean-up
+
+      - name: Test
+        shell: bash
+        run: |
+          set -x
+          docker --version
+          sudo systemctl start docker
+          sudo systemctl status docker
+          docker info
+          docker info
+          docker build -t test -f ubuntu.Dockerfile ./cann
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3

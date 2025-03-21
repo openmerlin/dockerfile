@@ -9,6 +9,7 @@ FROM ascendai/python:${PY_VERSION}-openeuler${BASE_VERSION} AS cann-installer
 ARG PLATFORM=${TARGETPLATFORM}
 ARG CANN_CHIP=910b
 ARG CANN_VERSION=8.0.0
+ARG NNAL_VERSION=8.0.0
 
 # Install dependencies
 RUN yum update -y && \
