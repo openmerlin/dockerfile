@@ -133,6 +133,9 @@ jobs:
           cd cann
           pwd
           ls -l
+
+          docker pull ascendai/python:3.8-ubuntu22.04
+
           docker build -t test -f ubuntu.Dockerfile ./
 
       - name: Set up QEMU
