@@ -98,7 +98,7 @@ jobs:
 
   docker:
     name: build ${{ matrix.target }}
-    runs-on: linux-arm64-npu-0
+    runs-on: dind
     needs:
       - prepare
     strategy:
@@ -127,8 +127,6 @@ jobs:
         run: |
           set -x
           docker --version
-          sudo systemctl start docker
-          sudo systemctl status docker
           docker info
           docker info
           docker build -t test -f ubuntu.Dockerfile ./cann
