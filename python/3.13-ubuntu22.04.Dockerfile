@@ -3,12 +3,8 @@ ARG BASE_VERSION=22.04
 ARG PY_VERSION=3.13
 ARG OS_NAME=ubuntu
 
-# Stage 1: Select OS
-FROM ${OS_NAME}/${OS_NAME}:${BASE_VERSION} AS py-installer-openeuler
-FROM ${OS_NAME}:${BASE_VERSION} AS py-installer-ubuntu
-
-# Stage 2: Install Python
-FROM py-installer-${OS_NAME} AS py-installer
+# Stage 1: Install Python
+FROM ${OS_NAME}:${BASE_VERSION} AS py-installer
 
 ARG PY_VERSION
 ENV PATH=/usr/local/python${PY_VERSION}/bin:${PATH}
@@ -66,12 +62,8 @@ RUN PY_LATEST_VERSION=$(cat /tmp/python_version.txt) && \
     rm -rf /tmp/${PY_INSTALLER_TGZ} /tmp/${PY_INSTALLER_DIR} && \
     ${PY_HOME}/bin/python -c "import sys; print(sys.version)"
 
-# Stage 3: Select OS
-FROM ${OS_NAME}/${OS_NAME}:${BASE_VERSION} AS official-openeuler
-FROM ${OS_NAME}:${BASE_VERSION} AS official-ubuntu
-
-# Stage 4: Copy results from previous stages
-FROM official-${OS_NAME} AS official
+# Stage 2: Copy results from previous stages
+FROM ${OS_NAME}:${BASE_VERSION} AS official
 
 ARG PY_VERSION
 ENV PATH=/usr/local/python${PY_VERSION}/bin:${PATH}

@@ -104,12 +104,8 @@ RUN if [ "${CANN_VERSION}" = "8.0.0" ]; then \
     rm -f ~/Ascend-cann-nnal.run; \
 fi
     
-# Stage 2: Select OS
+# Stage 2: Copy results from previous stages
 FROM ${OS_NAME}/${OS_NAME}:${BASE_VERSION} AS official-openeuler
-FROM ${OS_NAME}:${BASE_VERSION} AS official-ubuntu
-
-# Stage 3: Copy results from previous stages
-FROM official-${OS_NAME} AS py-installer
 
 # Arguments
 ARG PY_VERSION
@@ -150,7 +146,6 @@ RUN \
     echo "export ${DRIVER_LIBRARY_PATH}" >> ~/.bashrc && \
     echo "source ${CANN_TOOLKIT_ENV_FILE}" >> /etc/profile && \
     echo "source ${CANN_TOOLKIT_ENV_FILE}" >> ~/.bashrc && \
-    echo "source ${CANN_TOOLKIT_ENV_FILE}" >> ~/.bashrc && \
     CANN_NNAL_ENV_FILE="/usr/local/Ascend/nnal/atb/set_env.sh" && \
     if [ -f "${CANN_NNAL_ENV_FILE}" ]; then \
         echo "source ${CANN_NNAL_ENV_FILE}" >> /etc/profile && \
@@ -163,3 +158,4 @@ ENTRYPOINT ["/bin/bash", "-c", "\
     source /usr/local/Ascend/nnal/atb/set_env.sh; \
   fi && \
   exec \"$@\"", "--"]
+

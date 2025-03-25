@@ -59,27 +59,35 @@ RUN if echo "${CANN_VERSION}" | grep -q "alpha"; then \
     echo "${CANN_NNAL_URL}" > /tmp/nnal_url_file.txt
 
 # Install dependencies
-RUN yum update -y && \
-    yum install -y \
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+        apt-transport-https \
+        ca-certificates \
+        bash \
+        git \
+        wget \
         gcc \
-        gcc-c++ \
+        g++ \
         make \
         cmake \
+        zlib1g \
+        zlib1g-dev \
+        openssl \
+        libsqlite3-dev \
+        libssl-dev \
+        libffi-dev \
         unzip \
-        zlib-devel \
-        libffi-devel \
-        openssl-devel \
         pciutils \
         net-tools \
-        sqlite-devel \
-        lapack-devel \
-        gcc-gfortran \
-        util-linux \
-        findutils \
+        libblas-dev \
+        gfortran \
+        patchelf \
+        libblas3 \
         curl \
         wget \
-    && yum clean all \
-    && rm -rf /var/cache/yum
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/tmp/* \
 
 RUN CANN_TOOLKIT_URL=$(cat /tmp/toolkit_url_file.txt) && \
     wget ${CANN_TOOLKIT_URL} -O ~/Ascend-cann-toolkit.run && \
@@ -104,12 +112,8 @@ RUN if [ "${CANN_VERSION}" = "8.0.0" ]; then \
     rm -f ~/Ascend-cann-nnal.run; \
 fi
     
-# Stage 2: Select OS
-FROM ${OS_NAME}/${OS_NAME}:${BASE_VERSION} AS official-openeuler
-FROM ${OS_NAME}:${BASE_VERSION} AS official-ubuntu
-
-# Stage 3: Copy results from previous stages
-FROM official-${OS_NAME} AS py-installer
+# Stage 2: Copy results from previous stages
+FROM ${OS_NAME}:${BASE_VERSION} AS official
 
 # Arguments
 ARG PY_VERSION
@@ -122,14 +126,16 @@ ENV LD_LIBRARY_PATH=/usr/local/Ascend/driver/lib64/common:/usr/local/Ascend/driv
 SHELL [ "/bin/bash", "-c" ]
 
 # Install dependencies
-RUN yum update -y && \
-    yum install -y \
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y \
+        apt-transport-https \
         ca-certificates \
         bash \
-        glibc \
-        sqlite-devel \
-    && yum clean all \
-    && rm -rf /var/cache/yum \
+        libc6 \
+        libsqlite3-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/tmp/* \
     && rm -rf /tmp/*
 
 # Copy files
@@ -149,7 +155,6 @@ RUN \
     echo "export ${DRIVER_LIBRARY_PATH}" >> /etc/profile && \
     echo "export ${DRIVER_LIBRARY_PATH}" >> ~/.bashrc && \
     echo "source ${CANN_TOOLKIT_ENV_FILE}" >> /etc/profile && \
-    echo "source ${CANN_TOOLKIT_ENV_FILE}" >> ~/.bashrc && \
     echo "source ${CANN_TOOLKIT_ENV_FILE}" >> ~/.bashrc && \
     CANN_NNAL_ENV_FILE="/usr/local/Ascend/nnal/atb/set_env.sh" && \
     if [ -f "${CANN_NNAL_ENV_FILE}" ]; then \
