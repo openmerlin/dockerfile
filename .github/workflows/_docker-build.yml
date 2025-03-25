@@ -128,6 +128,11 @@ jobs:
           set -x
           docker --version
           docker info
+          pwd
+          ls -l
+          cd cann
+          pwd
+          ls -l
           docker build -t test -f ubuntu.Dockerfile ./cann
 
       - name: Set up QEMU
