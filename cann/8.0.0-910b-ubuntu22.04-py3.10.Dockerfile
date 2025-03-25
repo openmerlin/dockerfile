@@ -94,13 +94,16 @@ RUN CANN_KERNELS_URL=$(cat /tmp/kernels_url_file.txt) && \
     rm -f ~/Ascend-cann-kernels.run
 
 RUN if [ "${CANN_VERSION}" = "8.0.0" ]; then \
-        CANN_NNAL_URL=$(cat /tmp/nnal_url_file.txt) && \
-        wget ${CANN_NNAL_URL} -O ~/Ascend-cann-nnal.run && \
-        chmod +x ~/Ascend-cann-nnal.run && \
-        printf "Y\n" | ~/Ascend-cann-nnal.run --install && \
-        rm -f ~/Ascend-cann-nnal.run; \
-    fi
-
+    export ASCEND_HOME_PATH=/usr/local/Ascend && \
+    export ASCEND_TOOLKIT_HOME=/usr/local/Ascend/ascend-toolkit/latest && \
+    export ASCEND_NNAE_HOME=/usr/local/Ascend/nnal && \
+    CANN_NNAL_URL=$(cat /tmp/nnal_url_file.txt) && \
+    wget ${CANN_NNAL_URL} -O ~/Ascend-cann-nnal.run && \
+    chmod +x ~/Ascend-cann-nnal.run && \
+    printf "Y\n" | ~/Ascend-cann-nnal.run --install && \
+    rm -f ~/Ascend-cann-nnal.run; \
+fi
+    
 # Stage 2: Select OS
 FROM ${OS_NAME}/${OS_NAME}:${BASE_VERSION} AS official-openeuler
 FROM ${OS_NAME}:${BASE_VERSION} AS official-ubuntu
