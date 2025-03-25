@@ -66,8 +66,12 @@ RUN PY_LATEST_VERSION=$(cat /tmp/python_version.txt) && \
     rm -rf /tmp/${PY_INSTALLER_TGZ} /tmp/${PY_INSTALLER_DIR} && \
     ${PY_HOME}/bin/python -c "import sys; print(sys.version)"
 
-# Stage 3: Copy results from previous stages
-FROM ${OS_NAME}:${BASE_VERSION} AS official
+# Stage 3: Select OS
+FROM ${OS_NAME}/${OS_NAME}:${BASE_VERSION} AS official-openeuler
+FROM ${OS_NAME}:${BASE_VERSION} AS official-ubuntu
+
+# Stage 4: Copy results from previous stages
+FROM official-${OS_NAME} AS official
 
 ARG PY_VERSION
 ENV PATH=/usr/local/python${PY_VERSION}/bin:${PATH}
