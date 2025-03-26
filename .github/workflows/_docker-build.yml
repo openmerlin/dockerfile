@@ -132,9 +132,6 @@ jobs:
             [registry."docker.io"]
               mirrors = ["https://docker.1ms.run"]
 
-      - name: Sleep
-        run: sleep 3600
-
       - name: Login to Docker registries
         if: ${{ inputs.push }}
         uses: ./.github/actions/docker-login
@@ -156,6 +153,11 @@ jobs:
         with:
           bake-target: "docker-metadata-action"
 
+      - name: Sleep
+        run: |
+          docker buildx ls
+          sleep 3600
+
       - name: Build and push Docker image
         id: bake
         uses: docker/bake-action@v6
@@ -168,7 +170,9 @@ jobs:
             ${{ steps.metadata.outputs.bake-file-annotations }}
           targets: ${{ matrix.target }}
           push: ${{ inputs.push }}
-          set: ${{ inputs.set }}
+          set: |
+            *.build-args.HTTP_PROXY=${{ env.HTTP_PROXY }}
+            *.build-args.HTTPS_PROXY=${{ env.HTTPS_PROXY }}
           provenance: false
           sbom: false
 
