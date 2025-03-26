@@ -1,0 +1,3 @@
+FROM openeuler/openeuler:22.03
+
+RUN echo "hello"

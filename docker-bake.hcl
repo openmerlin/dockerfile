@@ -58,6 +58,7 @@ target "cann" {
     PY_VERSION = "${item.py_version}"
     CANN_CHIP = "${item.cann_chip}"
     CANN_VERSION = "${item.cann_version}"
+    NNAL_VERSION = "${item.nnal_version}"
   }
   tags = generate_tags("cann", "${item.tags}")
 }

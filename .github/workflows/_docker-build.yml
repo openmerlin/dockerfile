@@ -34,7 +34,7 @@ on:
       ascendhub-registry:
         description: "Server address of AscendHub registry"
         required: false
-        type: string 
+        type: string
         default: "swr.cn-east-3.myhuaweicloud.com"
     secrets:
       DOCKERHUB_OWNER:
@@ -98,7 +98,7 @@ jobs:
 
   docker:
     name: build ${{ matrix.target }}
-    runs-on: ubuntu-24.04-arm # TODO: Use ubuntu-latest
+    runs-on: dind
     needs:
       - prepare
     strategy:
@@ -107,6 +107,13 @@ jobs:
       matrix:
         target: ${{ fromJson(needs.prepare.outputs.targets) }}
     steps:
+      # See: https://github.com/actions/checkout/issues/363#issuecomment-1915075699
+      # See: https://github.com/hunshcn/gh-proxy/issues/28#issuecomment-773769630
+      - name: Config git
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global url."https://gh-proxy.test.osinfra.cn/https://github.com/".insteadOf https://github.com/
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -120,6 +127,13 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+        with:
+          buildkitd-config-inline: |
+            [registry."docker.io"]
+              mirrors = ["https://docker.1ms.run", "https://docker.m.daocloud.io"]
+      
+      - name: Sleep2
+        run: sleep 3600
 
       - name: Login to Docker registries
         if: ${{ inputs.push }}
@@ -141,6 +155,10 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           bake-target: "docker-metadata-action"
+
+      - name: Sleep
+        run: |
+          sleep 3600
 
       - name: Build and push Docker image
         id: bake
