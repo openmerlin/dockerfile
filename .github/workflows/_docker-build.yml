@@ -155,10 +155,7 @@ jobs:
 
       - name: Sleep
         run: |
-          # git clone https://github.com/cllouud/docker-buildx-bake-demo.git
-          # cd docker-buildx-bake-demo
-          ls
-          docker buildx bake -f docker-bake.dev.hcl db webapp-release
+          
           sleep 3600
 
       - name: Build and push Docker image
