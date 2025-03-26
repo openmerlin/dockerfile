@@ -156,7 +156,7 @@ jobs:
       - name: Sleep
         run: |
           docker buildx ls
-          sleep 3600
+          sleep 5
 
       - name: Build and push Docker image
         id: bake
