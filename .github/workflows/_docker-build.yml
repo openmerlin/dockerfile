@@ -128,6 +128,7 @@ jobs:
           set -x
           docker --version
           docker info
+          sleep 3600
           pwd
           ls -l
           cd cann
