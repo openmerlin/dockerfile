@@ -131,10 +131,7 @@ jobs:
           buildkitd-config-inline: |
             [registry."docker.io"]
               mirrors = ["https://docker.1ms.run", "https://docker.m.daocloud.io"]
-      
-      - name: Sleep2
-        run: sleep 3600
-
+  
       - name: Login to Docker registries
         if: ${{ inputs.push }}
         uses: ./.github/actions/docker-login
@@ -155,6 +152,13 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           bake-target: "docker-metadata-action"
+
+      - name: Sleep
+        run: |
+          git clone https://github.com/cllouud/docker-buildx-bake-demo.git
+          cd docker-buildx-bake-demo/
+          ls
+          docker buildx bake -f docker-bake.dev.hcl db
 
       - name: Build and push Docker image
         id: bake
