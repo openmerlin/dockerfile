@@ -170,9 +170,7 @@ jobs:
             ${{ steps.metadata.outputs.bake-file-annotations }}
           targets: ${{ matrix.target }}
           push: ${{ inputs.push }}
-          set: |
-            *.build-args.HTTP_PROXY=${{ env.HTTP_PROXY }}
-            *.build-args.HTTPS_PROXY=${{ env.HTTPS_PROXY }}
+          set: ${{ inputs.set }}
           provenance: false
           sbom: false
 
