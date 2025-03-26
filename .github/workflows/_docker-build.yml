@@ -130,7 +130,7 @@ jobs:
         with:
           buildkitd-config-inline: |
             [registry."docker.io"]
-              mirrors = ["https://docker.1ms.run"]
+              mirrors = ["https://docker.1ms.run", "https://docker.m.daocloud.io"]
       
       - name: Sleep2
         run: sleep 3600
