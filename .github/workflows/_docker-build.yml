@@ -154,6 +154,7 @@ jobs:
           bake-target: "docker-metadata-action"
 
       - name: Sleep
+        continue-on-error: true
         run: |
           git clone https://github.com/cllouud/docker-buildx-bake-demo.git
           cd docker-buildx-bake-demo/
