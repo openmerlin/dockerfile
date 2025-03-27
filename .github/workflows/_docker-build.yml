@@ -131,7 +131,7 @@ jobs:
           driver-opts: network=host
           buildkitd-config-inline: |
             [registry."docker.io"]
-              mirrors = mirrors = ["docker.1ms.run", "https://dytt.online", "docker.mybacc.com", "https://func.ink", "docker.xiaogenban1993.com", "https://lispy.org", "docker.yomansunter.com", "dockerhub.websoft9.com"]
+              mirrors = ["docker.1ms.run", "https://dytt.online", "docker.mybacc.com", "https://func.ink", "docker.xiaogenban1993.com", "https://lispy.org", "docker.yomansunter.com", "dockerhub.websoft9.com"]
   
       - name: Login to Docker registries
         if: ${{ inputs.push }}
