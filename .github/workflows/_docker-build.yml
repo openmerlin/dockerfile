@@ -113,6 +113,7 @@ jobs:
         run: |
           git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git config --global url."https://gh-proxy.test.osinfra.cn/https://github.com/".insteadOf https://github.com/
+          pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 
       - name: Checkout
         uses: actions/checkout@v4
