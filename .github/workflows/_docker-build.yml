@@ -34,7 +34,7 @@ on:
       ascendhub-registry:
         description: "Server address of AscendHub registry"
         required: false
-        type: string 
+        type: string
         default: "swr.cn-east-3.myhuaweicloud.com"
     secrets:
       DOCKERHUB_OWNER:
@@ -98,7 +98,7 @@ jobs:
 
   docker:
     name: build ${{ matrix.target }}
-    runs-on: ubuntu-24.04-arm # TODO: Use ubuntu-latest
+    runs-on: dind
     needs:
       - prepare
     strategy:
@@ -107,6 +107,13 @@ jobs:
       matrix:
         target: ${{ fromJson(needs.prepare.outputs.targets) }}
     steps:
+      # See: https://github.com/actions/checkout/issues/363#issuecomment-1915075699
+      # See: https://github.com/hunshcn/gh-proxy/issues/28#issuecomment-773769630
+      - name: Config git
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config --global url."https://gh-proxy.test.osinfra.cn/https://github.com/".insteadOf https://github.com/
+
       - name: Checkout
         uses: actions/checkout@v4
 
@@ -120,7 +127,12 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
+        with:
+          driver-opts: network=host
+          buildkitd-config-inline: |
+            [registry."docker.io"]
+              mirrors = ["docker.1ms.run", "https://dytt.online", "docker.mybacc.com", "https://func.ink", "docker.xiaogenban1993.com", "https://lispy.org", "docker.yomansunter.com", "dockerhub.websoft9.com"]
+  
       - name: Login to Docker registries
         if: ${{ inputs.push }}
         uses: ./.github/actions/docker-login
@@ -141,6 +153,13 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           bake-target: "docker-metadata-action"
+
+      - name: Sleep
+        continue-on-error: true
+        run: |
+          curl https://dl-cdn.openeuler.openatom.cn/openEuler-22.03-LTS-SP4/OS/aarch64/repodata/repomd.xml
+          sleep 3600
+         
 
       - name: Build and push Docker image
         id: bake
