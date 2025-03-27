@@ -156,7 +156,7 @@ jobs:
       - name: Sleep
         continue-on-error: true
         run: |
-          sleep 3600
+          sleep 1
           curl https://dl-cdn.openeuler.openatom.cn/openEuler-22.03-LTS-SP4/OS/aarch64/repodata/repomd.xml
 
       - name: Build and push Docker image
