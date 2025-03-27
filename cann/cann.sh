@@ -108,7 +108,7 @@ install_cann() {
         _warn "Installers do not exist in the /tmp directory, re-download them."
         download_cann
     fi
-
+    pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
     # Install dependencies
     pip install --no-cache-dir --upgrade pip
     pip install --no-cache-dir \
