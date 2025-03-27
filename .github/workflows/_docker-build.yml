@@ -159,6 +159,7 @@ jobs:
         run: |
           curl https://dl-cdn.openeuler.openatom.cn/openEuler-22.03-LTS-SP4/OS/aarch64/repodata/repomd.xml
           pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
+          sleep 3600
 
       - name: Build and push Docker image
         id: bake
