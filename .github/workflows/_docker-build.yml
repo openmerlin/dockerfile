@@ -128,9 +128,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
+          driver-opts: network=host
           buildkitd-config-inline: |
             [registry."docker.io"]
-              mirrors = ["docker.mybacc.com"]
+              mirrors = ["docker.mybacc.com", "https://func.ink", "docker.xiaogenban1993.com"]
   
       - name: Login to Docker registries
         if: ${{ inputs.push }}
