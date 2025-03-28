@@ -104,6 +104,7 @@ jobs:
     name: cann
     needs:
       - prepare
+      - python
     if: |
       !cancelled() &&
       contains(needs.prepare.outputs.targets, 'cann') &&
