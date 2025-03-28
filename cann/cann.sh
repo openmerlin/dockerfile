@@ -119,7 +119,6 @@ install_cann() {
     _info "Installing ${TOOLKIT_FILE}"
     chmod +x "${TOOLKIT_PATH}"
     bash "${TOOLKIT_PATH}" --quiet --install --install-for-all --install-path="${CANN_HOME}"
-    rm -f "${TOOLKIT_PATH}"
 
     # Set environment variables
     set_env
@@ -128,14 +127,12 @@ install_cann() {
     _info "Installing ${KERNELS_FILE}"
     chmod +x "${KERNELS_PATH}"
     bash "${KERNELS_PATH}" --quiet --install --install-for-all --install-path="${CANN_HOME}"
-    rm -f "${KERNELS_PATH}"
 
     # Install CANN NNAL
     if [[ ${CANN_VERSION} == "8.1.RC1.alpha001" ]]; then
         _info "Installing ${NNAL_PATH}"
         chmod +x "${NNAL_PATH}"
         bash "${NNAL_PATH}" --quiet --install --install-for-all --install-path="${CANN_HOME}"
-        rm -f "${NNAL_PATH}"
 
         # Set environment variables
         local cann_nnal_env_file="${CANN_HOME}/nnal/atb/set_env.sh"

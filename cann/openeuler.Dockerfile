@@ -34,8 +34,9 @@ RUN yum update -y && \
     && rm -rf /var/cache/yum \
     && rm -rf /tmp/*
 
-COPY ./cann.sh /tmp
-COPY ./*.run /tmp
+# Note: If you put your installers here, they won't be downloaded again.
+COPY ./*.run /tmp/
+COPY ./cann.sh /tmp/
 RUN bash /tmp/cann.sh --download
 RUN bash /tmp/cann.sh --install
 

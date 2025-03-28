@@ -87,7 +87,7 @@ jobs:
       !cancelled() &&
       contains(needs.prepare.outputs.targets, 'python') &&
       (
-       (github.event_name != 'pull_request' && success()) ||
+       (github.event_name != 'pull_request') ||
        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'python'))
       )
     uses: ./.github/workflows/_docker-build.yml
@@ -110,7 +110,7 @@ jobs:
       contains(needs.prepare.outputs.targets, 'cann') &&
       (needs.python.result == 'success' || needs.python.result == 'skipped') &&
       (
-       (github.event_name != 'pull_request' && success()) ||
+       (github.event_name != 'pull_request') ||
        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'cann'))
       )
     uses: ./.github/workflows/_docker-build.yml
@@ -130,7 +130,7 @@ jobs:
       contains(needs.prepare.outputs.targets, 'pytorch') &&
       (needs.cann.result == 'success' || needs.cann.result == 'skipped') &&
       (
-       (github.event_name != 'pull_request' && success()) ||
+       (github.event_name != 'pull_request') ||
        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'pytorch'))
       )
     uses: ./.github/workflows/_docker-build.yml
@@ -150,7 +150,7 @@ jobs:
       contains(needs.prepare.outputs.targets, 'mindspore') &&
       (needs.cann.result == 'success' || needs.cann.result == 'skipped') &&
       (
-       (github.event_name != 'pull_request' && success()) ||
+       (github.event_name != 'pull_request') ||
        (github.event_name == 'pull_request' && contains(needs.prepare.outputs.pr-labels, 'mindspore'))
       )
     uses: ./.github/workflows/_docker-build.yml
