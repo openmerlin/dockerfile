@@ -39,7 +39,7 @@ RUN yum update -y && \
 
 # Note: If you put your installers here, they won't be downloaded again.
 COPY ./cann.sh /tmp/
-RUN cp -nv ./*.run /tmp/ || true
+RUN cp -nv *.run /tmp/ || true
 RUN bash /tmp/cann.sh --download
 RUN bash /tmp/cann.sh --install
 
