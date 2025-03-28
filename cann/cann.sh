@@ -40,8 +40,18 @@ _retry() {
 }
 
 _download_file() {
-    _info "Downloading file from $1"
-    _retry curl -fsSL -o "$2" "$1"
+    local url="$1"
+    local output="$2"
+
+    _info "Downloading file from $url"
+
+    if wget --tries=5 --waitretry=30 --retry-connrefused -O "$output" "$url"; then
+        _info "Download completed successfully"
+        return 0
+    else
+        _error "Failed to download file"
+        return 1
+    fi
 }
 
 download_cann() {

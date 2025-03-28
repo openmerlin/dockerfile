@@ -30,6 +30,7 @@ RUN yum update -y && \
         util-linux \
         findutils \
         curl \
+        wget \
     && yum clean all \
     && rm -rf /var/cache/yum \
     && rm -rf /tmp/*
