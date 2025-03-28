@@ -115,6 +115,7 @@ jobs:
     with:
       target: 'cann'
       push: ${{ github.event_name == 'release' }}
+      clean-up: false
     secrets: inherit
 
   pytorch:
@@ -133,6 +134,7 @@ jobs:
     with:
       target: 'pytorch'
       push: ${{ github.event_name == 'release' }}
+      clean-up: false
     secrets: inherit
 
   mindspore:
@@ -151,4 +153,5 @@ jobs:
     with:
       target: 'mindspore'
       push: ${{ github.event_name == 'release' }}
+      clean-up: false
     secrets: inherit
