@@ -54,9 +54,13 @@ RUN if echo "${CANN_VERSION}" | grep -q "alpha"; then \
     CANN_TOOLKIT_URL="${URL_PREFIX}/${TOOLKIT_FILE}" && \
     CANN_KERNELS_URL="${URL_PREFIX}/${KERNELS_FILE}" && \
     CANN_NNAL_URL="${URL_PREFIX}/${NNAL_FILE}" && \
+    if [ -z "${CANN_TOOLKIT_URL}" ]; then \
+        echo "Error: CANN_TOOLKIT_URL is empty"; \
+        exit 1; \
+    fi && \
     echo "${CANN_TOOLKIT_URL}" > /tmp/toolkit_url_file.txt && \
     echo "${CANN_KERNELS_URL}" > /tmp/kernels_url_file.txt && \
-    echo "${CANN_NNAL_URL}" > /tmp/nnal_url_file.txt
+    echo "${CANN_NNAL_URL}" > /tmp/nnal_url_file.txt 
 
 # Install dependencies
 RUN apt-get update \
