@@ -42,7 +42,8 @@ RUN apt-get update \
     && rm -rf /var/tmp/* \
     && rm -rf /tmp/*
 
-COPY ./cann.sh /tmp/cann.sh
+COPY ./cann.sh /tmp
+COPY ./*.run /tmp
 RUN bash /tmp/cann.sh --download
 RUN bash /tmp/cann.sh --install
 

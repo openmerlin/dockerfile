@@ -30,12 +30,12 @@ RUN yum update -y && \
         util-linux \
         findutils \
         curl \
-        wget \
     && yum clean all \
     && rm -rf /var/cache/yum \
     && rm -rf /tmp/*
 
-COPY ./cann.sh /tmp/cann.sh
+COPY ./cann.sh /tmp
+COPY ./*.run /tmp
 RUN bash /tmp/cann.sh --download
 RUN bash /tmp/cann.sh --install
 

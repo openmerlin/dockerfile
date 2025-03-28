@@ -40,17 +40,11 @@ _retry() {
 }
 
 _download_file() {
-    local url="$1"
-    local output="$2"
-
-    _info "Downloading file from $url"
-
-    if wget --tries=5 --waitretry=30 --retry-connrefused -O "$output" "$url"; then
-        _info "Download completed successfully"
-        return 0
+    if [ -f "$2" ]; then
+        _info "$2 already exists"
     else
-        _error "Failed to download file"
-        return 1
+        _info "Downloading file from $1"
+        _retry curl -fsSL -o "$2" "$1"
     fi
 }
 
@@ -76,18 +70,14 @@ download_cann() {
     fi
 
     local nnal_url_prefix="${url}/CANN/CANN%20${NNAL_VERSION}"
-    
+
     # Download cann-toolkit
-    if [ ! -f "${TOOLKIT_PATH}" ]; then
-        local toolkit_url="${url_prefix}/${TOOLKIT_FILE}"
-        _download_file "${toolkit_url}" "${TOOLKIT_PATH}"
-    fi
+    local toolkit_url="${url_prefix}/${TOOLKIT_FILE}"
+    _download_file "${toolkit_url}" "${TOOLKIT_PATH}"
 
     # Download cann-kernels
-    if [ ! -f "${KERNELS_PATH}" ]; then
-        local kernels_url="${url_prefix}/${KERNELS_FILE}"
-        _download_file "${kernels_url}" "${KERNELS_PATH}"
-    fi
+    local kernels_url="${url_prefix}/${KERNELS_FILE}"
+    _download_file "${kernels_url}" "${KERNELS_PATH}"
 
     # Download cann-nnals
     if [[ ${CANN_VERSION} == "8.1.RC1.alpha001" ]]; then
