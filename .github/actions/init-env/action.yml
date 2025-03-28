@@ -7,8 +7,3 @@ runs:
       shell: bash
       run: |
         cp -nv /data/cann/*.run ./cann/
-  post:
-    - name: Clean CANN installers
-      shell: bash
-      run: |
-        # rm ./cann/*.run
