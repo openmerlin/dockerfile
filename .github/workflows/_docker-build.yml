@@ -107,13 +107,6 @@ jobs:
       matrix:
         target: ${{ fromJson(needs.prepare.outputs.targets) }}
     steps:
-      # See: https://github.com/actions/checkout/issues/363#issuecomment-1915075699
-      # See: https://github.com/hunshcn/gh-proxy/issues/28#issuecomment-773769630
-      - name: Config git
-        run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          # git config --global url."https://gh-proxy.test.osinfra.cn/https://github.com/".insteadOf https://github.com/
-
       - name: Checkout
         uses: actions/checkout@v4
 
