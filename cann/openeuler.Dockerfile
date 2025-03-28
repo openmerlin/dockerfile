@@ -11,6 +11,9 @@ ARG CANN_CHIP=910b
 ARG CANN_VERSION=8.0.0
 ARG NNAL_VERSION=${CANN_VERSION}
 
+# Change the default shell
+SHELL [ "/bin/bash", "-c" ]
+
 # Install dependencies
 RUN yum update -y && \
     yum install -y \
