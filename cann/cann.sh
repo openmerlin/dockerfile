@@ -110,8 +110,9 @@ install_cann() {
     fi
 
     # Install dependencies
-    pip install --no-cache-dir --upgrade pip
-    pip install --no-cache-dir \
+    pip install \
+        --no-cache-dir \
+        --index-url https://repo.huaweicloud.com/repository/pypi/simple \
         attrs cython numpy==1.24.0 decorator sympy cffi pyyaml pathlib2 \
         psutil protobuf==3.20 scipy requests absl-py
 
