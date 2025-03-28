@@ -110,6 +110,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Prepare CANN installers
+        run: |
+          cp /data/cann/*.run ./cann/
+
       - name: Clean up
         if: ${{ inputs.clean-up }}
         continue-on-error: true
