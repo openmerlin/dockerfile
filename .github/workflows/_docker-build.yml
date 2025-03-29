@@ -98,7 +98,7 @@ jobs:
 
   docker:
     name: build ${{ matrix.target }}
-    runs-on: linux-x64-hk
+    runs-on: linux-x86-azure
     needs:
       - prepare
     strategy:
