@@ -182,5 +182,5 @@ jobs:
         shell: bash
         run: |
           set -x
-          df -h
+          sudo df -h
           docker images -a
