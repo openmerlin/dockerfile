@@ -110,9 +110,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Init environment
-        uses: ./.github/actions/init-env
-
       - name: Clean up
         if: ${{ inputs.clean-up }}
         continue-on-error: true
