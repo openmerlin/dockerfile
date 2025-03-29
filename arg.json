@@ -1,14 +1,24 @@
 {
   "registry": [
     {
+      "name": "huawei-swr",
+      "url": "swr.cn-southwest-2.myhuaweicloud.com",
+      "owner": "base_image"
+    },
+    {
       "name": "ascendhub",
       "url": "swr.cn-east-3.myhuaweicloud.com",
       "owner": "ascendhub-test"
     },
     {
-      "name": "huawei-swr",
-      "url": "swr.cn-southwest-2.myhuaweicloud.com",
-      "owner": "base_image"
+      "name": "dockerhub",
+      "url": "docker.io",
+      "owner": "ascendai"
+    },
+    {
+      "name": "quay",
+      "url": "quay.io",
+      "owner": "ascend"
     }
   ],
   "cann": [
