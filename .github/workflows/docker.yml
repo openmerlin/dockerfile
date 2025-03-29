@@ -7,7 +7,6 @@ on:
       - 'main'
       - 'releases/**'
     paths:
-      - '.github/actions/init-env/action.yml'
       - '.github/actions/clean-up/action.yml'
       - '.github/actions/docker-login/action.yml'
       - '.github/workflows/_docker-build.yml'
@@ -28,7 +27,6 @@ on:
       - 'labeled'
     paths:
       - '.github/actions/list-labels/action.yml'
-      - '.github/actions/init-env/action.yml'
       - '.github/actions/clean-up/action.yml'
       - '.github/actions/docker-login/action.yml'
       - '.github/workflows/_docker-build.yml'
