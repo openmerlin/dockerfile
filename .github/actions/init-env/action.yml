@@ -1,0 +1,11 @@
+name: "Init environment"
+description: "Initialize working environment"
+runs:
+  using: "composite"
+  steps:
+    - name: Prepare CANN installers
+      shell: bash
+      run: |
+        set -x
+        cp -nv /data/cann/*.run ./cann/
+        ls -alh ./cann/
