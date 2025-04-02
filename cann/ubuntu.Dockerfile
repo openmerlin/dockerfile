@@ -58,6 +58,9 @@ FROM ubuntu:${BASE_VERSION} AS official
 # Arguments
 ARG PY_VERSION
 
+# Set Python Environment variables
+ENV PATH=/usr/local/python${PY_VERSION}/bin:${PATH}
+
 # Toolkit Environment variables
 ENV ASCEND_TOOLKIT_HOME=/usr/local/Ascend/ascend-toolkit/latest
 ENV LD_LIBRARY_PATH=/usr/local/Ascend/driver/lib64/common/:/usr/local/Ascend/driver/lib64/driver/:$LD_LIBRARY_PATH
