@@ -5,7 +5,7 @@ on: pull_request_target
 jobs:
   label:
     name: Label
-    runs-on: linux-x86-azure
+    runs-on: linux-x64-azure
     permissions:
       contents: read
       pull-requests: write

@@ -55,7 +55,7 @@ permissions:
 jobs:
   prepare:
     name: prepare
-    runs-on: linux-x86-azure
+    runs-on: linux-x64-azure
     outputs:
       pr-labels: ${{ steps.list-labels.outputs.labels }}
       targets: ${{ steps.list-targets.outputs.targets }}
