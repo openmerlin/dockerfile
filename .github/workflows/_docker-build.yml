@@ -34,7 +34,7 @@ on:
       ascendhub-registry:
         description: "Server address of AscendHub registry"
         required: false
-        type: string 
+        type: string
         default: "swr.cn-east-3.myhuaweicloud.com"
     secrets:
       DOCKERHUB_OWNER:
@@ -80,7 +80,7 @@ permissions:
 jobs:
   prepare:
     name: prepare
-    runs-on: ubuntu-latest
+    runs-on: linux-x64-azure
     outputs:
       targets: ${{ steps.list-target.outputs.targets }}
     steps:
@@ -98,7 +98,7 @@ jobs:
 
   docker:
     name: build ${{ matrix.target }}
-    runs-on: ubuntu-24.04-arm # TODO: Use ubuntu-latest
+    runs-on: linux-x64-azure
     needs:
       - prepare
     strategy:
