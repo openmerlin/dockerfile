@@ -11,7 +11,7 @@ SHELL [ "/bin/bash", "-c" ]
 RUN if [ "${PYTORCH_VERSION}" == "2.1.0" ]; then \
         TORCH_VISION_VERSION=0.16.0; \
         TORCH_AUDIO_VERSION=2.1.0; \
-        TORCH_NPU_VERSION=2.1.0; \
+        TORCH_NPU_VERSION=2.1.0.post12; \
     elif [ "${PYTORCH_VERSION}" == "2.2.0" ]; then \
         TORCH_VISION_VERSION=0.17.0; \
         TORCH_AUDIO_VERSION=2.2.0; \
