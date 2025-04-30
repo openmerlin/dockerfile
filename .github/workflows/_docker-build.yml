@@ -191,4 +191,3 @@ jobs:
         run: |
           set -x
           sudo df -h
-          docker images -a
