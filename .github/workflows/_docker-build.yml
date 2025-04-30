@@ -98,7 +98,7 @@ jobs:
 
   docker:
     name: build ${{ matrix.target }}
-    runs-on: ubuntu-24.04-arm # TODO: Use ubuntu-latest
+    runs-on: linux-arm64-npu-0
     needs:
       - prepare
     strategy:
