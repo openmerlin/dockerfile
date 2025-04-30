@@ -123,7 +123,6 @@ jobs:
         with:
           driver: kubernetes
           driver-opts: |
-            namespace=ascend-docker-ci
             qemu.install=true
 
       - name: Login to Docker registries
