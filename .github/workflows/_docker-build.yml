@@ -115,6 +115,7 @@ jobs:
         continue-on-error: true
         uses: ./.github/actions/clean-up
 
+      # No need to set up QEMU as we are using `kubernetes` driver
       # - name: Set up QEMU
       #   uses: docker/setup-qemu-action@v3
 
@@ -123,6 +124,7 @@ jobs:
         with:
           driver: kubernetes
           driver-opts: |
+            image=moby/buildkit:latest
             qemu.install=true
 
       - name: Login to Docker registries
