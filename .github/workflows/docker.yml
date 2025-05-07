@@ -140,7 +140,6 @@ jobs:
     name: mindspore
     needs:
       - prepare
-      - cann
     if: |
       !cancelled() &&
       contains(needs.prepare.outputs.targets, 'mindspore') &&
