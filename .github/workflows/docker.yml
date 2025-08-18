@@ -61,7 +61,7 @@ jobs:
       targets: ${{ steps.list-targets.outputs.targets }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Lists all labels for your pull request
       - name: List labels
