@@ -85,7 +85,7 @@ jobs:
       targets: ${{ steps.list-target.outputs.targets }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: List targets
         id: list-target
@@ -108,7 +108,7 @@ jobs:
         target: ${{ fromJson(needs.prepare.outputs.targets) }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Clean up
         if: ${{ inputs.clean-up }}
