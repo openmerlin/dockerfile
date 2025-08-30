@@ -12,8 +12,8 @@ The pytorch image is based on the [cann](../cann) image. These packages are inst
 
 Here are available tags and the build args can be found at [arg.json](../arg.json).
 
-- `2.1.0`
-- `2.2.0`
+- `2.6.0`
+- `2.7.1`
 
 > [!NOTE]
 >
@@ -36,7 +36,7 @@ docker run \
     -v /usr/local/Ascend/driver/lib64/:/usr/local/Ascend/driver/lib64/ \
     -v /usr/local/Ascend/driver/version.info:/usr/local/Ascend/driver/version.info \
     -v /etc/ascend_install.info:/etc/ascend_install.info \
-    -it ascendai/pytorch:2.2.0 bash
+    -it ascendai/pytorch:2.7.1 bash
 ```
 
 ## Build
@@ -56,6 +56,6 @@ docker build \
     -t ascendai/pytorch:latest \
     -f pytorch/new.Dockerfile \
     --build-arg BASE_VERSION=latest \
-    --build-arg PYTORCH_VERSION=2.2.0 \
+    --build-arg PYTORCH_VERSION=2.7.1 \
     pytorch/
 ```

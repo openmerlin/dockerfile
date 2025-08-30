@@ -379,24 +379,24 @@
   ],
   "pytorch": [
     {
-      "pytorch_version": "2.1.0",
-      "cann_tag": "8.0.rc1-910b-ubuntu22.04-py3.8",
+      "pytorch_version": "2.6.0",
+      "cann_tag": "8.2.rc1-910b-ubuntu22.04-py3.11",
       "tags": {
         "common": [
-          "2.1.0",
-          "ubuntu-python3.8-cann8.0.rc1-pytorch2.1.0"
+          "2.6.0",
+          "ubuntu-python3.11-cann8.2.rc1-pytorch2.6.0"
         ],
         "ascendhub": [
         ]
       }
     },
     {
-      "pytorch_version": "2.2.0",
-      "cann_tag": "8.0.rc1-910b-ubuntu22.04-py3.8",
+      "pytorch_version": "2.7.1",
+      "cann_tag": "8.2.rc1-910b-ubuntu22.04-py3.11",
       "tags": {
         "common": [
-          "2.2.0",
-          "ubuntu-python3.8-cann8.0.rc1-pytorch2.2.0"
+          "2.7.1",
+          "ubuntu-python3.11-cann8.2.rc1-pytorch2.7.1"
         ],
         "ascendhub": [
         ]
